@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+    <Properties>
+        <Property name="basePath">logs</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="fileLogger" fileName="${basePath}/gauge_api_testing.log"
+                     filePattern="${basePath}/dailyLog-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n}{FATAL=bg_red, ERROR=red
+                    bold, WARN=yellow, INFO=bright green, DEBUG=blue}
+                </pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="gauge_api_testing" level="debug" additivity="true">
+            <appender-ref ref="fileLogger" level="debug"/>
+        </Logger>
+        <Root level="info" additivity="true">
+            <appender-ref ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,13 @@
+{
+  "iPhone_12_Pro_Max": {
+    "capabilities": {
+      "deviceName": "iPhone 12",
+      "platformName": "iOS",
+      "platformVersion": "14.5",
+      "automationName": "XCUiTest",
+      "udid": "378742DB-FCC0-4E7C-AD26-4917112FFC17",
+      "noReset": "true",
+      "autoAcceptAlerts": "true"
+    }
+  }
+}
