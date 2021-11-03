@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class PrecancelHelper extends WaitHelper {
-    private final Logger log = LogManager.getLogger(PrecancelHelper.class);
+public class PresenceHelper extends WaitHelper {
+    private final Logger log = LogManager.getLogger(PresenceHelper.class);
 
     public WebElement waitUntilPresence(By by, int timeout) {
         return getWebDriverWait(timeout).until(ExpectedConditions.presenceOfElementLocated(by));

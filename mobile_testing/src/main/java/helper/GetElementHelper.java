@@ -10,14 +10,14 @@ public class GetElementHelper extends GetElement {
 
     protected MobileElement getElementWithWait(String jsonKey) throws FileNotFound {
         var by = getBy(jsonKey);
-        new PrecancelHelper().waitUntilPresence(by);
+        new PresenceHelper().waitUntilPresence(by);
         //todo visible wait will be add
         return getMobileElement(by);
     }
 
     protected MobileElement getElementWithWait(String jsonKey, int timeOut) throws FileNotFound {
         var by = getBy(jsonKey);
-        new PrecancelHelper().waitUntilPresence(by, timeOut);
+        new PresenceHelper().waitUntilPresence(by, timeOut);
         //todo visible wait will be add
         return getMobileElement(by);
     }
@@ -28,14 +28,14 @@ public class GetElementHelper extends GetElement {
 
     protected List<MobileElement> getElementsWithWait(String jsonKey) throws FileNotFound {
         var by = getBy(jsonKey);
-        new PrecancelHelper().waitUntilPresence(by);
+        new PresenceHelper().waitUntilPresence(by);
         //todo visible wait will be add
         return getMobileElements(by);
     }
 
     protected List<MobileElement> getElementsWithWait(String jsonKey, int timeOut) throws FileNotFound {
         var by = getBy(jsonKey);
-        new PrecancelHelper().waitUntilPresence(by, timeOut);
+        new PresenceHelper().waitUntilPresence(by, timeOut);
         //todo visible wait will be add
         return getMobileElements(by);
     }
