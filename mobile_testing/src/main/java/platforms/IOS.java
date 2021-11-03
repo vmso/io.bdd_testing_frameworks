@@ -1,14 +1,13 @@
-package Mobile.os;
+package platforms;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
 import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -18,9 +17,9 @@ public class IOS implements MobileSystemSelectable {
     private final Logger log = LogManager.getLogger(IOS.class);
 
     @Override
-    public AppiumDriver getLocalDriver() {
+    public AppiumDriver<MobileElement> getLocalDriver() {
         try {
-            return new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            return new IOSDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             log.fatal("Appium url hatalı");
             return null;
@@ -28,9 +27,9 @@ public class IOS implements MobileSystemSelectable {
     }
 
     @Override
-    public AppiumDriver getRemoteDriver(String remoteIp, String port) {
+    public AppiumDriver<MobileElement> getRemoteDriver(String remoteIp, String port) {
         try {
-            return new IOSDriver(new URL(String.format("http://%s:%s/wd/hub", remoteIp, port)), capabilities);
+            return new IOSDriver<>(new URL(String.format("http://%s:%s/wd/hub", remoteIp, port)), capabilities);
         } catch (MalformedURLException e) {
             log.fatal(e.getMessage());
             return null;
@@ -47,12 +46,9 @@ public class IOS implements MobileSystemSelectable {
         this.capabilities = new DesiredCapabilities();
         JsonReader jsonReader = new JsonReader();
         Map<String, Object> capabilities = jsonReader.getJsonAsMap(capabilitiesFile, capabilitiesName);
-        capabilities = (Map<String, Object>) capabilities.get("capabilities");
         DesiredCapabilities cap = new DesiredCapabilities();
         capabilities
-                .entrySet()
-                .stream()
-                .forEach(c -> cap.setCapability(c.getKey(), c.getValue()));
+                .forEach(cap::setCapability);
         this.capabilities = cap;
     }
 }

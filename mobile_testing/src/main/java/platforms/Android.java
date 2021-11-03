@@ -1,8 +1,8 @@
-package Mobile.os;
+package platforms;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
@@ -19,9 +19,9 @@ public class Android implements MobileSystemSelectable {
     private DesiredCapabilities capabilities;
 
     @Override
-    public AppiumDriver getLocalDriver() {
+    public AppiumDriver<MobileElement> getLocalDriver() {
         try {
-            return new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            return new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             log.fatal("Appium url hatalı");
             return null;
@@ -29,9 +29,9 @@ public class Android implements MobileSystemSelectable {
     }
 
     @Override
-    public AppiumDriver getRemoteDriver(String remoteIp, String port) {
+    public AppiumDriver<MobileElement> getRemoteDriver(String remoteIp, String port) {
         try {
-            return new AndroidDriver(new URL(String.format("http://%s:%s/wd/hub", remoteIp, port)), capabilities);
+            return new AndroidDriver<>(new URL(String.format("http://%s:%s/wd/hub", remoteIp, port)), capabilities);
         } catch (MalformedURLException e) {
             log.fatal(e.getMessage());
             return null;
@@ -48,17 +48,9 @@ public class Android implements MobileSystemSelectable {
         this.capabilities = new DesiredCapabilities();
         JsonReader jsonReader = new JsonReader();
         Map<String, Object> capabilities = jsonReader.getJsonAsMap(capabilitiesFile, capabilitiesName);
-        capabilities = (Map<String, Object>) capabilities.get("capabilities");
         DesiredCapabilities cap = new DesiredCapabilities();
         capabilities
-                .entrySet()
-                .stream()
-                .forEach(c -> {
-                    if (c.getKey().equalsIgnoreCase("app")) {
-                        cap.setCapability(MobileCapabilityType.APP, new File(String.valueOf(c.getValue())));
-                    } else
-                        cap.setCapability(c.getKey(), c.getValue());
-                });
+                .forEach(cap::setCapability);
         this.capabilities = cap;
     }
 }

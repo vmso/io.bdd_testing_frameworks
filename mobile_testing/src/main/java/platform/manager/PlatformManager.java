@@ -1,29 +1,28 @@
-package app.manneger;
+package platform.manager;
 
-import Mobile.os.Android;
-import Mobile.os.IOS;
-import Mobile.os.MobileSystemSelectable;
+import io.appium.java_client.MobileElement;
+import org.openqa.selenium.NoSuchSessionException;
+import platforms.Android;
+import platforms.IOS;
+import platforms.MobileSystemSelectable;
 import exceptions.UndefinedAppType;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
 import java.util.Locale;
-import java.util.Map;
 
 import enums.AppType;
 
-public class AppManager {
-    private static AppManager instance;
-    private AppiumDriver driver;
+public class PlatformManager {
+    private static PlatformManager instance;
+    private AppiumDriver<MobileElement> driver;
 
-    private AppManager() {
+    private PlatformManager() {
 
     }
 
-    public static AppManager getInstance() {
+    public static PlatformManager getInstances() {
         if (instance == null) {
-            instance = new AppManager();
+            instance = new PlatformManager();
         }
         return instance;
     }
@@ -47,11 +46,21 @@ public class AppManager {
         }
     }
 
+    public void quitDriver(){
+        try {
+            if (PlatformManager.getInstances().getDriver() != null) {
+                PlatformManager.getInstances().getDriver().closeApp();
+                PlatformManager.getInstances().getDriver().quit();
+            }
+        }catch (NoSuchSessionException e){
+            e.printStackTrace();
+        }
+    }
     public AppiumDriver getDriver() {
         return driver;
     }
 
-    public void setDriver(AppiumDriver driver) {
+    public void setDriver(AppiumDriver<MobileElement> driver) {
         this.driver = driver;
     }
 }
