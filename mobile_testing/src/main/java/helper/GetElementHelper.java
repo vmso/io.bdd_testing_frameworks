@@ -22,7 +22,7 @@ public class GetElementHelper extends GetElement {
         return getMobileElement(by);
     }
 
-    protected MobileElement getElementWithoutWait(String jsonKey, int timeOut) throws FileNotFound {
+    protected MobileElement getElementWithoutWait(String jsonKey) throws FileNotFound {
         return getMobileElement(jsonKey);
     }
 
@@ -40,7 +40,7 @@ public class GetElementHelper extends GetElement {
         return getMobileElements(by);
     }
 
-    protected List<MobileElement> getElementsWithoutWait(String jsonKey, int timeOut) throws FileNotFound {
+    protected List<MobileElement> getElementsWithoutWait(String jsonKey) throws FileNotFound {
         return getMobileElements(jsonKey);
     }
 }
