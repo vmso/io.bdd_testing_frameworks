@@ -10,21 +10,29 @@ import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import utils.StoreApiInfo;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class GetBy {
 
     private final Logger log = LogManager.getLogger(GetBy.class);
 
     public By getBy(String jsonKey) throws FileNotFound {
-        var jsonMap = getByMap(jsonKey);
-        var locatorType = jsonMap.get("locatorType");
-        var locatorValue = jsonMap.get("locatorValue");
-        var type = LocatorTypes.valueOf(locatorType.toUpperCase(Locale.ENGLISH));
-
-        return getBy(type, locatorValue);
+        var byObj = StoreApiInfo.get(jsonKey);
+        if (byObj != null) {
+            return (By) byObj;
+        } else {
+            var jsonMap = getByMap(jsonKey);
+            var locatorType = jsonMap.get("locatorType");
+            var locatorValue = jsonMap.get("locatorValue");
+            var type = LocatorTypes.valueOf(locatorType.toUpperCase(Locale.ENGLISH));
+            var by = getBy(type, locatorValue);
+            StoreApiInfo.put(jsonKey, by);
+            return getBy(type, locatorValue);
+        }
     }
 
     private HashMap<String, String> getByMap(String jsonKey) throws FileNotFound {
