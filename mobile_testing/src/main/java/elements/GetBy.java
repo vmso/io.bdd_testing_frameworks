@@ -1,24 +1,18 @@
 package elements;
 
-import base.App;
 import base.GetFileName;
 import configuration.Configuration;
 import enums.LocatorTypes;
 import exceptions.FileNotFound;
 import io.appium.java_client.MobileBy;
 import json.JsonReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import utils.StoreApiInfo;
 
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class GetBy {
-
-    private final Logger log = LogManager.getLogger(GetBy.class);
 
     public By getBy(String jsonKey) throws FileNotFound {
         var byObj = StoreApiInfo.get(jsonKey);
@@ -67,8 +61,14 @@ public class GetBy {
             case CLASS_CHAIN_IOS -> {
                 return MobileBy.iOSClassChain(value);
             }
+            case LINK_TEXT -> {
+                return MobileBy.linkText(value);
+            }
             case PREDICATE_STRING -> {
                 return MobileBy.iOSNsPredicateString(value);
+            }
+            case CLASS_NAME -> {
+                return MobileBy.className(value);
             }
             default -> throw new IllegalStateException("Unexpected locator value: " + type);
         }
