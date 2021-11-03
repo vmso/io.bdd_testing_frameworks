@@ -1,5 +1,6 @@
 package platforms;
 
+import exceptions.FileNotFounded;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -12,5 +13,5 @@ public interface MobileSystemSelectable {
 
     DesiredCapabilities getCapabilities();
 
-    void setCapabilities(String capabilitiesFile, String capabilitiesName);
+    void setCapabilities(String capabilitiesFile, String capabilitiesName) throws FileNotFounded;
 }

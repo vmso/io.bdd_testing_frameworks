@@ -1,5 +1,6 @@
 package platform.manager;
 
+import exceptions.FileNotFounded;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.NoSuchSessionException;
 import platforms.Android;
@@ -27,7 +28,7 @@ public class PlatformManager {
         return instance;
     }
 
-    public void createLocalMobileDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType {
+    public void createLocalMobileDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFounded {
         String platform = System.getProperty("Platform");
         AppType appType = AppType.valueOf(platform.toUpperCase(Locale.ENGLISH));
         MobileSystemSelectable mobileSystemSelectable;

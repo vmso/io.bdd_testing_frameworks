@@ -1,5 +1,6 @@
 package platforms;
 
+import exceptions.FileNotFounded;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -42,7 +43,7 @@ public class IOS implements MobileSystemSelectable {
     }
 
     @Override
-    public void setCapabilities(String capabilitiesFile, String capabilitiesName) {
+    public void setCapabilities(String capabilitiesFile, String capabilitiesName) throws FileNotFounded {
         this.capabilities = new DesiredCapabilities();
         JsonReader jsonReader = new JsonReader();
         Map<String, Object> capabilities = jsonReader.getJsonAsMap(capabilitiesFile, capabilitiesName);
