@@ -1,0 +1,10 @@
+{
+  "continue_with_apple": {
+    "locatorType": "CLASS_CHAIN_IOS",
+    "locatorValue": "**/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther"
+  },
+  "button_2": {
+    "locatorType": "CSS",
+    "locatorValue": "//*"
+  }
+}

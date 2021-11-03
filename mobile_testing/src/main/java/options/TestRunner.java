@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "classpath:features",
         snippets = SnippetType.CAMELCASE,
         stepNotifications = true,
-        glue={"imp"},
+        glue={"imp","base"},
         plugin = {"html:reports/cucumber_reports/cucumber-html-report.html", "json:reports/cucumber_reports/cucumber.json", "pretty"},
         publish=true
 )

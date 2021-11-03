@@ -27,6 +27,8 @@ public class PrecancelHelper extends WaitHelper {
         return waitUntilPresenceAll(by, DEFAULT_TIME_OUT);
     }
 
+
+
     public boolean isPresence(By by) {
         return isPresence(by, DEFAULT_TIME_OUT);
     }

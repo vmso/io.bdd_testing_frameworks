@@ -1,11 +1,10 @@
 package json;
 
-import exceptions.FileNotFounded;
+import exceptions.FileNotFound;
 import helper.FileHelper;
 import helper.JsonHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Test;
 
 import java.util.Map;
 import java.util.Objects;
@@ -13,7 +12,7 @@ import java.util.Objects;
 public class JsonReader {
     private final Logger log = LogManager.getLogger(JsonReader.class);
 
-    public Map<String, Object> getJsonAsMap(String filePath, String jsonKey) throws FileNotFounded {
+    public Map<String, Object> getJsonAsMap(String filePath, String jsonKey) throws FileNotFound {
         if (jsonKey.contains(" ")) {
             jsonKey = jsonKey.replaceAll(" ", "_");
             log.warn("""
@@ -27,7 +26,7 @@ public class JsonReader {
         try {
             path = Objects.requireNonNull(getClass().getClassLoader().getResource(filePath)).getPath();
         } catch (NullPointerException e){
-            throw new FileNotFounded(filePath);
+            throw new FileNotFound(filePath);
         }
         var jsonStringValue = file.readFileAsString(path);
         JsonHelper helper = new JsonHelper();

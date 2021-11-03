@@ -2,7 +2,7 @@ package imp;
 
 import base.App;
 import com.thoughtworks.gauge.Step;
-import exceptions.FileNotFounded;
+import exceptions.FileNotFound;
 import exceptions.UndefinedAppType;
 import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,7 @@ public class LunchApp {
 
     @Step("Get <jsonKey> capabilities from resource with JSON <json file> file and lunch <platform> platform")
     @Given("Get {string} capabilities from resource with JSON {string} file and lunch {string} platform")
-    public void lunchApp(String jsonKey, String jsonFile, String platformName) throws UndefinedAppType, FileNotFounded {
+    public void lunchApp(String jsonKey, String jsonFile, String platformName) throws UndefinedAppType, FileNotFound {
         System.setProperty("Platform", platformName);
         var app = new App();
         app.lunchLocalDriver(jsonFile, jsonKey);

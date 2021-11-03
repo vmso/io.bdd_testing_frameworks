@@ -14,7 +14,7 @@ public class Configuration {
     private static Configuration instance;
     Properties configProps;
     protected static final Logger log = LogManager.getLogger(Configuration.class);
-    static final String PROP_FILE_NAME = "properties/config.properties";
+    static final String PROP_FILE_NAME = "config.properties";
     private String slackToken;
     private String connectionString;
     private String dbClass;
@@ -77,5 +77,7 @@ public class Configuration {
         return webhook;
     }
 
-
+    public String getStringValueOfProp(String propKey) {
+        return configProps.getProperty(propKey);
+    }
 }

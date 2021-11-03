@@ -54,35 +54,32 @@ public class JsonHelper {
             String valueType = o.getClass().getSimpleName();
 
             switch (valueType) {
-                case "Integer":
+                case "Integer" -> {
                     Integer integerValue = parseHelper.parsStringToInt(newValue);
                     if (integerValue != null)
                         context.set(jsonKey, integerValue);
-                    break;
-                case "BigInteger":
+                }
+                case "BigInteger" -> {
                     BigInteger bigInteger = parseHelper.parsStringToBigint(newValue);
                     if (bigInteger != null)
                         context.set(jsonKey, bigInteger);
-                    break;
-                case "Boolean":
+                }
+                case "Boolean" -> {
                     Boolean boolValue = parseHelper.parseStringToBoolean(newValue);
                     if (boolValue != null)
                         context.set(jsonKey, boolValue);
-                    break;
-                case "Float":
+                }
+                case "Float" -> {
                     Float floatValue = parseHelper.parsStringToFloat(newValue);
                     if (floatValue != null)
                         context.set(json, floatValue);
-                    break;
-                case "Double":
+                }
+                case "Double" -> {
                     Double doubleValue = parseHelper.parsStringToDouble(newValue);
                     if (doubleValue != null)
                         context.set(jsonKey, doubleValue);
-                    break;
-                default:
-                    context.set(jsonKey, newValue);
-                    break;
-
+                }
+                default -> context.set(jsonKey, newValue);
             }
             return context.jsonString();
         } catch (PathNotFoundException je) {
@@ -93,7 +90,6 @@ public class JsonHelper {
     }
 
     public Map<String, Object> getJsonValueAsMap(String json, String jsonKey) {
-        DocumentContext context = getJsonDocumentContext(json);
         return read(json, jsonKey);
     }
 

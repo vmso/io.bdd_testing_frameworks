@@ -1,16 +1,14 @@
 package platforms;
 
-import exceptions.FileNotFounded;
+import exceptions.FileNotFound;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
 import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -45,7 +43,7 @@ public class Android implements MobileSystemSelectable {
     }
 
     @Override
-    public void setCapabilities(String capabilitiesFile, String capabilitiesName) throws FileNotFounded {
+    public void setCapabilities(String capabilitiesFile, String capabilitiesName) throws FileNotFound {
         this.capabilities = new DesiredCapabilities();
         JsonReader jsonReader = new JsonReader();
         Map<String, Object> capabilities = jsonReader.getJsonAsMap(capabilitiesFile, capabilitiesName);
