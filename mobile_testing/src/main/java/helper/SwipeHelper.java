@@ -66,7 +66,7 @@ public class SwipeHelper extends GetElementHelper {
 
     private void swipe(Directions directions, String sourceElmKey, String targetElmKey) throws FileNotFound {
 
-        if (getElementsWithWait(targetElmKey).size() == 1) {
+        if (getElementsWithoutWait(targetElmKey).size() == 1) {
             swipeUntilBetweenTwoElements(sourceElmKey, targetElmKey);
         }
         MobileElement element = getElementWithWait(sourceElmKey);
@@ -81,13 +81,16 @@ public class SwipeHelper extends GetElementHelper {
                 break;
             }
             try {
-                if (!getElementWithWait(targetElmKey).isDisplayed()) {
+                if (!getElementWithoutWait(targetElmKey).isDisplayed()) {
                     swipeByPoint(directions, width, height);
+                } else {
+                    swipeByPoint(directions, width, height);
+                    break;
                 }
             } catch (NoSuchElementException e) {
                 log.info("Couldn't reach the target element yet target elm {}", targetElmKey);
             }
-        } while (getElementsWithWait(targetElmKey).size() == 0);
+        } while (getElementsWithoutWait(targetElmKey).size() == 0);
     }
 
 
@@ -100,7 +103,7 @@ public class SwipeHelper extends GetElementHelper {
         int endX, endY;
         switch (direction) {
             case DOWN -> { // center of footer
-                endY = 0;
+                endY = driver.manage().window().getSize().height;
                 pointEnd = new Point(width, endY);
                 pointStart = new Point(width, height);
             }
@@ -109,15 +112,15 @@ public class SwipeHelper extends GetElementHelper {
                 pointStart = new Point(width, height);
                 pointEnd = new Point(width, endY);
             }
-            case LEFT -> {
+            case RIGHT -> {
                 endX = driver.manage().window().getSize().width;
                 pointEnd = new Point(endX, height);
                 pointStart = new Point(width, height);
             }
-            case RIGHT -> {
-                endX = 0;
-                pointEnd = new Point(endX, height);
-                pointStart = new Point(width, height);
+            case LEFT -> {
+                endX = driver.manage().window().getSize().width;
+                pointStart = new Point(endX, height);
+                pointEnd = new Point(width, height);
             }
             default -> throw new IllegalArgumentException("swipeScreen(): dir: '" + direction + "' NOT supported");
         }

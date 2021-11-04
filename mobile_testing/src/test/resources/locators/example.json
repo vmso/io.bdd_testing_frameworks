@@ -29,5 +29,13 @@
   "login_method_select_tab": {
     "locatorType": "XPATH",
     "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"
+  },
+  "Meditate_3_times": {
+    "locatorType": "PREDICATE_STRING",
+    "locatorValue": "label == \"Meditate 3 times\""
+  },
+  "Inspiration": {
+    "locatorType": "ACCESSIBILITY_ID",
+    "locatorValue": "Inspiration"
   }
 }

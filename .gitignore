@@ -29,3 +29,4 @@ io.bdd_testing_frameworks.iml
 */api_testing.iml
 */mutual_methods.iml
 */web_testing.iml
+*.iml
