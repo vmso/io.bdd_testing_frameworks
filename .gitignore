@@ -23,3 +23,5 @@ gauge_api_testing.iml
 /mobile_testing/target/
 /mutual_methods/target/
 /web_testing/target/
+
+*.iml
