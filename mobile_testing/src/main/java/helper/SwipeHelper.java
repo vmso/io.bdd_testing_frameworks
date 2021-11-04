@@ -45,6 +45,7 @@ public class SwipeHelper extends GetElementHelper {
         int width = elm.getLocation().x;
         int height = elm.getLocation().y;
         swipeByPoint(DOWN, width, height);
+        log.info("Touched on the {} element and swipe down", jsonKey);
     }
 
     protected void swipeRightFromSourceToTarget(String sourceElmKey, String targetElmKey) throws FileNotFound {
@@ -84,7 +85,7 @@ public class SwipeHelper extends GetElementHelper {
                     swipeByPoint(directions, width, height);
                 }
             } catch (NoSuchElementException e) {
-                log.info("Couldn't reach the target element yet target elm {}",targetElmKey);
+                log.info("Couldn't reach the target element yet target elm {}", targetElmKey);
             }
         } while (getElementsWithWait(targetElmKey).size() == 0);
     }

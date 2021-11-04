@@ -29,7 +29,7 @@ public class App {
         var fileName = context.getCurrentSpecification().getFileName();
         int firstIndex = fileName.lastIndexOf('/');
         int lastIndex = fileName.lastIndexOf('.');
-        GetFileName.getInstance().setFileName(fileName.substring(firstIndex + 1, lastIndex - 1));
+        GetFileName.getInstance().setFileName(fileName.substring(firstIndex + 1, lastIndex));
     }
 
     @Before

@@ -37,7 +37,7 @@ public class GetElementHelper extends GetElement {
         var by = getBy(jsonKey);
         new PresenceHelper().waitUntilPresence(by, timeOut);
         //todo visible wait will be add
-        return getMobileElements(by);
+        return new PresenceHelper().waitUntilPresenceAll(by, timeOut);
     }
 
     protected List<MobileElement> getElementsWithoutWait(String jsonKey) throws FileNotFound {
