@@ -5,13 +5,13 @@
     "ID",
     "NAME",
     "XPATH",
-    "ANDROID_UI_AUTOMATOR",
+    "AndroidDriver_UI_AUTOMATOR",
     "LINK_TEXT",
     "PREDICATE_STRING",
     "CLASS_CHAIN_IOS"
   ],
   "continue_with_apple": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorType": "CLASS_CHAIN_IOS",
@@ -19,7 +19,7 @@
     }
   },
   "cancel_button": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorType": "ACCESSIBILITY_ID",
@@ -27,7 +27,7 @@
     }
   },
   "other_options": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorType": "PREDICATE_STRING",
@@ -35,7 +35,7 @@
     }
   },
   "home_alert_action_btn": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorType": "ACCESSIBILITY_ID",
@@ -43,7 +43,7 @@
     }
   },
   "login_method_select_tab": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorType": "XPATH",
@@ -51,7 +51,7 @@
     }
   },
   "Meditate_3_times": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorType": "PREDICATE_STRING",
@@ -59,7 +59,9 @@
     }
   },
   "Inspiration": {
-    "android": {
+    "AndroidDriverDriver": {
+      "locatorType": "some value",
+      "locatorValue": "some value"
     },
     "IOSDriver": {
       "locatorType": "ACCESSIBILITY_ID",
@@ -67,7 +69,7 @@
     }
   },
   "backIcon": {
-    "android": {
+    "AndroidDriver": {
     },
     "IOSDriver": {
       "locatorValue": "BackIcon",

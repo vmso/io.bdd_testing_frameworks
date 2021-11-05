@@ -72,8 +72,10 @@ public class SwipeHelper extends GetElementHelper {
         MobileElement element = getElementWithWait(sourceElmKey);
         int width = element.getLocation().x;
         int height = element.getLocation().y;
-
         int i = 0;
+        boolean isDisplayed;
+        boolean isEnabled;
+        boolean isPresent;
         do {
             swipeByPoint(directions, width, height);
             i++;
@@ -81,13 +83,16 @@ public class SwipeHelper extends GetElementHelper {
                 throw new NoSuchElementException(getBy(targetElmKey).toString());
             }
             try {
-
-                swipeByPoint(directions, width, height);
-
-            } catch (NoSuchElementException e) {
-                log.info("Couldn't reach the target element yet target elm {}", targetElmKey);
+                isPresent = getElementsWithoutWait(targetElmKey).size() == 0;
+                isDisplayed = getElementWithoutWait(targetElmKey).isDisplayed();
+                isEnabled = getElementWithoutWait(targetElmKey).isEnabled();
+            } catch (Exception e) {
+                isDisplayed = false;
+                isEnabled = false;
+                isPresent = true;
             }
-        } while (getElementsWithoutWait(targetElmKey).size() == 0 && !getElementWithoutWait(targetElmKey).isDisplayed());
+
+        } while (isPresent || !isDisplayed || !isEnabled);
     }
 
 
