@@ -13,6 +13,24 @@ public class SwipeImp extends SwipeHelper {
         swipeDown(jsonKey);
     }
 
+    @Step("Touch the <element> and swipe up")
+    @And("Touch the {string} and swipe up")
+    public void swipeUpStep(String jsonKey) throws FileNotFound {
+        swipeUp(jsonKey);
+    }
+
+    @Step("Touch the <element> and swipe left")
+    @And("Touch the {string} and swipe left")
+    public void swipeLeftStep(String jsonKey) throws FileNotFound {
+        swipeLeft(jsonKey);
+    }
+
+    @Step("Touch the <element> and swipe right")
+    @And("Touch the {string} and swipe right")
+    public void swipeRightStep(String jsonKey) throws FileNotFound {
+        swipeRight(jsonKey);
+    }
+
     @Step("Swipe left from  the <element> until reach the <element>")
     @And("Swipe left from  the {string} until reach the {string}")
     public void swipeLeftFromSourceToTargetStep(String sourceElemKey, String targetElmKey) throws FileNotFound {
@@ -23,5 +41,17 @@ public class SwipeImp extends SwipeHelper {
     @And("Swipe right from  the {string} until reach the {string}")
     public void swipeRightFromSourceToTargetStep(String sourceElemKey, String targetElmKey) throws FileNotFound {
         swipeRightFromSourceToTarget(sourceElemKey, targetElmKey);
+    }
+
+    @Step("Swipe up from  the <element> until reach the <element>")
+    @And("Swipe up from  the {string} until reach the {string}")
+    public void swipeUpFromSourceToTargetStep(String sourceElemKey, String targetElmKey) throws FileNotFound {
+        swipeUpFromSourceToTarget(sourceElemKey, targetElmKey);
+    }
+
+    @Step("Swipe down from  the <element> until reach the <element>")
+    @And("Swipe down from  the {string} until reach the {string}")
+    public void swipeDownFromSourceToTargetStep(String sourceElemKey, String targetElmKey) throws FileNotFound {
+        swipeDownFromSourceToTarget(sourceElemKey, targetElmKey);
     }
 }
