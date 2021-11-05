@@ -6,22 +6,40 @@ import enums.LocatorTypes;
 import exceptions.FileNotFound;
 import io.appium.java_client.MobileBy;
 import json.JsonReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import platform.manager.PlatformManager;
 import utils.StoreApiInfo;
 
 import java.util.HashMap;
 import java.util.Locale;
 
-public class GetBy {
+public abstract class GetBy {
+
+    private Logger log = LogManager.getLogger(GetBy.class);
 
     public By getBy(String jsonKey) throws FileNotFound {
+        var filePath = GetFileName.getInstance().getFileName();
+        var locatorFolder = Configuration.getInstance().getStringValueOfProp("locator_folder");
+        filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
         var byObj = StoreApiInfo.get(jsonKey);
         if (byObj != null) {
             return (By) byObj;
         } else {
-            var jsonMap = getByMap(jsonKey);
-            var locatorType = jsonMap.get("locatorType");
-            var locatorValue = jsonMap.get("locatorValue");
+            var jsonMap = getByMap(jsonKey, filePath);
+            var platformType = PlatformManager.getInstances().getDriver().getClass().getSimpleName();
+            if (jsonMap.get(platformType) == null) {
+                log.fatal("""
+                        Locator {} type couldn't find in "{}"
+                        file with {} json key
+                        locator json shuld be contain
+                        Android and IOS type of locator"
+                        """, platformType, filePath, jsonKey);
+                throw new IllegalArgumentException();
+            }
+            var locatorType = jsonMap.get(platformType).get("locatorType");
+            var locatorValue = jsonMap.get(platformType).get("locatorValue");
             var type = LocatorTypes.valueOf(locatorType.toUpperCase(Locale.ENGLISH));
             var by = getBy(type, locatorValue);
             StoreApiInfo.put(jsonKey, by);
@@ -29,14 +47,11 @@ public class GetBy {
         }
     }
 
-    private HashMap<String, String> getByMap(String jsonKey) throws FileNotFound {
-        var filePath = GetFileName.getInstance().getFileName();
-        var locatorFolder = Configuration.getInstance().getStringValueOfProp("locator_folder");
-        filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
+    private HashMap<String, HashMap<String, String>> getByMap(String jsonKey, String filePath) throws FileNotFound {
         var jsonReader = new JsonReader();
         var jsonMapWithObj = jsonReader.getJsonAsMap(filePath, jsonKey);
-        var jsonMap = new HashMap<String, String>();
-        jsonMapWithObj.forEach((k, v) -> jsonMap.put(k, String.valueOf(v)));
+        var jsonMap = new HashMap<String, HashMap<String, String>>();
+        jsonMapWithObj.forEach((k, v) -> jsonMap.put(k, (HashMap<String, String>) v));
         return jsonMap;
     }
 

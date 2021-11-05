@@ -27,14 +27,16 @@ public class App {
     @BeforeSpec
     public void setFileNameForGauge(ExecutionContext context) {
         var fileName = context.getCurrentSpecification().getFileName();
-        int firstIndex = fileName.lastIndexOf('/');
-        int lastIndex = fileName.lastIndexOf('.');
-        GetFileName.getInstance().setFileName(fileName.substring(firstIndex + 1, lastIndex));
+        setFileName(fileName);
     }
 
     @Before
     public void beforeScenario(Scenario scenario) {
         var fileName = String.valueOf(scenario.getUri());
+        setFileName(fileName);
+    }
+
+    private void setFileName(String fileName) {
         int firstIndex = fileName.lastIndexOf('/');
         int lastIndex = fileName.lastIndexOf('.');
         GetFileName.getInstance().setFileName(fileName.substring(firstIndex + 1, lastIndex));

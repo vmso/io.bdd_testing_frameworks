@@ -1,10 +1,11 @@
 package helper;
 
+import elements.GetBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import platform.manager.PlatformManager;
 
-public class WaitHelper {
+public class WaitHelper  extends GetBy {
 
     public static final int DEFAULT_SLEEP_IN_MILLIS = 30;
     public static final int DEFAULT_TIME_OUT = 15;

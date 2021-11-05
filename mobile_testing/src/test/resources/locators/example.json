@@ -11,31 +11,67 @@
     "CLASS_CHAIN_IOS"
   ],
   "continue_with_apple": {
-    "locatorType": "CLASS_CHAIN_IOS",
-    "locatorValue": "**/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther"
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "CLASS_CHAIN_IOS",
+      "locatorValue": "**/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther"
+    }
   },
   "cancel_button": {
-    "locatorType": "ACCESSIBILITY_ID",
-    "locatorValue": "Cancel"
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "ACCESSIBILITY_ID",
+      "locatorValue": "Cancel"
+    }
   },
   "other_options": {
-    "locatorType": "PREDICATE_STRING",
-    "locatorValue": "label == \"Other Options\" AND name == \"Other Options\" AND type == \"XCUIElementTypeButton\""
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "PREDICATE_STRING",
+      "locatorValue": "label == \"Other Options\" AND name == \"Other Options\" AND type == \"XCUIElementTypeButton\""
+    }
   },
   "home_alert_action_btn": {
-    "locatorType": "ACCESSIBILITY_ID",
-    "locatorValue": "HomeAlertIcon"
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "ACCESSIBILITY_ID",
+      "locatorValue": "HomeAlertIcon"
+    }
   },
   "login_method_select_tab": {
-    "locatorType": "XPATH",
-    "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "XPATH",
+      "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"
+    }
   },
   "Meditate_3_times": {
-    "locatorType": "PREDICATE_STRING",
-    "locatorValue": "label == \"Meditate 3 times\""
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "PREDICATE_STRING",
+      "locatorValue": "label == \"Meditate 3 times\""
+    }
   },
   "Inspiration": {
-    "locatorType": "ACCESSIBILITY_ID",
-    "locatorValue": "Inspiration"
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorType": "ACCESSIBILITY_ID",
+      "locatorValue": "Inspiration"
+    }
+  },
+  "backIcon": {
+    "android": {
+    },
+    "IOSDriver": {
+      "locatorValue": "BackIcon",
+      "locatorType": "ACCESSIBILITY_ID"
+    }
   }
 }

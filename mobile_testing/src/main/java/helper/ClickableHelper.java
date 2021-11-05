@@ -9,12 +9,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ClickableHelper extends WaitHelper {
 
     public MobileElement waitForClickable(String jsonKey, int timeOut) throws FileNotFound {
-        By by = new GetBy().getBy(jsonKey);
+        By by = getBy(jsonKey);
         return (MobileElement) getWebDriverWait(timeOut).until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public MobileElement waitForClickable(String jsonKey) throws FileNotFound {
-        By by = new GetBy().getBy(jsonKey);
+        By by = getBy(jsonKey);
         return (MobileElement) getWebDriverWait().until(ExpectedConditions.elementToBeClickable(by));
     }
 }

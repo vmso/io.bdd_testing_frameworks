@@ -78,25 +78,22 @@ public class SwipeHelper extends GetElementHelper {
             swipeByPoint(directions, width, height);
             i++;
             if (i == 10) {
-                break;
+                throw new NoSuchElementException(getBy(targetElmKey).toString());
             }
             try {
-                if (!getElementWithoutWait(targetElmKey).isDisplayed()) {
-                    swipeByPoint(directions, width, height);
-                } else {
-                    swipeByPoint(directions, width, height);
-                    break;
-                }
+
+                swipeByPoint(directions, width, height);
+
             } catch (NoSuchElementException e) {
                 log.info("Couldn't reach the target element yet target elm {}", targetElmKey);
             }
-        } while (getElementsWithoutWait(targetElmKey).size() == 0);
+        } while (getElementsWithoutWait(targetElmKey).size() == 0 && !getElementWithoutWait(targetElmKey).isDisplayed());
     }
 
 
     private void swipeByPoint(Directions direction, int width, int height) {
         log.info("swipeScreen(): dir: '{}'", direction);
-        final int PRESS_TIME = 200;
+        final int PRESS_TIME = 300;
         Point pointStart, pointEnd;
         PointOption pointOptionStart, pointOptionEnd;
         var driver = PlatformManager.getInstances().getDriver();
