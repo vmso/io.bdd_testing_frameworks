@@ -65,7 +65,6 @@ public class SwipeHelper extends GetElementHelper {
     }
 
     private void swipe(Directions directions, String sourceElmKey, String targetElmKey) throws FileNotFound {
-
         if (getElementsWithoutWait(targetElmKey).size() == 1) {
             swipeUntilBetweenTwoElements(sourceElmKey, targetElmKey);
         }
@@ -91,7 +90,6 @@ public class SwipeHelper extends GetElementHelper {
                 isEnabled = false;
                 isPresent = true;
             }
-
         } while (isPresent || !isDisplayed || !isEnabled);
     }
 

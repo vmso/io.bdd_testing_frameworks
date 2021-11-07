@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -59,15 +61,24 @@ public class SlackHelper {
     }
 
     private void sendMessageToSlackWebHook(Object body) {
-        Response response = RestAssured
-                .given()
-                .header("Content-type", "application/json")
-                .baseUri(Configuration.getInstance().webhook())
-                .body(body.toString())
-                .post();
-        if (response.statusCode() != 200) {
-            log.warn("Slack message couldn't send, please check your webhook is active?");
+        try {
+            Response response = RestAssured
+                    .given()
+                    .header("Content-type", "application/json")
+                    .baseUri(Configuration.getInstance().webhook())
+                    .body(new String(String.valueOf(body).getBytes(StandardCharsets.UTF_8)))
+                    .post();
+            if (response.statusCode() != 200) {
+                log.warn("Slack message couldn't send, please check your webhook is active?");
+            }
+        } catch (Exception e) {
+            log.warn("""
+                    Unexpected error occurred when trying send the slack message.
+                    Error message is:
+                    {}
+                    """, e.getMessage());
         }
+
     }
 
     private static synchronized void setStartDate() {

@@ -1,11 +1,12 @@
 package imp;
 
 import base.App;
+import com.thoughtworks.gauge.Gauge;
 import com.thoughtworks.gauge.Step;
 import exceptions.FileNotFound;
 import exceptions.UndefinedAppType;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,5 +20,11 @@ public class LunchApp {
         var app = new App();
         app.lunchLocalDriver(jsonFile, jsonKey);
         log.info("appium lunched with capabilities {} on {}", jsonFile, platformName);
+        try {
+            Gauge.captureScreenshot();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 }

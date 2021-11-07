@@ -45,6 +45,7 @@ pet post 2
     |405    |
 * Post request
 * Get "tags" from response and store it with "tags" during scenario
+* Get "123" and "123" from scenario store and then compare, Are they equals?
 * Get "id" from "tags" json list which one equals "name"="kuçukuçu", and store it during Scenario with "tagId"
 * Get response time as milliseconds and compare it, is it less then "5000"?
 * Sleep for "120" milliSecond

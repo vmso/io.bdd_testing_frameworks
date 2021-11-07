@@ -11,6 +11,7 @@ Feature: test
       | 503 |
     When Send get request 'https://petstore.swagger.io/v2/pet/findByStatus?status=available'
     Then Verify that the status code is 200
+    Then Get '200' and '201' from scenario store and then compare, Are they not equals ?
 
   Scenario Outline: Post  a pets and check with get
     Given base url '<Pet Store Base Uel>'

@@ -4,6 +4,8 @@ Feature:
   Scenario: lunch App
     Given Get 'iPhone_12_Pro_Max.capabilities' capabilities from resource with JSON 'devices/device_capabilities' file and lunch 'iOS' platform
     And Check if 'app.meditopia' exists, remove it if it does and then reinstall from '/Users/testinium/Desktop/meditopia.app'
+    And Rotate screen as landscape.
+    And Rotate the screen as  portrait.
 
   Scenario: Click App
     Given Get "iPhone_12_Pro_Max_2.capabilities" capabilities from resource with JSON "devices/device_capabilities" file and lunch "iOS" platform
@@ -14,5 +16,10 @@ Feature:
     And Click the "backIcon" element
     And Swipe right from  the "Meditate_3_times" until reach the "Inspiration"
     And Click the "Inspiration" element
+
+    Scenario: android
+      Given Get "Pixel_2.capabilities" capabilities from resource with JSON "devices/device_capabilities" file and lunch "Android" platform
+      And Rotate screen as landscape.
+      And Sleep for 5 milliSecond
 
 
