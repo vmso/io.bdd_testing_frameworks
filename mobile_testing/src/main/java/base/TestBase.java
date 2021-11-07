@@ -2,7 +2,9 @@ package base;
 
 import com.thoughtworks.gauge.BeforeSpec;
 import com.thoughtworks.gauge.ExecutionContext;
+import com.thoughtworks.gauge.Gauge;
 import exceptions.FileNotFound;
+import com.thoughtworks.gauge.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import platform.manager.PlatformManager;
@@ -11,7 +13,7 @@ import exceptions.UndefinedAppType;
 import io.cucumber.java.After;
 
 
-public class App {
+public class TestBase {
 
     public void lunchLocalDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
         capabilitiesFile = capabilitiesFile.endsWith(".json") ? capabilitiesFile : capabilitiesFile + ".json";
@@ -40,6 +42,13 @@ public class App {
         int firstIndex = fileName.lastIndexOf('/');
         int lastIndex = fileName.lastIndexOf('.');
         GetFileName.getInstance().setFileName(fileName.substring(firstIndex + 1, lastIndex));
+    }
+
+    @AfterStep
+    public void takeScreenShot() {
+       var take_screens = Boolean.parseBoolean(System.getenv("screenshot_after_each_step"));
+        if(take_screens)
+            Gauge.captureScreenshot();
     }
 
 }

@@ -75,5 +75,21 @@
       "locatorValue": "BackIcon",
       "locatorType": "ACCESSIBILITY_ID"
     }
+  },
+  "first_step": {
+    "AndroidDriver": {
+    },
+    "IOSDriver": {
+      "locatorValue": "**/XCUIElementTypeStaticText[`label == \"First Steps\"`]",
+      "locatorType": "CLASS_CHAIN_IOS"
+    }
+  },
+  "mindful_break": {
+    "AndroidDriver": {
+    },
+    "IOSDriver": {
+      "locatorValue": "**/XCUIElementTypeStaticText[`label == \"A Mindful Break from Remote Working\"`]",
+      "locatorType": "CLASS_CHAIN_IOS"
+    }
   }
 }

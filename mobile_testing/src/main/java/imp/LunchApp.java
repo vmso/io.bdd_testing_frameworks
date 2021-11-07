@@ -1,7 +1,6 @@
 package imp;
 
-import base.App;
-import com.thoughtworks.gauge.Gauge;
+import base.TestBase;
 import com.thoughtworks.gauge.Step;
 import exceptions.FileNotFound;
 import exceptions.UndefinedAppType;
@@ -17,14 +16,8 @@ public class LunchApp {
     @And("Get {string} capabilities from resource with JSON {string} file and lunch {string} platform")
     public void lunchApp(String jsonKey, String jsonFile, String platformName) throws UndefinedAppType, FileNotFound {
         System.setProperty("Platform", platformName);
-        var app = new App();
+        var app = new TestBase();
         app.lunchLocalDriver(jsonFile, jsonKey);
         log.info("appium lunched with capabilities {} on {}", jsonFile, platformName);
-        try {
-            Gauge.captureScreenshot();
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
-
     }
 }

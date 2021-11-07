@@ -12,12 +12,12 @@ Feature:
     And Click the "cancel_button" element if exists
     And Touch the "login_method_select_tab" and swipe down
     And Swipe left from  the "Inspiration" until reach the "Meditate_3_times"
-    And Click the "Meditate_3_times" element
-    And Click the "backIcon" element
     And Swipe right from  the "Meditate_3_times" until reach the "Inspiration"
-    And Click the "Inspiration" element
+    And Swipe left from  the "first_step" until reach the "mindful_break"
+    And Swipe right from  the "mindful_break" until reach the "first_step"
 
-    Scenario: android
+
+  Scenario: android
       Given Get "Pixel_2.capabilities" capabilities from resource with JSON "devices/device_capabilities" file and lunch "Android" platform
       And Rotate screen as landscape.
       And Sleep for 5 milliSecond

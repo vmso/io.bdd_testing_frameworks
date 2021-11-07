@@ -9,6 +9,7 @@
  * Click the "cancel_button" element if exists
  * Touch the "login_method_select_tab" and swipe down
  * Swipe left from  the "Inspiration" until reach the "Meditate_3_times"
- * Click the "Meditate_3_times" element
- * Sleep for "5" second
+ * Swipe right from  the "Meditate_3_times" until reach the "Inspiration"
+ * Swipe left from  the "first_step" until reach the "mindful_break"
+ * Swipe right from  the "mindful_break" until reach the "first_step"
 

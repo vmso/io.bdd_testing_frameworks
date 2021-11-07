@@ -38,6 +38,7 @@ public class SwipeHelper extends GetElementHelper {
         int width = elm.getLocation().x;
         int height = elm.getLocation().y;
         swipeByPoint(UP, width, height);
+        log.info("Touched on the {} element and swipe up", jsonKey);
     }
 
     protected void swipeDown(String jsonKey) throws FileNotFound {
