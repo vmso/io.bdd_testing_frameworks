@@ -17,13 +17,13 @@ public class GetElementHelper extends GetElement {
     }
 
     protected MobileElement getElementWithWait(String jsonKey) throws FileNotFound {
-        var by = getBy(jsonKey);
+        var by = getByValue(jsonKey);
         presenceHelper.waitUntilPresence(by);
         return visibleHelper.waitUntilVisible(by);
     }
 
     protected MobileElement getElementWithWait(String jsonKey, int timeOut) throws FileNotFound {
-        var by = getBy(jsonKey);
+        var by = getByValue(jsonKey);
         presenceHelper.waitUntilPresence(by, timeOut);
         return visibleHelper.waitUntilVisible(by, timeOut);
     }
@@ -33,13 +33,13 @@ public class GetElementHelper extends GetElement {
     }
 
     protected List<MobileElement> getElementsWithWait(String jsonKey) throws FileNotFound {
-        var by = getBy(jsonKey);
+        var by = getByValue(jsonKey);
         presenceHelper.waitUntilPresenceAll(by);
         return visibleHelper.waitUntilVisibleAll(by);
     }
 
     protected List<MobileElement> getElementsWithWait(String jsonKey, int timeOut) throws FileNotFound {
-        var by = getBy(jsonKey);
+        var by = getByValue(jsonKey);
         presenceHelper.waitUntilPresenceAll(by, timeOut);
         new VisibleHelper().waitUntilVisibleAll(by, timeOut);
         return visibleHelper.waitUntilVisibleAll(by, timeOut);

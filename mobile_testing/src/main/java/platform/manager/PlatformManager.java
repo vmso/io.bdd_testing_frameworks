@@ -68,10 +68,6 @@ public class PlatformManager {
         return driver;
     }
 
-    public void setDriver(AppiumDriver<MobileElement> driver) {
-        this.driver = driver;
-    }
-
     public AppType getPlatform() {
         return platform;
     }

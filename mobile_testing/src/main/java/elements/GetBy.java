@@ -20,11 +20,12 @@ public abstract class GetBy {
 
     private final Logger log = LogManager.getLogger(GetBy.class);
 
-    public By getBy(String jsonKey) throws FileNotFound {
+    public By getByValue(String jsonKey) throws FileNotFound {
         var filePath = GetFileName.getInstance().getFileName();
         var platformType = PlatformManager.getInstances().getPlatform();
         var locatorFolder = Configuration.getInstance().getStringValueOfProp("locator_folder");
         filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
+        @SuppressWarnings("unchecked")
         var by = StoreApiInfo.get(jsonKey) == null
                 ? null : ((HashMap<AppType, By>) StoreApiInfo.get(jsonKey)).get(platformType);
         if (by != null) {
@@ -43,11 +44,11 @@ public abstract class GetBy {
             var locatorType = jsonMap.get(platformType.getValue()).get("locatorType");
             var locatorValue = jsonMap.get(platformType.getValue()).get("locatorValue");
             var type = LocatorTypes.valueOf(locatorType.toUpperCase(Locale.ENGLISH));
-            by = getBy(type, locatorValue);
+            by = getByValue(type, locatorValue);
             var byMap = new HashMap<AppType, By>();
             byMap.put(platformType, by);
             StoreApiInfo.put(jsonKey, byMap);
-            return getBy(type, locatorValue);
+            return getByValue(type, locatorValue);
         }
     }
 
@@ -55,11 +56,12 @@ public abstract class GetBy {
         var jsonReader = new JsonReader();
         var jsonMapWithObj = jsonReader.getJsonAsMap(filePath, jsonKey);
         var jsonMap = new HashMap<String, HashMap<String, String>>();
-        jsonMapWithObj.forEach((k, v) -> jsonMap.put(k, (HashMap<String, String>) v));
+        jsonMapWithObj
+                .forEach((k, v) -> jsonMap.put(k, (HashMap<String, String>) v));
         return jsonMap;
     }
 
-    private By getBy(LocatorTypes type, String value) {
+    private By getByValue(LocatorTypes type, String value) {
 
         switch (type) {
             case ID -> {

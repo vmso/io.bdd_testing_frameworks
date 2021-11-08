@@ -80,7 +80,7 @@ public class SwipeHelper extends GetElementHelper {
             swipeByPoint(directions, width, height);
             i++;
             if (i == 10) {
-                throw new NoSuchElementException(getBy(targetElmKey).toString());
+                throw new NoSuchElementException(getByValue(targetElmKey).toString());
             }
             try {
                 isPresent = getElementsWithoutWait(targetElmKey).size() == 0;

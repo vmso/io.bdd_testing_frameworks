@@ -1,7 +1,6 @@
 package helper;
 
 import exceptions.FileNotFound;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +22,7 @@ public class ClickHelper extends GetElementHelper {
 
     public void clickIfExists(String jsonKey) throws FileNotFound {
         var presenceOfElm = new PresenceHelper();
-        var by = getBy(jsonKey);
+        var by = getByValue(jsonKey);
         if (presenceOfElm.isPresence(by)) {
             clickElement(jsonKey);
         }
@@ -31,7 +30,7 @@ public class ClickHelper extends GetElementHelper {
 
     public void clickIfExists(String jsonKey, int timeout) throws FileNotFound {
         var presenceOfElm = new PresenceHelper();
-        var by = getBy(jsonKey);
+        var by = getByValue(jsonKey);
         if (presenceOfElm.isPresence(by, timeout)) {
             clickElement(jsonKey, timeout);
         }
