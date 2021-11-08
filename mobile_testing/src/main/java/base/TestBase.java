@@ -46,8 +46,8 @@ public class TestBase {
 
     @AfterStep
     public void takeScreenShot() {
-       var take_screens = Boolean.parseBoolean(System.getenv("screenshot_after_each_step"));
-        if(take_screens)
+        var take_screens = Boolean.parseBoolean(System.getenv("screenshot_after_each_step"));
+        if (take_screens)
             Gauge.captureScreenshot();
     }
 

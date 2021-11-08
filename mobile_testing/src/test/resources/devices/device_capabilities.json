@@ -1,35 +1,43 @@
 {
   "iPhone_12_Pro_Max": {
+    "platform": "ios",
     "capabilities": {
-      "deviceName": "iPhone 12",
+      "deviceName": "iPhone",
       "platformName": "iOS",
-      "platformVersion": "14.5",
+      "platformVersion": "15",
       "automationName": "XCUiTest",
-      "udid": "378742DB-FCC0-4E7C-AD26-4917112FFC17",
+      "udid": "2F9000F1-F41A-4235-AE95-8E4A075E4D7D",
       "noReset": "true",
       "autoAcceptAlerts": "true",
-      "rotatable": "true"
+      "rotatable": "true",
+      "autoGrantPermissions":"true"
     }
   },
-  "iPhone_12_Pro_Max_2": {
+  "iPhone_13": {
+    "platform": "ios",
     "capabilities": {
-      "deviceName": "iPhone 12",
+      "deviceName": "iPhone",
       "platformName": "iOS",
-      "platformVersion": "14.5",
+      "platformVersion": "15",
       "automationName": "XCUiTest",
-      "udid": "378742DB-FCC0-4E7C-AD26-4917112FFC17",
+      "udid": "2F9000F1-F41A-4235-AE95-8E4A075E4D7D",
       "noReset": "true",
       "autoAcceptAlerts": "true",
-      "app": "/Users/testinium/Desktop/meditopia.app",
-      "rotatable": "true"
+      "rotatable": "true",
+      "app": "/Users/testinium/Desktop/apps/Meditopia.app",
+      "autoGrantPermissions":"true"
+
     }
   },
   "Pixel_2": {
+    "platform": "Android",
     "capabilities": {
       "deviceName": "emulator-5554",
       "platformName": "android",
       "platformVersion": "11",
       "autoAcceptAlerts -> true": "true",
-      "rotatable": "true"}
+      "rotatable": "true",
+      "app": "/Users/testinium/Desktop/apps/meditasyon_3.17.0.apk"
+    }
   }
 }

@@ -25,12 +25,24 @@ public class JsonReader {
         String path;
         try {
             path = Objects.requireNonNull(getClass().getClassLoader().getResource(filePath)).getPath();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new FileNotFound(filePath);
         }
         var jsonStringValue = file.readFileAsString(path);
         JsonHelper helper = new JsonHelper();
         return helper.getJsonValueAsMap(jsonStringValue, jsonKey);
+    }
+
+    public String getPlatform(String filePath, String jsonKey) throws FileNotFound {
+        String path;
+        try {
+            path = Objects.requireNonNull(getClass().getClassLoader().getResource(filePath)).getPath();
+        } catch (NullPointerException e) {
+            throw new FileNotFound(filePath);
+        }
+        var jsonStringValue = new FileHelper().readFileAsString(path);
+        JsonHelper helper = new JsonHelper();
+        return helper.getJsonValueAsString(jsonStringValue, jsonKey);
     }
 
 }

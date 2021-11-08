@@ -2,6 +2,7 @@ package elements;
 
 import base.GetFileName;
 import configuration.Configuration;
+import enums.AppType;
 import enums.LocatorTypes;
 import exceptions.FileNotFound;
 import io.appium.java_client.MobileBy;
@@ -17,19 +18,20 @@ import java.util.Locale;
 
 public abstract class GetBy {
 
-    private Logger log = LogManager.getLogger(GetBy.class);
+    private final Logger log = LogManager.getLogger(GetBy.class);
 
     public By getBy(String jsonKey) throws FileNotFound {
         var filePath = GetFileName.getInstance().getFileName();
+        var platformType = PlatformManager.getInstances().getPlatform();
         var locatorFolder = Configuration.getInstance().getStringValueOfProp("locator_folder");
         filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
-        var byObj = StoreApiInfo.get(jsonKey);
-        if (byObj != null) {
-            return (By) byObj;
+        var by = StoreApiInfo.get(jsonKey) == null
+                ? null : ((HashMap<AppType, By>) StoreApiInfo.get(jsonKey)).get(platformType);
+        if (by != null) {
+            return by;
         } else {
             var jsonMap = getByMap(jsonKey, filePath);
-            var platformType = PlatformManager.getInstances().getDriver().getClass().getSimpleName();
-            if (jsonMap.get(platformType) == null) {
+            if (jsonMap.get(platformType.getValue()) == null) {
                 log.fatal("""
                         Locator {} type couldn't find in "{}"
                         file with {} json key
@@ -38,11 +40,13 @@ public abstract class GetBy {
                         """, platformType, filePath, jsonKey);
                 throw new IllegalArgumentException();
             }
-            var locatorType = jsonMap.get(platformType).get("locatorType");
-            var locatorValue = jsonMap.get(platformType).get("locatorValue");
+            var locatorType = jsonMap.get(platformType.getValue()).get("locatorType");
+            var locatorValue = jsonMap.get(platformType.getValue()).get("locatorValue");
             var type = LocatorTypes.valueOf(locatorType.toUpperCase(Locale.ENGLISH));
-            var by = getBy(type, locatorValue);
-            StoreApiInfo.put(jsonKey, by);
+            by = getBy(type, locatorValue);
+            var byMap = new HashMap<AppType, By>();
+            byMap.put(platformType, by);
+            StoreApiInfo.put(jsonKey, byMap);
             return getBy(type, locatorValue);
         }
     }

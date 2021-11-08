@@ -5,91 +5,29 @@
     "ID",
     "NAME",
     "XPATH",
-    "AndroidDriver_UI_AUTOMATOR",
+    "ANDROID_UI_AUTOMATOR",
     "LINK_TEXT",
     "PREDICATE_STRING",
     "CLASS_CHAIN_IOS"
   ],
-  "continue_with_apple": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorType": "CLASS_CHAIN_IOS",
-      "locatorValue": "**/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther"
-    }
-  },
-  "cancel_button": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorType": "ACCESSIBILITY_ID",
-      "locatorValue": "Cancel"
-    }
-  },
-  "other_options": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorType": "PREDICATE_STRING",
-      "locatorValue": "label == \"Other Options\" AND name == \"Other Options\" AND type == \"XCUIElementTypeButton\""
-    }
-  },
-  "home_alert_action_btn": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorType": "ACCESSIBILITY_ID",
-      "locatorValue": "HomeAlertIcon"
-    }
-  },
-  "login_method_select_tab": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
+  "close_login_button": {
+    "Android": {
       "locatorType": "XPATH",
-      "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"
+      "locatorValue": "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.Button"
+    },
+    "iOS": {
+      "locatorType": "XPATH",
+      "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]"
     }
   },
-  "Meditate_3_times": {
-    "AndroidDriver": {
+  "sleep_better": {
+    "Android": {
+      "locatorType": "XPATH",
+      "locatorValue": "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.cardview.widget.CardView/android.widget.LinearLayout/android.widget.TextView"
     },
-    "IOSDriver": {
-      "locatorType": "PREDICATE_STRING",
-      "locatorValue": "label == \"Meditate 3 times\""
-    }
-  },
-  "Inspiration": {
-    "AndroidDriverDriver": {
-      "locatorType": "some value",
-      "locatorValue": "some value"
-    },
-    "IOSDriver": {
-      "locatorType": "ACCESSIBILITY_ID",
-      "locatorValue": "Inspiration"
-    }
-  },
-  "backIcon": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorValue": "BackIcon",
-      "locatorType": "ACCESSIBILITY_ID"
-    }
-  },
-  "first_step": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorValue": "**/XCUIElementTypeStaticText[`label == \"First Steps\"`]",
-      "locatorType": "CLASS_CHAIN_IOS"
-    }
-  },
-  "mindful_break": {
-    "AndroidDriver": {
-    },
-    "IOSDriver": {
-      "locatorValue": "**/XCUIElementTypeStaticText[`label == \"A Mindful Break from Remote Working\"`]",
-      "locatorType": "CLASS_CHAIN_IOS"
+    "iOS": {
+      "locatorValue": "label == \"Sleep better\"",
+      "locatorType": "PREDICATE_STRING"
     }
   }
 }

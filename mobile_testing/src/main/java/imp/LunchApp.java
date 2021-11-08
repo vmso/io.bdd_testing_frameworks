@@ -12,12 +12,11 @@ import org.apache.logging.log4j.Logger;
 public class LunchApp {
     Logger log = LogManager.getLogger(LunchApp.class);
 
-    @Step("Get <jsonKey> capabilities from resource with JSON <json file> file and lunch <platform> platform")
-    @And("Get {string} capabilities from resource with JSON {string} file and lunch {string} platform")
-    public void lunchApp(String jsonKey, String jsonFile, String platformName) throws UndefinedAppType, FileNotFound {
-        System.setProperty("Platform", platformName);
+    @Step("Get <jsonKey> capabilities from resource with JSON <json file> file and lunch app")
+    @And("Get {string} capabilities from resource with JSON {string} file and lunch app")
+    public void lunchApp(String jsonKey, String jsonFile) throws UndefinedAppType, FileNotFound {
         var app = new TestBase();
         app.lunchLocalDriver(jsonFile, jsonKey);
-        log.info("appium lunched with capabilities {} on {}", jsonFile, platformName);
+        log.info("appium lunched with capabilities {}", jsonFile);
     }
 }

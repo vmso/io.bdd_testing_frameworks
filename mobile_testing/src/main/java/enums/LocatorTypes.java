@@ -9,8 +9,5 @@ public enum LocatorTypes {
     ANDROID_UI_AUTOMATOR,
     LINK_TEXT,
     PREDICATE_STRING,
-    CLASS_CHAIN_IOS,
-
-
-
+    CLASS_CHAIN_IOS
 }
