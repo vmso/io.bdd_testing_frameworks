@@ -23,5 +23,6 @@ public class AppRemoveImp extends AppRemoveHelper {
     public void checkIfExistsRemoveAndInstall(String appName,String filePAth) {
         checkIsAppInstalledAndRemove(appName);
         installApp(filePAth);
+        launchApp();
     }
 }

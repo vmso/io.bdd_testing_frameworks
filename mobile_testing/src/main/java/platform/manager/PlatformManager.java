@@ -1,8 +1,11 @@
 package platform.manager;
 
+import com.jayway.jsonpath.PathNotFoundException;
 import exceptions.FileNotFound;
 import io.appium.java_client.MobileElement;
 import json.JsonReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchSessionException;
 import platforms.Android;
 import platforms.IOS;
@@ -17,7 +20,7 @@ import enums.AppType;
 public class PlatformManager {
     private static PlatformManager instance;
     private AppiumDriver<MobileElement> driver;
-
+    private Logger log = LogManager.getLogger(PlatformManager.class);
     private AppType platform;
 
     private PlatformManager() {
@@ -34,8 +37,19 @@ public class PlatformManager {
     public void createLocalMobileDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
         var capabilitiesJsonKey = String.format("%s.capabilities", capabilitiesName);
         var platformJsonKey = String.format("%s.platform", capabilitiesName);
-        String platform = new JsonReader().getPlatform(capabilitiesFile, platformJsonKey);
-        AppType appType = AppType.valueOf(platform.toUpperCase(Locale.ENGLISH));
+        String platform;
+        AppType appType = null;
+        try {
+            platform = new JsonReader().getPlatform(capabilitiesFile, platformJsonKey);
+            appType = AppType.valueOf(platform.toUpperCase(Locale.ENGLISH));
+        } catch (PathNotFoundException e) {
+            log.fatal("""
+                    capabilities or platform couldn't find in "{}" device json
+                    json key of the capabilities is {}
+                    json key of the platform is {}
+                    """, capabilitiesFile, capabilitiesJsonKey, platformJsonKey);
+        }
+
         setPlatform(appType);
         MobileSystemSelectable mobileSystemSelectable;
         switch (appType) {
@@ -56,8 +70,8 @@ public class PlatformManager {
     public void quitDriver() {
         try {
             if (PlatformManager.getInstances().getDriver() != null) {
-                PlatformManager.getInstances().getDriver().closeApp();
-                PlatformManager.getInstances().getDriver().quit();
+                driver.closeApp();
+                driver.quit();
             }
         } catch (NoSuchSessionException e) {
             e.printStackTrace();

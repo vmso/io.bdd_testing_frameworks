@@ -29,5 +29,15 @@
       "locatorValue": "label == \"Sleep better\"",
       "locatorType": "PREDICATE_STRING"
     }
+  },
+  "allow": {
+    "Android": {
+      "locatorType": "ACCESSIBILITY_ID",
+      "locatorValue": "ALLOW"
+    },
+    "iOS": {
+      "locatorValue": "ALLOW",
+      "locatorType": "ACCESSIBILITY_ID"
+    }
   }
 }

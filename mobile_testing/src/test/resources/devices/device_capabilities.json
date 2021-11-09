@@ -1,28 +1,62 @@
 {
-  "iPhone_13": {
+  "iPhone_13_installed": {
     "platform": "ios",
     "capabilities": {
-      "deviceName": "iPhone",
+      "appium:deviceName": "iPhone",
       "platformName": "iOS",
-      "platformVersion": "15",
-      "automationName": "XCUiTest",
-      "udid": "2F9000F1-F41A-4235-AE95-8E4A075E4D7D",
-      "noReset": "true",
-      "autoAcceptAlerts": "true",
-      "rotatable": "true",
-      "app": "/Users/testinium/Desktop/apps/Meditopia.app",
-      "autoGrantPermissions": "true"
+      "appium:platformVersion": "15",
+      "appium:automationName": "XCUiTest",
+      "appium:udid": "2F9000F1-F41A-4235-AE95-8E4A075E4D7D",
+      "appium:noReset": "false",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:bundleId": "com.yedi70.meditasyon"
     }
   },
-  "Pixel_2": {
+  "iPhone_13_toInstall": {
+    "platform": "ios",
+    "capabilities": {
+      "appium:deviceName": "iPhone",
+      "platformName": "iOS",
+      "appium:platformVersion": "15",
+      "appium:automationName": "XCUiTest",
+      "appium:udid": "2F9000F1-F41A-4235-AE95-8E4A075E4D7D",
+      "appium:noReset": "false",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:app":"/Users/testinium/Desktop/apps/meditopia.app"
+    }
+  },
+  "Pixel_2_installed": {
     "platform": "Android",
     "capabilities": {
       "deviceName": "emulator-5554",
       "platformName": "android",
       "platformVersion": "11",
-      "autoAcceptAlerts -> true": "true",
+      "autoAcceptAlerts": "true",
       "rotatable": "true",
-      "app": "/Users/testinium/Desktop/apps/meditasyon_3.17.0.apk"
+      "appPackage": "app.meditasyon",
+      "appActivity": ".ui.splash.view.SplashActivity",
+      "disableAndroidWatchers": "true",
+      "autoGrantPermissions": "true"
+    }
+  },
+  "Pixel_2_toInstall": {
+    "platform": "Android",
+    "capabilities": {
+      "deviceName": "emulator-5554",
+      "platformName": "android",
+      "platformVersion": "11",
+      "autoAcceptAlerts": "true",
+      "rotatable": "true",
+      "app": "/Users/testinium/Desktop/apps/meditasyon_3.17.0.apk",
+      "disableAndroidWatchers": "true",
+      "autoGrantPermissions": "true"
+
     }
   }
 }
