@@ -14,6 +14,7 @@ import exceptions.UndefinedAppType;
 import io.appium.java_client.AppiumDriver;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import enums.AppType;
 
@@ -52,7 +53,7 @@ public class PlatformManager {
 
         setPlatform(appType);
         MobileSystemSelectable mobileSystemSelectable;
-        switch (appType) {
+        switch (Objects.requireNonNull(appType)) {
             case IOS -> {
                 mobileSystemSelectable = new IOS();
                 mobileSystemSelectable.setCapabilities(capabilitiesFile, capabilitiesJsonKey);
@@ -78,7 +79,7 @@ public class PlatformManager {
         }
     }
 
-    public AppiumDriver getDriver() {
+    public AppiumDriver<MobileElement> getDriver() {
         return driver;
     }
 

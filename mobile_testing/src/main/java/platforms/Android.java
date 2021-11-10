@@ -1,5 +1,6 @@
 package platforms;
 
+import configuration.Configuration;
 import exceptions.FileNotFound;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -16,11 +17,18 @@ import java.util.Map;
 public class Android implements MobileSystemSelectable {
     private final Logger log = LogManager.getLogger(Android.class);
     private DesiredCapabilities capabilities;
+    private String ip;
+
+    public Android(){
+        ip = Configuration.getInstance().getStringValueOfProp("driver_ip");
+        ip = ip == null ? "http://localhost:4723/wd/hub" : ip;
+    }
 
     @Override
     public AppiumDriver<MobileElement> getLocalDriver() {
         try {
-            return new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
+
+            return new AndroidDriver<>(new URL(ip), capabilities);
         } catch (MalformedURLException e) {
             log.fatal("Appium url hatalı");
             return null;

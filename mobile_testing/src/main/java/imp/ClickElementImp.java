@@ -32,6 +32,12 @@ public class ClickElementImp extends ClickHelper {
         clickIfExists(element);
     }
 
+    @Step("Wait for <second> and click the <element> element if exists")
+    @And("Wait for <int> and click the <string> element if exists")
+    public void clickElementIfExistsStepWithTimeOut(int timeout, String element) throws FileNotFound {
+        clickIfExists(element, timeout);
+    }
+
     @Step("Wait for the presence of it for <seconds> seconds and click the <element> element if exists")
     @And("Wait for the presence of it for {int} seconds and click the {int} element if exists")
     public void clickElementIfExistsStep(int timeout, String element) throws FileNotFound {
