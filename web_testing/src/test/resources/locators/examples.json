@@ -35,7 +35,21 @@
       }
     }
   },
-  "login_btn_near_2": {
+  "login_btn_near_without_distance": {
+    "isRelative": true,
+    "relativeType": "NEAR",
+    "locators": {
+      "firstLocator": {
+        "locatorType": "CSS_SELECTOR",
+        "locatorValue": "#id"
+      },
+      "secondLocator": {
+        "locatorType": "ID",
+        "locatorValue": "id"
+      }
+    }
+  },
+  "login_btn_below": {
     "isRelative": true,
     "relativeType": "BELOW",
     "locators": {
@@ -51,6 +65,9 @@
   },
   "normal_Locator": {
     "locatorType": "ID",
+    "locatorValue": "id"
+  },
+  "normal_Locator_with_out_locator_Type": {
     "locatorValue": "id"
   }
 }

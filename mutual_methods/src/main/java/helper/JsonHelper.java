@@ -93,6 +93,10 @@ public class JsonHelper {
         return read(json, jsonKey);
     }
 
+    public Map<String, String> getJsonValueAsMapString(String json, String jsonKey) {
+        return read(json, jsonKey);
+    }
+
     public String getJsonValueAsString(String json, String jsonKey) {
         return read(json, jsonKey);
     }
