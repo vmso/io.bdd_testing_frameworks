@@ -39,5 +39,15 @@
       "locatorValue": "ALLOW",
       "locatorType": "ACCESSIBILITY_ID"
     }
+  },
+  "ok": {
+    "Android": {
+      "locatorType": "ACCESSIBILITY_ID",
+      "locatorValue": "ALLOW"
+    },
+    "iOS": {
+      "locatorValue": "OK",
+      "locatorType": "ACCESSIBILITY_ID"
+    }
   }
 }

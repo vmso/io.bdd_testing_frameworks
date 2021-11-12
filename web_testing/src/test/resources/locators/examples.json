@@ -1,0 +1,73 @@
+{
+  "locatorExamples": {
+    "byLocators": [
+      "ID",
+      "CSS_SELECTOR",
+      "XPATH",
+      "NAME",
+      "CLASS_NAME",
+      "LINK_TEXT",
+      "PARTIAL_LINK_TEXT",
+      "TAG_NAME",
+      "CONTAINS",
+      "TEXT_EQUALS"
+    ],
+    "relativeLocators": [
+      "ABOVE",
+      "BELOW",
+      "NEAR",
+      "RIGHT_OF",
+      "LEFT_OF"
+    ]
+  },
+  "login_btn_near": {
+    "isRelative": true,
+    "relativeType": "NEAR",
+    "atMostDistanceInPixels": 5,
+    "locators": {
+      "firstLocator": {
+        "locatorType": "CSS_SELECTOR",
+        "locatorValue": "#id"
+      },
+      "secondLocator": {
+        "locatorType": "ID",
+        "locatorValue": "id"
+      }
+    }
+  },
+  "login_btn_near_without_distance": {
+    "isRelative": true,
+    "relativeType": "NEAR",
+    "locators": {
+      "firstLocator": {
+        "locatorType": "CSS_SELECTOR",
+        "locatorValue": "#id"
+      },
+      "secondLocator": {
+        "locatorType": "ID",
+        "locatorValue": "id"
+      }
+    }
+  },
+  "login_btn_below": {
+    "isRelative": true,
+    "relativeType": "BELOW",
+    "locators": {
+      "firstLocator": {
+        "locatorType": "CSS_SELECTOR",
+        "locatorValue": "#id"
+      },
+      "secondLocator": {
+        "locatorType": "ID",
+        "locatorValue": "id"
+      }
+    }
+  },
+  "normal_Locator": {
+    "locatorType": "ID",
+    "locatorValue": "id"
+  },
+  "normal_Locator_with_out_locator_Type": {
+    "locatorValue": "id"
+  }
+}
