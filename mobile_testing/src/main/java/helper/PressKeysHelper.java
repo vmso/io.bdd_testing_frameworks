@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-//todo need steps
+//todo need steps, OK
 public class PressKeysHelper extends GetKeyboard {
     MobileDriver driver;
 
@@ -35,7 +35,7 @@ public class PressKeysHelper extends GetKeyboard {
         }
     }
 
-    //todo write new methods for like below special buttons
+    //todo write new methods for like below special buttons, I dont Understand
     protected void pressEnter() {
         getKeyBoard().pressKey(ENTER);
     }

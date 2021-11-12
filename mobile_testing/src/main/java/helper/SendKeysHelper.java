@@ -2,7 +2,7 @@ package helper;
 
 import exceptions.FileNotFound;
 
-// todo steplerini yaz
+// todo steplerini yaz, OK
 public class SendKeysHelper extends GetElementHelper {
 
     public void sendKeys(String jsonKey, String text) throws FileNotFound {
