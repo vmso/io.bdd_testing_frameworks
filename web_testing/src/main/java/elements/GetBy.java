@@ -6,7 +6,8 @@ import enums.LocatorType;
 import enums.RelativeType;
 import exceptions.FileNotFound;
 import exceptions.KeywordNotFound;
-import json.JsonReader;
+
+import json.UIProjectJsonReader;
 import org.openqa.selenium.By;
 import utils.StoreApiInfo;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 import static enums.RelativeType.NEAR;
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public abstract class GetBy {
+public class GetBy {
 
     private String jsonKey;
 
@@ -30,7 +31,7 @@ public abstract class GetBy {
             var filePath = GetFileName.getInstance().getFileName();
             var locatorFolder = Configuration.getInstance().getStringValueOfProp("locator_folder");
             filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
-            var jsonReader = new JsonReader();
+            var jsonReader = new UIProjectJsonReader();
             var jsonMap = jsonReader.getJsonAsMapStringObject(filePath, jsonKey);
             return getBy(jsonMap);
         }

@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <slack.version>1.12.1</slack.version>
+        <slack.version>1.13.0</slack.version>
         <cucumber.version>7.0.0</cucumber.version>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <log4j.version>2.14.1</log4j.version>
@@ -30,8 +30,26 @@
         <rest-assured.version>4.3.2</rest-assured.version>
         <extend.report.version>5.0.9</extend.report.version>
         <cucumber.extentsreport.version>3.1.1</cucumber.extentsreport.version>
+        <mockito.version>4.0.0</mockito.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.12.1</version>
+        </dependency>
         <dependency>
             <groupId>com.slack.api</groupId>
             <artifactId>slack-api-client</artifactId>

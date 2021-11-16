@@ -1,6 +1,8 @@
 package helper;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
@@ -11,10 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.openqa.selenium.Keys.ENTER;
+import static org.openqa.selenium.Keys.SHIFT;
 
 //todo need steps, OK
 public class PressKeysHelper extends GetKeyboard {
-    MobileDriver driver;
+    AppiumDriver<MobileElement> driver;
 
     protected PressKeysHelper() {
         driver = PlatformManager.getInstances().getDriver();
@@ -25,7 +28,7 @@ public class PressKeysHelper extends GetKeyboard {
             List.of(key.toCharArray()).forEach(k ->
             {
                 AndroidKey androidKey = AndroidKey.valueOf(String.valueOf(k));
-                ((AndroidDriver) driver).pressKey(new KeyEvent(androidKey));
+                ((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(androidKey));
             });
         } else {
             JavascriptHelper execute = new JavascriptHelper();
@@ -38,6 +41,10 @@ public class PressKeysHelper extends GetKeyboard {
     //todo write new methods for like below special buttons, I dont Understand
     protected void pressEnter() {
         getKeyBoard().pressKey(ENTER);
+    }
+    //todo like below.
+    protected void pressShift() {
+        getKeyBoard().pressKey(SHIFT);
     }
 
 }

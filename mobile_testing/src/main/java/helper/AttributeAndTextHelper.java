@@ -19,4 +19,8 @@ public class AttributeAndTextHelper extends GetElementHelper {
     public String getLocation(String jsonKey, String attribute) throws FileNotFound {
         return getElementWithWait(jsonKey).getLocation().toString();
     }
+
+    public Integer getElementSize(String jsonKey) {
+        return getElementsWithWait(jsonKey).size();
+    }
 }

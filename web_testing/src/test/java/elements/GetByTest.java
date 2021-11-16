@@ -1,47 +1,56 @@
 package elements;
 
 import base.GetFileName;
-import exceptions.KeywordNotFound;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import json.UIProjectJsonReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.locators.RelativeLocator;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 
-class GetByTest extends GetBy {
+import java.util.HashMap;
 
+import static org.mockito.Mockito.*;
 
-    @BeforeAll
-    public static void setFile() {
+class GetByTest {
+    private UIProjectJsonReader mockedJsonReader;
+    private GetBy getByMocked;
+    private Logger log;
+
+    @BeforeEach
+    public void init() {
         GetFileName.getInstance().setFileName("examples");
+        mockedJsonReader = Mockito.mock(UIProjectJsonReader.class);
+        getByMocked = Mockito.mock(GetBy.class);
+        when(getByMocked.getByValue(anyString())).thenCallRealMethod();
     }
 
     @Test
     void relativeNearTest() {
-        var by = getByValue("login_btn_near");
-        Assertions.assertEquals(RelativeLocator.RelativeBy.class.getSimpleName(), by.getClass().getSimpleName());
+        var relativeLocator = new HashMap<String, Object>() {{
+            put("test_btn", new HashMap<String, Object>() {{
+                put("isRelative", true);
+                put("relativeType", "NEAR");
+                put("atMostDistanceInPixels", 7);
+                put("locators", new HashMap<String, Object>() {{
+                    put("firstLocator", new HashMap<String, String>() {{
+                        put("locatorType", "CSS_SELECTOR");
+                        put("locatorValue", "#id");
+                    }});
+                    put("secondLocator", new HashMap<String, String>() {{
+                        put("locatorType", "ID");
+                        put("locatorValue", "id");
+                    }});
+                }});
+            }});
+        }};
+
+        when(mockedJsonReader.getJsonAsMapStringObject(anyString(), anyString())).thenReturn(relativeLocator);
+
+        var added = getByMocked.getByValue("test_btn");
     }
 
-    @Test
-    void relativeNearWithoutDistanceTest() {
-        var by = getByValue("login_btn_near_without_distance");
-        Assertions.assertEquals(RelativeLocator.RelativeBy.class.getSimpleName(), by.getClass().getSimpleName());
-    }
 
-    @Test
-    void relativeBelowTest() {
-        var by = getByValue("login_btn_below");
-        Assertions.assertEquals(RelativeLocator.RelativeBy.class.getSimpleName(), by.getClass().getSimpleName());
-    }
-
-    @Test
-    void relativeBy() {
-        var by = getByValue("normal_Locator");
-        Assertions.assertEquals(By.ById.class.getSimpleName(), by.getClass().getSimpleName());
-    }
-
-    @Test
-    void relativeByWithOutLocatorType() {
-        Assertions.assertThrows(KeywordNotFound.class, () -> getByValue("normal_Locator_with_out_locator_Type"));
-    }
 }

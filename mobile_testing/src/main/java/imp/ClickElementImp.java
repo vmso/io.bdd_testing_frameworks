@@ -11,42 +11,27 @@ public class ClickElementImp extends ClickHelper {
 
     @Step("Click the <element> element")
     @And("Click the {string} element")
-    public void clickElementStep(String element) throws FileNotFound {
+    public void clickElementStep(String element) {
         clickElement(element);
-    }
-
-    @Step("Wait for the presence of it for <second> seconds and click <elm> element")
-    @And("Wait for the presence of it for {int} seconds and click {string} element")
-    public void clickElementStep(int timeout, String element) throws FileNotFound {
-        clickElement(element, timeout);
-        try {
-            Gauge.captureScreenshot();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
     }
 
     @Step("Click the <element> element if exists")
     @And("Click the {string} element if exists")
-    public void clickElementIfExistsStep(String element) throws FileNotFound {
+    public void clickElementIfExistsStep(String element) {
         clickIfExists(element);
     }
 
-    @Step("Wait for <second> and click the <element> element if exists")
-    @And("Wait for <int> and click the <string> element if exists")
-    public void clickElementIfExistsStepWithTimeOut(int timeout, String element) throws FileNotFound {
+    @Step("Wait for <second> and then click the <element> element if exists")
+    @And("Wait for <int> and then click the <string> element if exists")
+    public void clickElementIfExistsStepWithTimeout(int timeout, String element) {
         clickIfExists(element, timeout);
     }
 
-    @Step("Wait for the presence of it for <seconds> seconds and click the <element> element if exists")
-    @And("Wait for the presence of it for {int} seconds and click the {int} element if exists")
-    public void clickElementIfExistsStep(int timeout, String element) throws FileNotFound {
-        clickIfExists(element, timeout);
-        try {
-            Gauge.captureScreenshot();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+
+    @Step("Wait for the presence of it for <second> seconds and click <elm> element")
+    @And("Wait for the presence of it for {int} seconds and click {string} element")
+    public void clickElementStep(int timeout, String element) {
+        clickElement(element, timeout);
     }
 
     @Step("Click <x> width and <height> height point")

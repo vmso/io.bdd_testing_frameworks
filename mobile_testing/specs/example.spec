@@ -13,8 +13,7 @@
 
 ## click sleep better
 * Get <installed_device> capabilities from resource with JSON "devices/device_capabilities" file and lunch app
-* Wait for "5" and click the "ok" element if exists
-* Wait for "5" and click the "allow" element if exists
+* Click the "ok" element if exists
 * Click the "close_login_button" element
 * Click the "sleep_better" element
 

@@ -6,7 +6,7 @@ public enum Browsers {
     OPERA("opera"),
     SAFARI("safari"),
     EDGE("edge");
-    private String browser;
+    private final String browser;
 
     Browsers(String browser) {
         this.browser = browser;

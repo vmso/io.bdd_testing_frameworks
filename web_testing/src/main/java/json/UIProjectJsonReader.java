@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.Objects;
 
-public class JsonReader {
-    private final Logger log = LogManager.getLogger(JsonReader.class);
+public class UIProjectJsonReader {
+    private final Logger log = LogManager.getLogger(UIProjectJsonReader.class);
 
     public Map<String, Object> getJsonAsMapStringObject(String filePath, String jsonKey) throws FileNotFound {
 
