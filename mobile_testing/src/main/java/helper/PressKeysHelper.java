@@ -47,4 +47,8 @@ public class PressKeysHelper extends GetKeyboard {
         getKeyBoard().pressKey(SHIFT);
     }
 
+    protected void pressBack(){
+        presKeys("BACK");
+    }
+
 }

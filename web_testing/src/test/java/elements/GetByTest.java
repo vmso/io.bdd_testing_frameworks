@@ -2,22 +2,23 @@ package elements;
 
 import base.GetFileName;
 import json.UIProjectJsonReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 
-import static org.mockito.Mockito.*;
-
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.when;
+@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 class GetByTest {
     private UIProjectJsonReader mockedJsonReader;
     private GetBy getByMocked;
-    private Logger log;
 
     @BeforeEach
     public void init() {

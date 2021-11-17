@@ -49,5 +49,72 @@
       "locatorValue": "OK",
       "locatorType": "ACCESSIBILITY_ID"
     }
+  },
+  "views": {
+    "Android": {
+      "locatorValue": "//android.widget.TextView[@content-desc=\"Views\"]",
+      "locatorType": "XPATH"
+    }
+  },
+  "tabs": {
+    "Android": {
+      "locatorValue": "//android.widget.TextView[@content-desc=\"Tabs\"]",
+      "locatorType": "XPATH"
+    }
+  },
+  "scrollables": {
+    "Android": {
+      "locatorValue": "//android.widget.TextView[@content-desc=\"5. Scrollable\"]",
+      "locatorType": "XPATH"
+    }
+  },
+  "tab3": {
+    "Android": {
+      "locatorValue": "//*[@text='TAB 3']",
+      "locatorType": "XPATH"
+    }
+  },
+  "tab11": {
+    "Android": {
+      "locatorValue": "//*[@text='TAB 11']",
+      "locatorType": "XPATH"
+    }
+  },
+  "app": {
+    "Android": {
+      "locatorValue": "//android.widget.TextView[@content-desc=\"App\"]",
+      "locatorType": "XPATH"
+    }
+  },
+  "custom": {
+    "Android": {
+      "locatorValue" : "//android.widget.TextView[@content-desc=\"Custom\"]",
+      "locatorType": "XPATH"
+    }
+  },
+  "id_clock": {
+    "Android": {
+      "locatorValue": "com.google.android.apps.nexuslauncher:id/clock",
+      "locatorType": "ID"
+    }
+  },
+  "id_image": {
+    "Android": {
+      "locatorValue": "com.google.android.calendar:id/image",
+      "locatorType": "ID"
+    }
+  },
+  "id_calendar_btn": {
+    "Android": {
+      "locatorValue": "com.google.android.calendar:id/done_button",
+      "locatorType": "ID"
+    }
+  },
+  "tab_content": {
+    "Android": {
+      "locatorType": "XPATH",
+      "locatorValue": "/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.TabHost/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView"
+    }
   }
+
 }

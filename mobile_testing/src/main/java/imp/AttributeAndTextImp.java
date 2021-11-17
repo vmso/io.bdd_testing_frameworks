@@ -16,6 +16,6 @@ public class AttributeAndTextImp extends AttributeAndTextHelper {
     public void getTextAndStoreScenarioStore(String jsonKey, String storeKey) throws FileNotFound {
         var text = getElmText(jsonKey);
         ScenarioDataStore.put(jsonKey, text);
-        log.info("{} text got and and stored during scenario {}={}", jsonKey, storeKey, text);
+        log.info("\"{}\" text got and and stored during scenario \"{}\"=\"{}\"", jsonKey, storeKey, text);
     }
 }

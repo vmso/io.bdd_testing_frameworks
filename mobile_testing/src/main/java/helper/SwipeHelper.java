@@ -19,21 +19,21 @@ public class SwipeHelper extends GetElementHelper {
 
     private final Logger log = LogManager.getLogger(SwipeHelper.class);
 
-    protected void swipeRight(String jsonKey) throws FileNotFound {
+    protected void swipeRight(String jsonKey) {
         var elm = getElementWithWait(jsonKey);
         int width = elm.getLocation().x;
         int height = elm.getLocation().y;
         swipeByPoint(RIGHT, width, height);
     }
 
-    protected void swipeLeft(String jsonKey) throws FileNotFound {
+    protected void swipeLeft(String jsonKey) {
         var elm = getElementWithWait(jsonKey);
         int width = elm.getLocation().x;
         int height = elm.getLocation().y;
         swipeByPoint(LEFT, width, height);
     }
 
-    protected void swipeUp(String jsonKey) throws FileNotFound {
+    protected void swipeUp(String jsonKey) {
         var elm = getElementWithWait(jsonKey);
         int width = elm.getLocation().x;
         int height = elm.getLocation().y;
@@ -49,23 +49,39 @@ public class SwipeHelper extends GetElementHelper {
         log.info("Touched on the {} element and swipe down", jsonKey);
     }
 
-    protected void swipeRightFromSourceToTarget(String sourceElmKey, String targetElmKey) throws FileNotFound {
-        swipe(RIGHT, sourceElmKey, targetElmKey);
+    protected void swipeRightFromSourceToTarget(String sourceElmKey, String targetElmKey) {
+        swipe(RIGHT, sourceElmKey, targetElmKey, 15);
     }
 
-    protected void swipeLeftFromSourceToTarget(String sourceElmKey, String targetElmKey) throws FileNotFound {
-        swipe(LEFT, sourceElmKey, targetElmKey);
+    protected void swipeRightFromSourceToTarget(String sourceElmKey, String targetElmKey, int tryCount) {
+        swipe(RIGHT, sourceElmKey, targetElmKey, tryCount);
     }
 
-    protected void swipeUpFromSourceToTarget(String sourceElmKey, String targetElmKey) throws FileNotFound {
-        swipe(UP, sourceElmKey, targetElmKey);
+    protected void swipeLeftFromSourceToTarget(String sourceElmKey, String targetElmKey) {
+        swipe(LEFT, sourceElmKey, targetElmKey, 15);
     }
 
-    protected void swipeDownFromSourceToTarget(String sourceElmKey, String targetElmKey) throws FileNotFound {
-        swipe(DOWN, sourceElmKey, targetElmKey);
+    protected void swipeLeftFromSourceToTarget(String sourceElmKey, String targetElmKey, int tryCount) {
+        swipe(LEFT, sourceElmKey, targetElmKey, tryCount);
     }
 
-    private void swipe(Directions directions, String sourceElmKey, String targetElmKey) throws FileNotFound {
+    protected void swipeUpFromSourceToTarget(String sourceElmKey, String targetElmKey) {
+        swipe(UP, sourceElmKey, targetElmKey, 15);
+    }
+
+    protected void swipeUpFromSourceToTarget(String sourceElmKey, String targetElmKey, int tryCount) {
+        swipe(UP, sourceElmKey, targetElmKey, tryCount);
+    }
+
+    protected void swipeDownFromSourceToTarget(String sourceElmKey, String targetElmKey) {
+        swipe(DOWN, sourceElmKey, targetElmKey, 15);
+    }
+
+    protected void swipeDownFromSourceToTarget(String sourceElmKey, String targetElmKey, int tryCount) {
+        swipe(DOWN, sourceElmKey, targetElmKey, tryCount);
+    }
+
+    private void swipe(Directions directions, String sourceElmKey, String targetElmKey, int tryCount) {
         if (getElementsWithoutWait(targetElmKey).size() == 1) {
             swipeUntilBetweenTwoElements(sourceElmKey, targetElmKey);
         }
@@ -74,54 +90,49 @@ public class SwipeHelper extends GetElementHelper {
         int height = element.getLocation().y;
         int i = 0;
         boolean isDisplayed;
-        boolean isEnabled;
-        boolean isPresent;
         do {
             swipeByPoint(directions, width, height);
             i++;
-            if (i == 10) {
+            if (i == tryCount) {
                 throw new NoSuchElementException(getByValue(targetElmKey).toString());
             }
             try {
-                isPresent = getElementsWithoutWait(targetElmKey).size() == 0;
                 isDisplayed = getElementWithoutWait(targetElmKey).isDisplayed();
-                isEnabled = getElementWithoutWait(targetElmKey).isEnabled();
             } catch (Exception e) {
                 isDisplayed = false;
-                isEnabled = false;
-                isPresent = true;
             }
-        } while (isPresent || !isDisplayed || !isEnabled);
+        } while (!isDisplayed);
     }
 
 
     private void swipeByPoint(Directions direction, int width, int height) {
-        log.info("swipeScreen(): dir: '{}'", direction);
+        log.info("swipeScreen to '{}'", direction);
         final int PRESS_TIME = 300;
         Point pointStart, pointEnd;
         PointOption pointOptionStart, pointOptionEnd;
         var driver = PlatformManager.getInstances().getDriver();
+        var size = driver.manage().window().getSize();
         int endX, endY;
         switch (direction) {
-            case DOWN -> { // center of footer
-                endY = driver.manage().window().getSize().height;
+            case UP -> {
+                endY = (int) (size.height * 0.10);
                 pointEnd = new Point(width, endY);
                 pointStart = new Point(width, height);
             }
-            case UP -> {
-                endY = driver.manage().window().getSize().height;
+            case DOWN -> {
+                endY = size.height;
                 pointStart = new Point(width, height);
                 pointEnd = new Point(width, endY);
+            }
+            case LEFT -> {
+                endX = (int) (size.width * 0.10);
+                pointStart = new Point(width, height);
+                pointEnd = new Point(endX, height);
             }
             case RIGHT -> {
                 endX = driver.manage().window().getSize().width;
-                pointEnd = new Point(endX, height);
                 pointStart = new Point(width, height);
-            }
-            case LEFT -> {
-                endX = driver.manage().window().getSize().width;
-                pointStart = new Point(endX, height);
-                pointEnd = new Point(width, height);
+                pointEnd = new Point(endX, height);
             }
             default -> throw new IllegalArgumentException("swipeScreen(): dir: '" + direction + "' NOT supported");
         }

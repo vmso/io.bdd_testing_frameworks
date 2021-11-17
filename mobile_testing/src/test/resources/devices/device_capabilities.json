@@ -58,5 +58,18 @@
       "autoGrantPermissions": "true"
 
     }
+  },
+  "Pixel_2_installed_ApiDemos": {
+    "platform": "Android",
+    "capabilities": {
+      "deviceName": "emulator-5554",
+      "platformName": "android",
+      "platformVersion": "11",
+      "autoAcceptAlerts": "true",
+      "rotatable": "true",
+      "app": "/Users/testinium/Desktop/apps/ApiDemos-debug.apk",
+      "disableAndroidWatchers": "true",
+      "autoGrantPermissions": "true"
+    }
   }
 }
