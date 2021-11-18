@@ -115,6 +115,20 @@
       "locatorType": "XPATH",
       "locatorValue": "/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.TabHost/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView"
     }
+  },
+
+  "continue_with_mail": {
+    "iOS":{
+      "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther",
+      "locatorType": "XPATH"
+    }
+  },
+
+  "mail": {
+    "iOS": {
+      "locatorValue": "value == 'Name'",
+      "locatorType": "PREDICATE_STRING"
+    }
   }
 
 }
