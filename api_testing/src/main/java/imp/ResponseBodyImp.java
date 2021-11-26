@@ -98,4 +98,25 @@ public class ResponseBodyImp extends ResponseBodyHelper {
         assertNull(value2, selector + " is not null");
     }
 
+    @Then("Get {string} from the body then convert it to list and store it with {string} during the scenario")
+    @Step("Get <selector> from the body then convert it as list and store it with <key> during the scenario")
+    public void convertToString(String jsonKey, String key) {
+        var list = getListFromResponse(jsonKey);
+        ScenarioDataStore.put(key, list);
+    }
+
+    @Step("Get <selector> from the body then convert it to list and store it with <key> during the suit")
+    @Then("Get <string> from the body then convert it to list and store it with <key> during the suit")
+    public void convertToStringStoreSuit(String jsonKey, String key) {
+        var list = getListFromResponse(jsonKey);
+        ScenarioDataStore.put(key, list);
+    }
+
+    @Step("Get <selector> from the body then convert it to list and store it with <key> during the spec")
+    @Then("Get <string> from the body then convert it to list and store it with <key> during the spec")
+    public void convertToStringStoreSpec(String jsonKey, String key) {
+        var list = getListFromResponse(jsonKey);
+        ScenarioDataStore.put(key, list);
+    }
+
 }

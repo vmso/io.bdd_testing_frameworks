@@ -23,6 +23,7 @@ public class PlatformManager {
     private AppiumDriver<MobileElement> driver;
     private Logger log = LogManager.getLogger(PlatformManager.class);
     private AppType platform;
+    private MobileSystemSelectable mobileSystemSelectable;
 
     private PlatformManager() {
 
@@ -52,7 +53,6 @@ public class PlatformManager {
         }
 
         setPlatform(appType);
-        MobileSystemSelectable mobileSystemSelectable;
         switch (Objects.requireNonNull(appType)) {
             case IOS -> {
                 mobileSystemSelectable = new IOS();
@@ -70,9 +70,11 @@ public class PlatformManager {
 
     public void quitDriver() {
         try {
-            if (PlatformManager.getInstances().getDriver() != null) {
+            if (PlatformManager.getInstances().getDriver() != null
+                    && PlatformManager.getInstances().getDriver().getSessionId() != null) {
                 driver.closeApp();
                 driver.quit();
+                mobileSystemSelectable.stopTheServices();
             }
         } catch (NoSuchSessionException e) {
             e.printStackTrace();

@@ -28,7 +28,7 @@
       "appium:rotatable": "true",
       "appium:shouldTerminateApp": "true",
       "appium:autoGrantPermissions": "true",
-      "appium:app":"/Users/testinium/Desktop/apps/meditopia.app"
+      "appium:app": "/Users/testinium/Desktop/apps/meditopia.app"
     }
   },
   "Pixel_2_installed": {
@@ -56,7 +56,6 @@
       "app": "/Users/testinium/Desktop/apps/meditasyon_3.17.0.apk",
       "disableAndroidWatchers": "true",
       "autoGrantPermissions": "true"
-
     }
   },
   "Pixel_2_installed_ApiDemos": {

@@ -7,8 +7,8 @@ import io.cucumber.java.en_scouse.An;
 
 public class PressKeyImp extends PressKeysHelper {
 
-    @Step("This <key> is pressed.")
-    @An("This {string} is pressed.")
+    @Step("Press <key>")
+    @An("Press {string}")
     public void pressKeyImp(String key) {
         presKeys(key);
     }

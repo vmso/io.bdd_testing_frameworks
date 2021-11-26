@@ -3,6 +3,7 @@ package base;
 import com.thoughtworks.gauge.BeforeSpec;
 import com.thoughtworks.gauge.ExecutionContext;
 import com.thoughtworks.gauge.Gauge;
+import enums.AppType;
 import exceptions.FileNotFound;
 import com.thoughtworks.gauge.AfterStep;
 import io.cucumber.java.Before;
@@ -11,10 +12,15 @@ import platform.manager.PlatformManager;
 import com.thoughtworks.gauge.AfterScenario;
 import exceptions.UndefinedAppType;
 import io.cucumber.java.After;
+import platforms.MobileSystemSelectable;
 
 
 public class TestBase {
+    private AppType platformType;
 
+    public TestBase(){
+        platformType = PlatformManager.getInstances().getPlatform();
+    }
     public void lunchLocalDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
         capabilitiesFile = capabilitiesFile.endsWith(".json") ? capabilitiesFile : capabilitiesFile + ".json";
         PlatformManager.getInstances().createLocalMobileDriver(capabilitiesFile, capabilitiesName);

@@ -32,8 +32,14 @@ Feature:
     And Swipe right from  the "tab11" until reach the "tab3"
     And Get "tab_content" element text and store it Scenario Store with "content" key
 
-  Scenario: try sendkeys
-    Given Get "iPhone_13_installed" capabilities from resource with JSON "devices/device_capabilities" file and lunch app
+  Scenario Outline: try sendkeys
+    Given Get <device> capabilities from resource with JSON "devices/device_capabilities" file and lunch app
+    And Click the "ok" element if exists
+    And Click the "allow" element if exists
     And Click the "continue_with_mail" element if exists
     And Click the "mail" element if exists
-    And This "serhat@ozdursun.com" is pressed.
+    And Send "serhat.ozdursun@gmail.com" text to the "mail" element
+    Examples:
+      | device                |
+      | "Pixel_2_toInstall"   |
+      | "iPhone_13_toInstall" |

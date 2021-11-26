@@ -1,7 +1,6 @@
 {
   "Language": "java",
   "Plugins": [
-    "html-report",
-    "xml_report"
+    "html-report"
   ]
 }

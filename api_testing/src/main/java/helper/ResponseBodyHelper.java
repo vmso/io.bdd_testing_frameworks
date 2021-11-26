@@ -3,6 +3,7 @@ package helper;
 import enums.RequestInfo;
 import exceptions.NullResponse;
 import exceptions.NullValue;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.path.json.JsonPath;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
@@ -10,8 +11,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.StoreApiInfo;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import static enums.DocumentType.JSON;
 import static enums.DocumentType.XML;
+import static enums.RequestInfo.RESPONSE;
 
 public class ResponseBodyHelper {
 
@@ -26,7 +31,7 @@ public class ResponseBodyHelper {
     protected String getResponseAsString() throws NullResponse {
         checkIfResponseNull();
         try {
-            Response response = (Response) StoreApiInfo.get(RequestInfo.RESPONSE.info);
+            Response response = (Response) StoreApiInfo.get(RESPONSE.info);
             return response.then().extract().asString();
         } catch (Exception e) {
             log.warn("Response could not get as String \n Exception detail:\n {}", e.getMessage());
@@ -43,7 +48,7 @@ public class ResponseBodyHelper {
     private JsonPath getResponseAsJsonPath() throws NullResponse {
         checkIfResponseNull();
         try {
-            Response response = (Response) StoreApiInfo.get(RequestInfo.RESPONSE.info);
+            Response response = (Response) StoreApiInfo.get(RESPONSE.info);
             return response.then().extract().jsonPath();
         } catch (Exception e) {
             log.warn("Response could not get as JsonPath \n Exception detail:\n {}", e.getMessage());
@@ -60,7 +65,7 @@ public class ResponseBodyHelper {
     private XmlPath getResponseAsXmlPath() throws NullResponse {
         checkIfResponseNull();
         try {
-            Response response = (Response) StoreApiInfo.get(RequestInfo.RESPONSE.info);
+            Response response = (Response) StoreApiInfo.get(RESPONSE.info);
             return response.then().extract().xmlPath();
         } catch (Exception e) {
             log.warn("Response could not get as XmlPath \n Exception detail:\n {}", e.getMessage());
@@ -106,12 +111,12 @@ public class ResponseBodyHelper {
         DocumentHelper documentHelper = new DocumentHelper();
         if (documentHelper.isJsonOrXml(body) == JSON) {
             Object value = getJsonPathValue(selector);
-            if (value==null)
+            if (value == null)
                 throw new NullValue(selector);
             return getJsonPathValue(selector);
         } else if (documentHelper.isJsonOrXml(body) == XML) {
             Object value = getJsonPathValue(selector);
-            if (value==null)
+            if (value == null)
                 throw new NullValue(selector);
             return getXmlPathValue(selector);
         } else {
@@ -136,10 +141,15 @@ public class ResponseBodyHelper {
      * @throws NullResponse if response is null this exception will throw
      */
     protected void checkIfResponseNull() throws NullResponse {
-        if (StoreApiInfo.get(RequestInfo.RESPONSE.info) == null) {
+        if (StoreApiInfo.get(RESPONSE.info) == null) {
             log.error("Response yok.");
             throw new NullResponse();
         }
+    }
+
+    protected <T> List<T> getListFromResponse(String jsonkey) {
+        var response = (Response) StoreApiInfo.get(RESPONSE.info);
+        return response.getBody().jsonPath().getList(jsonkey);
     }
 
 }

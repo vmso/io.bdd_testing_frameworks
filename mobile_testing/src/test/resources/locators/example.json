@@ -88,7 +88,7 @@
   },
   "custom": {
     "Android": {
-      "locatorValue" : "//android.widget.TextView[@content-desc=\"Custom\"]",
+      "locatorValue": "//android.widget.TextView[@content-desc=\"Custom\"]",
       "locatorType": "XPATH"
     }
   },
@@ -116,19 +116,24 @@
       "locatorValue": "/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.TabHost/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView"
     }
   },
-
   "continue_with_mail": {
-    "iOS":{
+    "iOS": {
       "locatorValue": "//XCUIElementTypeApplication[@name=\"Meditopia\"]/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther",
+      "locatorType": "XPATH"
+    },
+    "Android": {
+      "locatorValue": "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.Button",
       "locatorType": "XPATH"
     }
   },
-
   "mail": {
     "iOS": {
       "locatorValue": "value == 'Name'",
       "locatorType": "PREDICATE_STRING"
+    },
+    "Android": {
+      "locatorValue": "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.FrameLayout/android.widget.EditText",
+      "locatorType": "XPATH"
     }
   }
-
 }

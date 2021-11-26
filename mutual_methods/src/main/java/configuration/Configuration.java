@@ -80,4 +80,9 @@ public class Configuration {
     public String getStringValueOfProp(String propKey) {
         return configProps.getProperty(propKey);
     }
+
+    public Integer getIntegerValueOfProp(String propKey) {
+        var portString = configProps.getProperty(propKey);
+        return portString != null ? Integer.parseInt(portString) : null;
+    }
 }

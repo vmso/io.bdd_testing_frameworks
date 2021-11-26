@@ -4,7 +4,7 @@ Created by testinium on 29.09.2021
 
 This is an executable specification file which follows markdown syntax.
 Every heading in this file denotes a scenario. Every bulleted point denotes a step.
-* Send test result as slack message with webhook
+
 pet post
 ----------------
 * Add payload as file from resource "payloads/petPost.json"
@@ -24,7 +24,8 @@ pet post
     |405    |
 * Post request
 * Check if status code is "200"
-
+* Get "tags" from the body then convert it as list and store it with "tags_list" during the scenario
+* Get "store key" list from response and then, compare list count with "4", Are they equals?
 
 pet post 2
 ----------------
@@ -47,7 +48,7 @@ pet post 2
 * Get "tags" from response and store it with "tags" during scenario
 * Get "123" and "123" from scenario store and then compare, Are they equals?
 * Get "id" from "tags" json list which one equals "name"="kuçukuçu", and store it during Scenario with "tagId"
-* Get response time as milliseconds and compare it, is it less then "5000"?
+* Get response time as milliseconds and compare it, is it less then "50000"?
 * Sleep for "120" milliSecond
 * Check if status code is "200"
 
@@ -63,5 +64,6 @@ pet post 2
 * Substring text "FirstTest" from "6" index to the end then store it in Scenario store with "key" key
 * Substring text "FirstTest" from "6" index to the end then store it in Spec store with "key" key
 * Substring text "FirstTest" from "6" index to the end then store it in Suit store with "key" key
+
 
 

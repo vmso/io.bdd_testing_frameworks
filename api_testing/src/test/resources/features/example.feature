@@ -39,7 +39,9 @@ Feature: test
     When Send get request
     Then Verify that the status code is 200
     And Get 'id' from 'tags' json list which one equals 'name'='kuçukuçu', and store it during Scenario with 'tagId2'
-    Then Get 'tagId1' and 'tagId2' from the scenario store and verify they are equal
+    Then Get "tags" from the body then convert it to list and store it with "tag_list" during the scenario
+    And Get "tag_list" list from response and then compare list count with 4, are they equals?
+
 
     Examples:
       | Pet Store Base Uel          |

@@ -25,6 +25,11 @@
             <version>0.0.1</version>
         </dependency>
         <dependency>
+            <groupId>testing_frameworks</groupId>
+            <artifactId>api_testing</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>${appium.version}</version>

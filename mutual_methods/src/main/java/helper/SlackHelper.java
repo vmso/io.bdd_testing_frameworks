@@ -45,12 +45,15 @@ public class SlackHelper {
 
     @AfterSuite
     public void sendSlackMessage() {
+        var slackMessage = Boolean.parseBoolean(
+                Configuration.getInstance().getStringValueOfProp("slack_message")
+        );
         boolean webHook = SpecDataStore.get("webHook") != null && (boolean) SpecDataStore.get("webHook");
         String slackToken = Configuration.getInstance().getSlackToken();
         String channelId = String.valueOf(SpecDataStore.get("channelId"));
-        if (webHook)
+        if (slackMessage && webHook)
             sendSlackMessageWithWebHook(Configuration.getInstance().webhook());
-        else if (channelId != null && !channelId.equals("") && !channelId.equals("null"))
+        else if (slackMessage && channelId != null && !channelId.equals("") && !channelId.equals("null"))
             sendSlackMessageWithToken(slackToken, channelId);
 
     }

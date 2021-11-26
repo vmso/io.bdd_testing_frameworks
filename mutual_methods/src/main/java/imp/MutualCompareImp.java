@@ -22,7 +22,7 @@ public class MutualCompareImp {
     @Then("Get {string} and {string} from the scenario store and verify they are equal")
     public void dataCompareEquals(String key1, String key2) throws WrongFormatException {
         Object value1 = Utils.getFromStoreData(key1);
-        Object value2 = Utils.getFromStoreData(key1);
+        Object value2 = Utils.getFromStoreData(key2);
         Utils utils = new Utils();
         value2 = utils.parsSameType(value1, value2);
         assertEquals(value1, value2, ARE_N0T_EQUALS);
