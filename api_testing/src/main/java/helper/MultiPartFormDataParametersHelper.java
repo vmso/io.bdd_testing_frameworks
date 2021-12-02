@@ -18,20 +18,22 @@ public class MultiPartFormDataParametersHelper {
 
     protected void addMultiPartFormData(String key, File file) {
         String mimeType = new FileHelper().getFileMimeType(file);
-        ApiHelper.getInstance().getRequestSpecification().multiPart(new MultiPartSpecBuilder(file)
-                .fileName(file.getName())
-                .controlName(key)
-                .mimeType(mimeType)
-                .build());
+        ApiHelper.getInstance().getRequestSpecification().multiPart(
+                new MultiPartSpecBuilder(file)
+                        .fileName(file.getName())
+                        .controlName(key)
+                        .mimeType(mimeType)
+                        .build()
+        );
         log.info(LOG_INFO, key, file.getName());
     }
 
-    protected void addMultiPartFormData(String key, String value)  {
+    protected void addMultiPartFormData(String key, String value) {
         ApiHelper.getInstance().getRequestSpecification().multiPart(key, value);
         log.info(LOG_INFO, key, value);
     }
 
-    protected void addMultiPartFormData(String key, Object object)  {
+    protected void addMultiPartFormData(String key, Object object) {
         ApiHelper.getInstance().getRequestSpecification().multiPart(key, object);
         log.info(LOG_INFO, key, object.getClass().getName());
     }

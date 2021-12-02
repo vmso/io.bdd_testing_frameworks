@@ -110,7 +110,7 @@ public class Utils {
         return map;
     }
 
-    public Object parsSameType(Object sourceObject, Object targetObject) throws WrongFormatException {
+    public Object parsSameType(Object sourceObject, Object targetObject) {
         String className = sourceObject.getClass().getSimpleName();
         ParseHelper parseHelper = new ParseHelper();
         switch (className) {

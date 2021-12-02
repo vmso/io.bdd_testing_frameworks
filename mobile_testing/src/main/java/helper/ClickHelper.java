@@ -10,17 +10,22 @@ public class ClickHelper extends GetElementHelper {
 
     private final Logger log = LogManager.getLogger(ClickHelper.class);
 
-    public void clickElement(String jsonKey) throws FileNotFound {
+    public void clickElement(String jsonKey) {
         new ClickableHelper().waitForClickable(jsonKey).click();
         log.info("{} element clicked", jsonKey);
     }
 
-    public void clickElement(String jsonKey, int timeout) throws FileNotFound {
+    public void clickElement(String jsonKey, int timeout) {
         new ClickableHelper().waitForClickable(jsonKey, timeout).click();
         log.info("{} element clicked", jsonKey);
     }
 
-    public void clickIfExists(String jsonKey) throws FileNotFound {
+    public void clickElement(String jsonKey, int timeout, int sleepTime) {
+        new ClickableHelper().waitForClickable(jsonKey, timeout, sleepTime).click();
+        log.info("{} element clicked", jsonKey);
+    }
+
+    public void clickIfExists(String jsonKey) {
         var presenceOfElm = new PresenceHelper();
         var by = getByValue(jsonKey);
         if (presenceOfElm.isPresence(by)) {
@@ -28,7 +33,7 @@ public class ClickHelper extends GetElementHelper {
         }
     }
 
-    public void clickIfExists(String jsonKey, int timeout) throws FileNotFound {
+    public void clickIfExists(String jsonKey, int timeout) {
         var presenceOfElm = new PresenceHelper();
         var by = getByValue(jsonKey);
         if (presenceOfElm.isPresence(by, timeout)) {

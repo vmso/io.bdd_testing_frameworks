@@ -16,4 +16,9 @@ public class ClickableHelper extends WaitHelper {
         By by = getByValue(jsonKey);
         return (MobileElement) getWebDriverWait().until(ExpectedConditions.elementToBeClickable(by));
     }
+
+    public MobileElement waitForClickable(String jsonKey, int timeOut, int sleepInt) throws FileNotFound {
+        By by = getByValue(jsonKey);
+        return (MobileElement) getWebDriverWait(timeOut,sleepInt).until(ExpectedConditions.elementToBeClickable(by));
+    }
 }

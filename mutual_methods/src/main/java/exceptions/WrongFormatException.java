@@ -1,6 +1,6 @@
 package exceptions;
 
-public class WrongFormatException extends Exception {
+public class WrongFormatException extends RuntimeException {
     final String message;
 
     public WrongFormatException(Object firstElmType, Object secondElmType) {

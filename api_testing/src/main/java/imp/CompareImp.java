@@ -3,7 +3,6 @@ package imp;
 import com.thoughtworks.gauge.Step;
 import exceptions.NullResponse;
 import exceptions.NullValue;
-import exceptions.WrongFormatException;
 import helper.ResponseBodyHelper;
 import io.cucumber.java.en.Then;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +25,7 @@ public class CompareImp  {
             "Get value with <selector> from response and verify it isn't equal with <value>",
             "Yanıttan <selector> ile değer alın ve <value> ile eşit olmadığını doğrulayın"})
     @Then("Get {string} from response and then compare with {}, Are they not equals?")
-    public void dataCompareNotEqualsFromResponse(String selector, Object value) throws NullResponse, WrongFormatException, NullValue {
+    public void dataCompareNotEqualsFromResponse(String selector, Object value) throws NullResponse, NullValue {
         ResponseBodyHelper responseBodyHelper = new ResponseBodyHelper();
         Object value2 = responseBodyHelper.getResponseElement(selector);
         Utils utils = new Utils();
@@ -40,7 +39,7 @@ public class CompareImp  {
             "Get value with <selector> from response and verify it is equal with <value>",
             "Yanıttan <selector> ile değer alın ve <value> ile eşit olduğunu doğrulayın"})
     @Then("Get {string} from response and then compare with {}, Are they equals?")
-    public void dataCompareEqualsFromResponse(String selector, Object value) throws NullResponse, WrongFormatException, NullValue {
+    public void dataCompareEqualsFromResponse(String selector, Object value) throws NullResponse, NullValue {
         ResponseBodyHelper responseBodyHelper = new ResponseBodyHelper();
         Object value2 = responseBodyHelper.getResponseElement(selector);
         Utils utils = new Utils();

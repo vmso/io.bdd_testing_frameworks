@@ -35,30 +35,32 @@ public class SlackHelper {
     private static Integer executed = 0;
     private static final List<String> failedScenarios = new ArrayList<>();
     private static String startDate;
+    private boolean slackMessage;
 
     private final Logger log = LogManager.getLogger(SlackHelper.class);
 
-    @BeforeSuite
+    public SlackHelper(boolean slackMessage) {
+        this.slackMessage = slackMessage;
+    }
+
     public void beforeSpec() {
         setStartDate();
     }
 
-    @AfterSuite
     public void sendSlackMessage() {
-        var slackMessage = Boolean.parseBoolean(
-                Configuration.getInstance().getStringValueOfProp("slack_message")
-        );
-        boolean webHook = SpecDataStore.get("webHook") != null && (boolean) SpecDataStore.get("webHook");
+        String webHook = Configuration.getInstance().webhook();
         String slackToken = Configuration.getInstance().getSlackToken();
         String channelId = String.valueOf(SpecDataStore.get("channelId"));
-        if (slackMessage && webHook)
+        if (slackMessage && !webHook.isBlank())
             sendSlackMessageWithWebHook(Configuration.getInstance().webhook());
         else if (slackMessage && channelId != null && !channelId.equals("") && !channelId.equals("null"))
             sendSlackMessageWithToken(slackToken, channelId);
+        else if (slackMessage) {
+            log.warn("please define webhook or slackToken parameter in project config.properties");
+        }
 
     }
 
-    @AfterScenario
     public void updateStatus(ExecutionContext context) {
         countPassFailAndExecuted(context);
     }
@@ -84,7 +86,7 @@ public class SlackHelper {
 
     }
 
-    private static synchronized void setStartDate() {
+    public static synchronized void setStartDate() {
         startDate = getDate();
     }
 

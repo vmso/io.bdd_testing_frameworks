@@ -9,8 +9,6 @@ import java.time.Duration;
 
 public class WaitHelper extends GetBy {
 
-    private long DEFAULT_WAIT = 15;
-    private long DEFAULT_SLEEP_IN_MILLIS = 500;
     private WebDriver driver;
 
     protected WaitHelper() {

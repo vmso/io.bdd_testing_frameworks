@@ -21,6 +21,8 @@ import static org.openqa.selenium.support.locators.RelativeLocator.with;
 public class GetBy {
 
     private String jsonKey;
+    protected long DEFAULT_WAIT = 15;
+    protected long DEFAULT_SLEEP_IN_MILLIS = 500;
 
     public By getByValue(String jsonKey) throws FileNotFound {
         this.jsonKey = jsonKey;

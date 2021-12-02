@@ -25,7 +25,7 @@ pet post
 * Post request
 * Check if status code is "200"
 * Get "tags" from the body then convert it as list and store it with "tags_list" during the scenario
-* Get "store key" list from response and then, compare list count with "4", Are they equals?
+* Get "tags_list" list from response and then, compare list count with "4", Are they equals?
 
 pet post 2
 ----------------

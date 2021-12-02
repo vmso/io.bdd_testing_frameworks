@@ -20,7 +20,7 @@ public class MutualCompareImp {
             "Key <key1> ve <key2>'i senaryo deposundan getir ve eşit olduklarını doğrula",
             "Get <key1> and <key2> from the scenario store and verify they are equal"})
     @Then("Get {string} and {string} from the scenario store and verify they are equal")
-    public void dataCompareEquals(String key1, String key2) throws WrongFormatException {
+    public void dataCompareEquals(String key1, String key2) {
         Object value1 = Utils.getFromStoreData(key1);
         Object value2 = Utils.getFromStoreData(key2);
         Utils utils = new Utils();
@@ -33,7 +33,7 @@ public class MutualCompareImp {
             "Key <key1> ve <key2>'i senaryo deposundan getir ve eşit olmadıklarını doğrula",
             "Get <key1> and <key2> from the secnario store and verify they aren't equal"})
     @Then("Get {string} and {string} from scenario store and then compare, Are they not equals ?")
-    public void dataCompareNotEquals(String key1, String key2) throws WrongFormatException {
+    public void dataCompareNotEquals(String key1, String key2) {
         Object value1 = Utils.getFromStoreData(key1);
         Object value2 = Utils.getFromStoreData(key2);
         Utils utils = new Utils();
@@ -45,7 +45,7 @@ public class MutualCompareImp {
             "Key <key1> ve <key2>'i spec deposundan getir ve eşit olmadıklarını doğrula",
             "Get <key1> and <key2> from the spec store and verify they aren't equal"})
     @Then("Get {string} and {string} from spec store and then compare, Are they not equals?")
-    public void dataCompareNotEqualsFromSpecStore(String key1, String key2) throws WrongFormatException {
+    public void dataCompareNotEqualsFromSpecStore(String key1, String key2) {
         Object value1 = Utils.getFromStoreData(key1);
         Object value2 = Utils.getFromStoreData(key2);
         Utils utils = new Utils();
@@ -57,7 +57,7 @@ public class MutualCompareImp {
             "Key <key1> ve <key2>'i suit deposundan getir ve eşit olmadıklarını doğrula",
             "Get <key1> and <key2> from the suit store and verify they aren't equal"})
     @Then("Get {string} and {string} from suit store and then compare, Are they not equals?")
-    public void dataCompareNotEqualsFromSuitStore(String key1, String key2) throws WrongFormatException {
+    public void dataCompareNotEqualsFromSuitStore(String key1, String key2) {
         Object value1 = Utils.getFromStoreData(key2);
         Object value2 = Utils.getFromStoreData(key2);
         Utils utils = new Utils();
@@ -79,7 +79,7 @@ public class MutualCompareImp {
             "Get <key1> from scenario store and verify it is equal with <value>",
             "Senaryo deposundan <key1> alın ve değer:<value> ile eşit olduğunu doğrulayın"})
     @Then("Get {string} from scenario store and then compare with {}, Are they equals?")
-    public void dataCompareEqualsDirectData(String key1, Object value) throws WrongFormatException {
+    public void dataCompareEqualsDirectData(String key1, Object value) {
         Object value1 = Utils.getFromStoreData(key1);
         Utils utils = new Utils();
         value = utils.parsSameType(value1, Utils.getFromStoreData(String.valueOf(value)));
@@ -90,7 +90,7 @@ public class MutualCompareImp {
             "Get <key1> from spec store and verify it is equal with <value>",
             "Spec deposundan <key1> alın ve değer:<value> ile eşit olduğunu doğrulayın"})
     @Then("Get {string} from spec store and then compare with {}, Are they equals?")
-    public void dataCompareEqualsDirectDataFromSpecStore(String key1, Object value) throws WrongFormatException {
+    public void dataCompareEqualsDirectDataFromSpecStore(String key1, Object value) {
         Object value1 = Utils.getFromStoreData(key1);
         Utils utils = new Utils();
         value = utils.parsSameType(value1, Utils.getFromStoreData(String.valueOf(value)));
@@ -101,7 +101,7 @@ public class MutualCompareImp {
             "Get <key1> from scenario store and verify it's not equals with <value>",
             "Senaryo deposundan <key1> alın ve <value> ile eşit olmadığını doğrulayın"})
     @Then("Get {string} from scenario store and then compare with {}, Are they not equals?")
-    public void dataCompareNotEqualsDirectData(String key1, Object value) throws WrongFormatException {
+    public void dataCompareNotEqualsDirectData(String key1, Object value) {
         Object value1 = Utils.getFromStoreData(key1);
         Utils utils = new Utils();
         value = utils.parsSameType(value1, Utils.getFromStoreData(String.valueOf(value)));
@@ -112,7 +112,7 @@ public class MutualCompareImp {
             "Get <key1> from spec store and verify it's not equals with <value>",
             "Spec deposundan <key1> alın ve <value> ile eşit olmadığını doğrulayın"})
     @Then("Get {string} from spec store and then compare with {}, Are they not equals?")
-    public void dataCompareNotEqualsDirectDataFromSpecStore(String key1, Object value) throws WrongFormatException {
+    public void dataCompareNotEqualsDirectDataFromSpecStore(String key1, Object value) {
         Object value1 = Utils.getFromStoreData(key1);
         Utils utils = new Utils();
         value = utils.parsSameType(value1, Utils.getFromStoreData(String.valueOf(value)));
@@ -123,7 +123,7 @@ public class MutualCompareImp {
             "Get <key1> from suit store and verify it's not equals with <value>",
             "Suit deposundan <key1> alın ve <value> ile eşit olmadığını doğrulayın"})
     @Then("Get {string} from suit store and then compare with {}, Are they not equals?")
-    public void dataCompareNotEqualsDirectDataFromSuitStore(String key1, Object value) throws WrongFormatException {
+    public void dataCompareNotEqualsDirectDataFromSuitStore(String key1, Object value) {
         Object value1 = Utils.getFromStoreData(key1);
         Utils utils = new Utils();
         value = utils.parsSameType(value1, Utils.getFromStoreData(String.valueOf(value)));

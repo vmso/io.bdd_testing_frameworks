@@ -41,7 +41,7 @@ public class PresenceHelper extends WaitHelper {
 
     public boolean isPresence(By by, int second) {
         try {
-            log.info("{} : Elementin {}: saniye süresince var olması bekleniyor", by, second);
+            log.info(" Wait presence of {} element for {} seconds", by, second);
             return waitUntilPresence(by, second) != null;
         } catch (Exception ex) {
             return false;

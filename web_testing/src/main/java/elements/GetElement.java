@@ -10,7 +10,7 @@ import java.util.List;
 public class GetElement extends GetBy {
 
 
-    protected WebElement getElement(String jsonKey) throws FileNotFound {
+    protected WebElement getElement(String jsonKey) {
         var by = getByValue(jsonKey);
         return DriverManager.getInstances().getDriver().findElement(by);
     }
@@ -19,7 +19,7 @@ public class GetElement extends GetBy {
         return DriverManager.getInstances().getDriver().findElement(by);
     }
 
-    protected List<WebElement> getElements(String jsonKey) throws FileNotFound {
+    protected List<WebElement> getElements(String jsonKey) {
         var by = getByValue(jsonKey);
         return DriverManager.getInstances().getDriver().findElements(by);
     }
