@@ -169,4 +169,8 @@ public class Utils {
         else if (SpecDataStore.get(key) != null)
             SpecDataStore.remove(key);
     }
+
+    public static String strip(String text) {
+        return text != null && !text.isBlank() ? text.strip() : "";
+    }
 }

@@ -25,6 +25,14 @@ public class ClickHelper extends GetElementHelper {
         getClickableElement(by, timeout).click();
     }
 
+    public void clickElementWithoutWait(String jsonKey) {
+        getElementsWithoutWait(jsonKey);
+    }
+
+    public void clickElementWithoutWait(By by) {
+        getElementsWithoutWait(by);
+    }
+
     public Boolean checkIfExitsClick(By by, long timeout) {
         if (new PresenceHelper().isPresence(by, timeout)) {
             clickElement(by, timeout);

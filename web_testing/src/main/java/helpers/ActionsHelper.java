@@ -3,6 +3,7 @@ package helpers;
 import driver.DriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 
 public class ActionsHelper extends GetElementHelper {
@@ -21,6 +22,12 @@ public class ActionsHelper extends GetElementHelper {
         var webElm = getClickableElement(jsonKey);
         getActions().sendKeys(webElm, value).build().perform();
         log.info("'{}' objesine '{}' değeri yazıldı.", jsonKey, value);
+    }
+
+    public void sendKeys(By by, CharSequence value) {
+        var webElm = getClickableElement(by);
+        getActions().sendKeys(webElm, value).build().perform();
+        log.info("'{}' objesine '{}' değeri yazıldı.", by, value);
     }
 
     /**

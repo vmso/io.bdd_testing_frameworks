@@ -15,7 +15,7 @@ public class BaseBrowser {
 
     public void setUp() {
         DriverManager.getInstances().createLocalDriver();
-        log.info("Browser ayağa kaldırıldı.");
+        log.info("{} launched",DriverManager.getInstances().getBrowsersType());
     }
 
     @AfterScenario

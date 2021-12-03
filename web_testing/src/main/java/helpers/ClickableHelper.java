@@ -12,7 +12,15 @@ public class ClickableHelper extends WaitHelper {
     }
 
     public WebElement elementToBeClickable(By by) {
-        return getWait().until(ExpectedConditions.elementToBeClickable(by));
+        return elementToBeClickable(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
+    }
+
+    public WebElement elementToBeClickable(By by, long timeout) {
+        return elementToBeClickable(by, timeout, DEFAULT_SLEEP_IN_MILLIS);
+    }
+
+    public WebElement elementToBeClickable(By by, long timeout, long sleepInMillis) {
+        return getWait(timeout, sleepInMillis).until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public WebElement elementToBeClickable(WebElement elm) {

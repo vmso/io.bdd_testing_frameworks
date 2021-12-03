@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
+
 import java.util.Locale;
 
 public class DriverManager {
@@ -33,6 +34,7 @@ public class DriverManager {
     public void createLocalDriver() {
         String browserName = System.getProperty("browser");
         Browsers browserType = Browsers.valueOf(browserName.toUpperCase(Locale.ROOT));
+        setBrowsersType(browserType);
         switch (browserType) {
             case OPERA -> {
                 browserSelectable = new Opera();
