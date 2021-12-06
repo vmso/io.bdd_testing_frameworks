@@ -23,6 +23,7 @@ public class GetElementHelper extends GetElement {
         return getElementWithWait(jsonKey, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
+
     public WebElement getClickableElement(String jsonKey) {
         return getClickableElement(jsonKey, DEFAULT_WAIT);
     }
@@ -66,6 +67,18 @@ public class GetElementHelper extends GetElement {
 
     public WebElement getElementWithWait(String jsonKey, long timeout, long sleepMils) {
         return presenceHelper.presenceWait(jsonKey, timeout, sleepMils);
+    }
+
+    public WebElement getElementWithWait(By by, long timeout, long sleepMils) {
+        return presenceHelper.presenceWait(by, timeout, sleepMils);
+    }
+
+    public WebElement getElementWithWait(By by, long timeout) {
+        return presenceHelper.presenceWait(by, timeout, DEFAULT_SLEEP_IN_MILLIS);
+    }
+
+    public WebElement getElementWithWait(By by) {
+        return presenceHelper.presenceWait(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public WebElement getElementWithoutWait(String jsonKey) {
