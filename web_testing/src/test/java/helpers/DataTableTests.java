@@ -1,19 +1,18 @@
-package elements;
+package helpers;
 
 import base.BaseBrowser;
 import base.GetFileName;
 import driver.DriverManager;
-import helpers.DataTableHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataTableTests {
-    private WebDriver driver;
+    private RemoteWebDriver driver;
 
     @BeforeEach
     public void setDriver() {

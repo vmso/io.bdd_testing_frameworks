@@ -19,9 +19,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <slack.version>1.13.0</slack.version>
-        <cucumber.version>7.0.0</cucumber.version>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <slack.version>1.15.0</slack.version>
+        <cucumber.version>7.1.0</cucumber.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <log4j.version>2.14.1</log4j.version>
         <gauge.version>0.7.15</gauge.version>
         <jacoco.version>0.8.7</jacoco.version>
@@ -30,7 +30,7 @@
         <rest-assured.version>4.3.2</rest-assured.version>
         <extend.report.version>5.0.9</extend.report.version>
         <cucumber.extentsreport.version>3.1.1</cucumber.extentsreport.version>
-        <mockito.version>4.0.0</mockito.version>
+        <mockito.version>4.1.0</mockito.version>
     </properties>
     <dependencies>
         <dependency>
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.12.1</version>
+            <version>1.12.2</version>
         </dependency>
         <dependency>
             <groupId>com.slack.api</groupId>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
-            <version>1.2.0</version>
+            <version>1.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -104,6 +104,11 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
         </dependency>
         <dependency>
             <groupId>com.thoughtworks.gauge</groupId>

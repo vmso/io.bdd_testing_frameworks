@@ -23,7 +23,7 @@ public class Edge implements BrowserSelectable {
     }
 
     @Override
-    public WebDriver getBrowser()  {
+    public RemoteWebDriver getBrowser()  {
         WebDriverManager.edgedriver().setup();
         EdgeDriverService= new EdgeDriverService.Builder()
                 .usingAnyFreePort()

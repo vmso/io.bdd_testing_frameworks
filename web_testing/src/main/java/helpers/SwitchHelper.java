@@ -48,14 +48,18 @@ public class SwitchHelper extends GetElementHelper {
         driver.switchTo().frame(nameOrId);
     }
 
+    public void switchToParentIframe() {
+        driver.switchTo().parentFrame();
+    }
+
     public void switchToIframe(By by) {
         var elm = getElementWithWait(by);
         driver.switchTo().frame(elm);
     }
 
     public void switchToIframeWithElm(String jsonKey) {
-        var elm = getElementWithWait(jsonKey);
-        driver.switchTo().frame(elm);
+        var by = getByValue(jsonKey);
+        switchToIframe(by);
     }
 
     public void switchToDefaultContent() {

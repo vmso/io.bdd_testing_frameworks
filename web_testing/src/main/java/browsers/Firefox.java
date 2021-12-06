@@ -27,7 +27,7 @@ public class Firefox implements BrowserSelectable {
     }
 //burda neden buildli startli kullandik ??? porttan calistirmak istedigimiz icin mi
     @Override
-    public WebDriver getBrowser() {
+    public RemoteWebDriver getBrowser() {
         WebDriverManager.firefoxdriver().setup();
         geckoDriverService= new GeckoDriverService.Builder()
                 .usingAnyFreePort()

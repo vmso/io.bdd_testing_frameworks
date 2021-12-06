@@ -20,13 +20,15 @@ public class Chrome implements BrowserSelectable {
         var prefs = new HashMap<String, Object>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
         options.addArguments("--kiosk");
+        options.addArguments("--log-level=3");
         options.addArguments("--disable-notifications");
         options.addArguments("--start-fullscreen");
+        options.addArguments("--disable-logging");
         return options;
     }
 
     @Override
-    public WebDriver getBrowser()  {
+    public RemoteWebDriver getBrowser()  {
         //kendisi otomatik olarak indiriyor exe olayi icinde oluyor
         WebDriverManager.chromedriver().setup();
         chromeDriverService = new ChromeDriverService.Builder()

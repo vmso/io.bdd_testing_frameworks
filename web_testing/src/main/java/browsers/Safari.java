@@ -20,7 +20,7 @@ public class Safari implements BrowserSelectable {
     }
 
     @Override
-    public WebDriver getBrowser(){
+    public RemoteWebDriver getBrowser(){
         safariDriverService = new SafariDriverService.Builder()
                 .usingAnyFreePort()
                 .build();

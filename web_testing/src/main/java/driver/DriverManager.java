@@ -5,7 +5,8 @@ import enums.Browsers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import utils.StoreApiInfo;
 
 import java.util.Locale;
 
@@ -13,7 +14,6 @@ public class DriverManager {
 
     private static DriverManager instances = null;
     private BrowserSelectable browserSelectable;
-    private WebDriver driver;
 
     private Browsers browsersType;
 
@@ -39,7 +39,7 @@ public class DriverManager {
             case OPERA -> {
                 browserSelectable = new Opera();
                 setDriver(browserSelectable.getBrowser());
-                driver.manage().window().maximize();
+                getDriver().manage().window().maximize();
             }
             case EDGE -> {
                 browserSelectable = new Edge();
@@ -48,7 +48,7 @@ public class DriverManager {
             case SAFARI -> {
                 browserSelectable = new Safari();
                 setDriver(browserSelectable.getBrowser());
-                driver.manage().window().maximize();
+                getDriver().manage().window().maximize();
             }
             case FIREFOX -> {
                 browserSelectable = new Firefox();
@@ -75,12 +75,12 @@ public class DriverManager {
         }
     }
 
-    public WebDriver getDriver() {
-        return driver;
+    public RemoteWebDriver getDriver() {
+        return ((RemoteWebDriver) StoreApiInfo.get("driver"));
     }
 
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
+    public void setDriver(RemoteWebDriver driver) {
+        StoreApiInfo.put("driver",driver);
     }
 
     public Browsers getBrowsersType() {

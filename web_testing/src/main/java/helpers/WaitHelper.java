@@ -3,13 +3,14 @@ package helpers;
 import driver.DriverManager;
 import elements.GetBy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 public class WaitHelper extends GetBy {
 
-    private WebDriver driver;
+    private RemoteWebDriver driver;
 
     protected WaitHelper() {
         this.driver = DriverManager.getInstances().getDriver();

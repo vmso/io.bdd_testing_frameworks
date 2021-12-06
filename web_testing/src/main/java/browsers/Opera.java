@@ -27,7 +27,7 @@ public class Opera implements BrowserSelectable {
     }
 
     @Override
-    public WebDriver getBrowser()  {
+    public RemoteWebDriver getBrowser()  {
         WebDriverManager.operadriver().setup();
         operaDriverService= new OperaDriverService.Builder()
                 .usingAnyFreePort()
