@@ -5,7 +5,7 @@
     </Properties>
 
     <Appenders>
-        <RollingFile name="fileLogger" fileName="${basePath}/mobile_testing.log"
+        <RollingFile name="fileLogger" fileName="${basePath}/web_testing.log"
                      filePattern="${basePath}/dailyLog-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg</pattern>
@@ -25,7 +25,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="io.bdd_testing_frameworks" level="debug" additivity="true">
+        <Logger name="gauge_api_testing" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug"/>
         </Logger>
         <Root level="info" additivity="true">

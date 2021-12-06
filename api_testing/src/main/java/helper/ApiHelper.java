@@ -1,15 +1,16 @@
 package helper;
 
+import enums.RequestInfo;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utils.StoreApiInfo;
 
 public class ApiHelper {
 
     private final Logger log = LogManager.getLogger(ApiHelper.class);
     private static ApiHelper instance;
-    private RequestSpecification requestSpecification;
 
     private ApiHelper() {
         init();
@@ -23,20 +24,17 @@ public class ApiHelper {
     }
 
     public RequestSpecification getRequestSpecification() {
-        return requestSpecification;
+        return (RequestSpecification) StoreApiInfo.get(RequestInfo.REQUEST.info);
     }
 
-    public void setRequestSpecification(RequestSpecification requestSpecification) {
-        this.requestSpecification = requestSpecification;
-    }
 
     public void init() {
-        requestSpecification = RestAssured.given();
-
+        StoreApiInfo.put(RequestInfo.REQUEST.info, RestAssured.given());
     }
 
     public void defineNewRequest() {
         init();
+        log.info("New requests defined");
     }
 
 

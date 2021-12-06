@@ -69,5 +69,13 @@
   },
   "normal_Locator_with_out_locator_Type": {
     "locatorValue": "id"
+  },
+  "headerLocator": {
+    "locatorType": "CSS_SELECTOR",
+    "locatorValue": "th"
+  },
+  "rowLocator": {
+    "locatorType": "CSS_SELECTOR",
+    "locatorValue": "td"
   }
 }

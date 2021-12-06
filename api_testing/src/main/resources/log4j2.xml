@@ -6,12 +6,13 @@
 
     <Appenders>
         <RollingFile name="fileLogger" fileName="${basePath}/gauge_api_testing.log"
-                     filePattern="${basePath}/dailyLog-%d{yyyy-MM-dd}.log">
+                     filePattern="${basePath}/dailyLog-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
-                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg</pattern>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n</pattern>
             </PatternLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="5 MB" />
             </Policies>
         </RollingFile>
 
@@ -24,11 +25,12 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="gauge_api_testing" level="debug" additivity="true">
+        <Logger name="io.bdd_testing_frameworks" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug"/>
         </Logger>
         <Root level="info" additivity="true">
             <appender-ref ref="ConsoleAppender"/>
+            <appender-ref ref="fileLogger"/>
         </Root>
     </Loggers>
 </Configuration>
