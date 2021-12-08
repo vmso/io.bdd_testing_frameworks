@@ -34,10 +34,7 @@ public class GetElementHelper extends GetElement {
 
 
     public WebElement getClickableElement(By by, long timeout) {
-        presenceHelper.presenceWait(by, timeout);
-        visibleHelper.waitVisibleOfElement(by, timeout);
-        scrollHelper.scrollToElement(by);
-        return clickableHelper.elementToBeClickable(by);
+        return getClickableElement(by,timeout,DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public WebElement getClickableElement(By by, long timeout, long sleepInMillis) {
@@ -48,10 +45,7 @@ public class GetElementHelper extends GetElement {
     }
 
     public WebElement getClickableElement(String jsonKey, long timeout) {
-        presenceHelper.presenceWait(jsonKey, timeout);
-        visibleHelper.waitVisibleOfElement(jsonKey, timeout);
-        scrollHelper.scrollToElement(jsonKey);
-        return clickableHelper.elementToBeClickable(jsonKey, timeout);
+        return getClickableElement(jsonKey,timeout,DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public WebElement getClickableElement(String jsonKey, long timeout, long sleepMillis) {
@@ -74,11 +68,11 @@ public class GetElementHelper extends GetElement {
     }
 
     public WebElement getElementWithWait(By by, long timeout) {
-        return presenceHelper.presenceWait(by, timeout, DEFAULT_SLEEP_IN_MILLIS);
+        return getElementWithWait(by, timeout, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public WebElement getElementWithWait(By by) {
-        return presenceHelper.presenceWait(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
+        return getElementWithWait(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public WebElement getElementWithoutWait(String jsonKey) {

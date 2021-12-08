@@ -6,20 +6,17 @@ import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
-
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import utils.StoreApiInfo;
 
-import static enums.SwitchEnums.ACTIVE_ELEMENT;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SwitchHelperTest {
-    private static RemoteWebDriver driver;
-    private static SwitchHelper switchHelper;
+    private RemoteWebDriver driver;
+    private SwitchHelper switchHelper;
 
     @BeforeAll
-    static void setUp() {
+    void setUp() {
         System.setProperty("browser", "Chrome");
         var base = new BaseBrowser();
         base.setUp();
@@ -35,7 +32,7 @@ class SwitchHelperTest {
     }
 
     @AfterAll
-    static void tearDown() {
+    void tearDown() {
         driver.quit();
     }
 
@@ -44,6 +41,8 @@ class SwitchHelperTest {
         new ClickHelper().clickElement(By.id("openwindow"));
         switchHelper.switchToWindow();
         assertEquals("https://courses.letskodeit.com/courses", driver.getCurrentUrl());
+        driver.close();
+        switchHelper.switchToDefaultWindow();
     }
 
     @Test
@@ -53,6 +52,8 @@ class SwitchHelperTest {
         var newWindowHandlesSize = driver.getWindowHandles().size();
         assertEquals(windowHandlesSize + 1, newWindowHandlesSize);
         assertEquals("about:blank", driver.getCurrentUrl());
+        driver.close();
+        switchHelper.switchToDefaultWindow();
     }
 
     @Test
@@ -62,6 +63,8 @@ class SwitchHelperTest {
         var newWindowHandlesSize = driver.getWindowHandles().size();
         assertEquals(windowHandlesSize + 1, newWindowHandlesSize);
         assertEquals("about:blank", driver.getCurrentUrl());
+        driver.close();
+        switchHelper.switchToDefaultWindow();
     }
 
     @Test
@@ -152,8 +155,8 @@ class SwitchHelperTest {
         new SendKeysHelper().sendKeys(By.id("name"), "Admin");
         var idOfElementBefore = driver.switchTo().activeElement().getAttribute("id");
         switchHelper.sendTabKeyToActiveElement();
-        var idOfElementAfter =  driver.switchTo().activeElement().getAttribute("id");
-        assertNotEquals(idOfElementAfter,idOfElementBefore);
+        var idOfElementAfter = driver.switchTo().activeElement().getAttribute("id");
+        assertNotEquals(idOfElementAfter, idOfElementBefore);
     }
 
     @Test
@@ -162,10 +165,10 @@ class SwitchHelperTest {
         switchHelper.sendTabKeyToActiveElement();
         switchHelper.sendKeysToActiveElement("Test");
         var activeElm = driver.switchTo().activeElement();
-        var javascriptHelper= new JavascriptHelper();
+        var javascriptHelper = new JavascriptHelper();
         var script = "arguments[0].value";
-        var value = String.valueOf(javascriptHelper.getJavascriptResult(script,activeElm));
-        assertNotEquals("Test",value);
+        var value = String.valueOf(javascriptHelper.getJavascriptResult(script, activeElm));
+        assertNotEquals("Test", value);
     }
 
     @Test

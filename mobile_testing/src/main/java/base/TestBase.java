@@ -1,15 +1,11 @@
 package base;
 
-import com.thoughtworks.gauge.BeforeSpec;
-import com.thoughtworks.gauge.ExecutionContext;
-import com.thoughtworks.gauge.Gauge;
+import com.thoughtworks.gauge.*;
 import enums.AppType;
 import exceptions.FileNotFound;
-import com.thoughtworks.gauge.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import platform.manager.PlatformManager;
-import com.thoughtworks.gauge.AfterScenario;
 import exceptions.UndefinedAppType;
 import io.cucumber.java.After;
 import platforms.MobileSystemSelectable;

@@ -1,9 +1,15 @@
 package helpers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Arrays;
+
 public class SelectHelper extends GetElementHelper {
+
+    private final Logger log = LogManager.getLogger(SelectHelper.class);
 
     private Select getSelect(By by, long timeOut, long sleepInMillis) {
         var selectElm = getClickableElement(by, timeOut, sleepInMillis);
@@ -20,20 +26,20 @@ public class SelectHelper extends GetElementHelper {
         return getSelect(by, timeOut, DEFAULT_SLEEP_IN_MILLIS);
     }
 
-    private Select getSelect(By by, long timeOut) {
+    protected Select getSelect(By by, long timeOut) {
         return getSelect(by, timeOut, DEFAULT_SLEEP_IN_MILLIS);
     }
 
-    private Select getSelect(By by) {
+    protected Select getSelect(By by) {
         return getSelect(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
-    private Select getSelect(String jsonKey) {
+    protected Select getSelect(String jsonKey) {
         var by = getByValue(jsonKey);
         return getSelect(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
-    public void selectByIndex(By by, int index, long timeout, long sleepInMillis) {
+    protected void selectByIndex(By by, int index, long timeout, long sleepInMillis) {
         getSelect(by, timeout, sleepInMillis).selectByIndex(index);
     }
 
@@ -114,4 +120,30 @@ public class SelectHelper extends GetElementHelper {
         selectByVisibleText(by, value, timeout, sleepInMillis);
     }
 
+    public void multipleSelectByVisibleText(String jsonKey, long timeout, long sleepInMillis, String[] value) {
+        if (getSelect(jsonKey).isMultiple()) {
+            Arrays.stream(value)
+                    .forEach(v -> selectByVisibleText(jsonKey, v, timeout, sleepInMillis));
+        } else {
+            log.warn("'{}' is not multiple select", jsonKey);
+        }
+    }
+
+    public void multipleSelectByVisibleText(String jsonKey, long timeout, String[] value) {
+        if (getSelect(jsonKey).isMultiple()) {
+            Arrays.stream(value)
+                    .forEach(v -> selectByVisibleText(jsonKey, v, timeout));
+        } else {
+            log.warn("'{}' is not multiple select", jsonKey);
+        }
+    }
+
+    public void multipleSelectByVisibleText(String jsonKey, String[] value) {
+        if (getSelect(jsonKey).isMultiple()) {
+            Arrays.stream(value)
+                    .forEach(v -> selectByVisibleText(jsonKey, v));
+        } else {
+            log.warn("'{}' is not multiple select", jsonKey);
+        }
+    }
 }
