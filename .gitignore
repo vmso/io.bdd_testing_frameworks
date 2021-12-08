@@ -30,3 +30,4 @@ io.bdd_testing_frameworks.iml
 */mutual_methods.iml
 */web_testing.iml
 *.iml
+*.*/config.properties

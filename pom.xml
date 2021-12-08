@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <slack.version>1.15.0</slack.version>
         <cucumber.version>7.1.0</cucumber.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
@@ -162,10 +163,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <target>${maven.compiler.release}</target>
                     <encoding>UTF-8</encoding>
                     <compilerArgs>
                         <arg>-Xlint:unchecked,-options,-path</arg>
