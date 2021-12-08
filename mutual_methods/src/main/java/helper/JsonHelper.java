@@ -90,7 +90,12 @@ public class JsonHelper {
     }
 
     public Map<String, Object> getJsonValueAsMap(String json, String jsonKey) {
-        return read(json, jsonKey);
+        try {
+            return read(json, jsonKey);
+        } catch (Exception e) {
+            log.fatal("Json path couldn't read error message: '{}'", e.getMessage());
+            throw e;
+        }
     }
 
     public Map<String, String> getJsonValueAsMapString(String json, String jsonKey) {
