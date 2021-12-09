@@ -9,12 +9,11 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "classpath:features",
-        plugin = {"pretty",
-                "json:target/cucumber.json",
-                "progress:target/report"
-        },
-        glue = "com.StepDefinitions",
+        plugin = {"html:reports/cucumber_reports/cucumber-html-report.html", "json:reports/cucumber_reports/cucumber.json", "pretty"}
+        ,
+        glue = {"imp","base","mutual_methods.imp"},
         monochrome = true
+
 )
 public class Runner {
 

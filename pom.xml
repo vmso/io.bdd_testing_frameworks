@@ -169,6 +169,20 @@
                 <groupId>com.thoughtworks.gauge.maven</groupId>
                 <artifactId>gauge-maven-plugin</artifactId>
                 <version>${gauge.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <configuration>
+                            <specsDir>specs</specsDir>
+                            <environmentVariables>
+                                <CUSTOM_ENV_VARIABLE>/usr/local/Cellar/gauge/1.4.1</CUSTOM_ENV_VARIABLE>
+                            </environmentVariables>
+                        </configuration>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
