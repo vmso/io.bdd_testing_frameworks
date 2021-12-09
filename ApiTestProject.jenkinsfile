@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     tools {
-        // Install the Maven version configured as "M3" and add it to the path.
         maven "mvn 3"
         jdk "Java 17"
     }
@@ -25,5 +24,11 @@ pipeline {
                 sh 'mvn -pl api_testing/ gauge:execute'
             }
         }
+    }
+    post {
+          success {
+             junit '**/target/surefire-reports/TEST-*.xml'
+             archiveArtifacts 'target/*.jar'
+          }
     }
 }
