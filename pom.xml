@@ -26,7 +26,7 @@
         <log4j.version>2.14.1</log4j.version>
         <gauge.version>0.7.15</gauge.version>
         <jacoco.version>0.8.7</jacoco.version>
-        <gauge.maven.plugin.version>1.4.3</gauge.maven.plugin.version>
+        <gauge.maven.plugin.version>1.5.0</gauge.maven.plugin.version>
         <jacoco.version>0.8.6</jacoco.version>
         <rest-assured.version>4.3.2</rest-assured.version>
         <extend.report.version>5.0.9</extend.report.version>
@@ -149,10 +149,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <shutdown>kill</shutdown>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -167,10 +163,6 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>UTF-8</encoding>
-                    <compilerArgs>
-                        <arg>-Xlint:unchecked,-options,-path</arg>
-                    </compilerArgs>
-
                 </configuration>
             </plugin>
             <plugin>
@@ -181,6 +173,4 @@
 
         </plugins>
     </build>
-
-
 </project>
