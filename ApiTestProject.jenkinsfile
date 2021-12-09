@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "mvn 3"
+        jdk "Java 17"
+    }
+    environment {
+        PATH = "/usr/local/Cellar/gauge/1.4.1/bin:${env.PATH}"
+    }
+    stages {
+        stage('Checkout') {
+            steps{
+                git branch: 'master', credentialsId: 'b5174bf2-a07e-4a9d-bc1f-94b3a588059e', url: 'https://github.com/serhatozdursun/io.bdd_testing_frameworks'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install -DskipTests=true'
+            }
+        }
+        stage('Run tests') {
+            steps{
+                sh 'mvn -pl api_testing/ gauge:execute'
+            }
+        }
+    }
+}
