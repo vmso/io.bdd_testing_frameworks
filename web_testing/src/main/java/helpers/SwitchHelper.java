@@ -1,6 +1,7 @@
 package helpers;
 
 import driver.DriverManager;
+import io.cucumber.java.cs.Ale;
 import org.openqa.selenium.*;
 import utils.StoreApiInfo;
 
@@ -9,52 +10,47 @@ import static org.openqa.selenium.WindowType.*;
 
 public class SwitchHelper extends GetElementHelper {
 
-    private WebDriver driver;
-
-    public SwitchHelper() {
-        driver = DriverManager.getInstances().getDriver();
-    }
-
     public void switchToWindow() {
         storeCurrentWindowHandler();
-        driver.getWindowHandles().forEach(w -> driver.switchTo().window(w));
+        DriverManager.getInstances().getDriver().getWindowHandles()
+                .forEach(w -> DriverManager.getInstances().getDriver().switchTo().window(w));
     }
 
     public void switchToNewWindow() {
         storeCurrentWindowHandler();
-        driver.switchTo().newWindow(WINDOW);
+        DriverManager.getInstances().getDriver().switchTo().newWindow(WINDOW);
     }
 
     public void switchToNewTab() {
         storeCurrentWindowHandler();
-        driver.switchTo().newWindow(TAB);
+        DriverManager.getInstances().getDriver().switchTo().newWindow(TAB);
     }
 
     public void switchToDefaultWindow() {
         var defaultWindowHandle = String.valueOf(StoreApiInfo.get(DEFAULT_WINDOW.getValue()));
-        driver.switchTo().window(defaultWindowHandle);
+        DriverManager.getInstances().getDriver().switchTo().window(defaultWindowHandle);
     }
 
     private void storeCurrentWindowHandler() {
-        var currentWindowHandler = driver.getWindowHandle();
+        var currentWindowHandler = DriverManager.getInstances().getDriver().getWindowHandle();
         StoreApiInfo.put(DEFAULT_WINDOW.getValue(), currentWindowHandler);
     }
 
     public void switchToIframe(int index) {
-        driver.switchTo().frame(index);
+        DriverManager.getInstances().getDriver().switchTo().frame(index);
     }
 
     public void switchToIframe(String nameOrId) {
-        driver.switchTo().frame(nameOrId);
+        DriverManager.getInstances().getDriver().switchTo().frame(nameOrId);
     }
 
     public void switchToParentIframe() {
-        driver.switchTo().parentFrame();
+        DriverManager.getInstances().getDriver().switchTo().parentFrame();
     }
 
     public void switchToIframe(By by) {
         var elm = getElementWithWait(by);
-        driver.switchTo().frame(elm);
+        DriverManager.getInstances().getDriver().switchTo().frame(elm);
     }
 
     public void switchToIframeWithElm(String jsonKey) {
@@ -63,11 +59,12 @@ public class SwitchHelper extends GetElementHelper {
     }
 
     public void switchToDefaultContent() {
-        driver.switchTo().defaultContent();
+        DriverManager.getInstances().getDriver().switchTo().defaultContent();
     }
 
     private void switchToAlert() {
-        var alert = driver.switchTo().alert();
+        AlertWaitHelper alertWaitHelper = new AlertWaitHelper();
+        var alert = alertWaitHelper.waitForPresenceOfAlert(DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
         StoreApiInfo.put(ALERT.getValue(), alert);
     }
 
@@ -92,7 +89,7 @@ public class SwitchHelper extends GetElementHelper {
     }
 
     public void setActiveElement() {
-        var activeElm = driver.switchTo().activeElement();
+        var activeElm = DriverManager.getInstances().getDriver().switchTo().activeElement();
         StoreApiInfo.put(ACTIVE_ELEMENT.getValue(), activeElm);
     }
 
@@ -123,7 +120,7 @@ public class SwitchHelper extends GetElementHelper {
 
     public void switchToActiveElmAndSendEnterKey() {
         setActiveElement();
-        driver.switchTo().activeElement().sendKeys(Keys.ENTER);
+        DriverManager.getInstances().getDriver().switchTo().activeElement().sendKeys(Keys.ENTER);
     }
 
     public String getAttributeOfActiveElement(String attribute) {

@@ -106,14 +106,14 @@ public class ResponseBodyImp extends ResponseBodyHelper {
     }
 
     @Step("Get <selector> from the body then convert it to list and store it with <key> during the suit")
-    @Then("Get <string> from the body then convert it to list and store it with <key> during the suit")
+    @Then("Get {string} from the body then convert it to list and store it with {string} during the suit")
     public void convertToStringStoreSuit(String jsonKey, String key) {
         var list = getListFromResponse(jsonKey);
         ScenarioDataStore.put(key, list);
     }
 
     @Step("Get <selector> from the body then convert it to list and store it with <key> during the spec")
-    @Then("Get <string> from the body then convert it to list and store it with <key> during the spec")
+    @Then("Get {string} from the body then convert it to list and store it with {string} during the spec")
     public void convertToStringStoreSpec(String jsonKey, String key) {
         var list = getListFromResponse(jsonKey);
         ScenarioDataStore.put(key, list);

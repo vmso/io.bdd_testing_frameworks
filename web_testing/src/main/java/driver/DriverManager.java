@@ -53,6 +53,7 @@ public class DriverManager {
             case FIREFOX -> {
                 browserSelectable = new Firefox();
                 setDriver(browserSelectable.getBrowser());
+                getDriver().manage().window().maximize();
             }
             case CHROME -> {
                 browserSelectable = new Chrome();

@@ -18,14 +18,14 @@ public class ClickImp extends ClickHelper {
         clickElementWithoutWait(jsonKey);
     }
 
-    @And("Wait for {long} second presence of <string> then click")
-    @Step("Wait for {int} second presence of <element> then click")
+    @And("Wait for {string} second presence of {long} then click")
+    @Step("Wait for <int> second presence of <element> then click")
     public void clickImp(String jsonKey, long timeout) {
         clickElement(jsonKey, timeout);
     }
 
-    @And("Wait for {long} second with sleep in {long} millis presence of <string> then click")
-    @Step("Wait for {long} second with sleep in {long} millis presence of <string> then click")
+    @And("Wait for {string} second with sleep in {long} millis presence of {long} then click")
+    @Step("Wait for <long> second with sleep in <long> millis presence of <string> then click")
     public void clickImp(String jsonKey, long timeout, long sleepInMillis) {
         clickElement(jsonKey, timeout, sleepInMillis);
     }
@@ -43,8 +43,14 @@ public class ClickImp extends ClickHelper {
     }
 
     @And("Wait for {long} second presence of {string} then click, if not exists click {string}")
-    @Step("Wait for {long} second presence of {string} then click, if not exists click {string}")
+    @Step("Wait for <long> second presence of <string> then click, if not exists click <string>")
     public void ifExistsClickXIfNotClickYImp(long timeout, String xJsonKey, String yJsonKey) {
         ifExistsClickXIfNotClickY(xJsonKey, yJsonKey, timeout);
+    }
+
+    @And("Click at {element} with javaScript")
+    @Step("Click at <string> with javaScript")
+    public void clickWithJavaScriptImp(String jsonKey) {
+        clickWithJavaScript(jsonKey);
     }
 }

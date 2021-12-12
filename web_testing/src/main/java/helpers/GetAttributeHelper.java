@@ -64,4 +64,15 @@ public class GetAttributeHelper extends GetElementHelper {
     public int getElementSize(By by) {
         return new PresenceHelper().presenceWaitForAllElements(by).size();
     }
+
+    public String getInnerTextOfElement(String jsonKey) {
+        var by = getByValue(jsonKey);
+        return getInnerTextOfElement(by);
+    }
+
+    public String getInnerTextOfElement(By by) {
+        var elm = getElementWithWait(by);
+        var executor = new JavascriptHelper();
+        return String.valueOf(executor.getJavascriptResult("return arguments[0].innerText", elm));
+    }
 }

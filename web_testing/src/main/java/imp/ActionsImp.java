@@ -72,14 +72,14 @@ public class ActionsImp extends ActionsHelper {
         moveToElement(jsonKey);
     }
 
-    @And("Move the mouse from its current position  to x={int}, y={int} offset")
+    @And("Move the mouse from its current position  to x= {int}, y= {int} offset")
     @Step("Move the mouse from its current position  to x=<x>, y=<y> offset")
     public void moveByOffsetWithAction(int x, int y) {
         moveByOffset(x, y);
     }
 
-    @And("Move the mouse to an offset (x={int},y={int}) from the {string}'s in-view center point")
-    @Step("Move the mouse to an offset (x=<int>,y=<int>) from the <element>'s in-view center point")
+    @And("Move the mouse to an offset x= {int},y= {int} from the {string}'s in-view center point")
+    @Step("Move the mouse to an offset x= <int>,y= <int> from the <element>'s in-view center point")
     public void moveByOffsetWithAction(String jsonKey, int x, int y) {
         moveToElement(jsonKey, x, y);
     }
@@ -102,7 +102,7 @@ public class ActionsImp extends ActionsHelper {
         dragAndDrop(sourceElmJsonKey, targetElmJsonKey);
     }
 
-    @And("Click and hold at {string} and moves by a offset x={iny}, y={int}")
+    @And("Click and hold at {string} and moves by a offset x={int}, y={int}")
     @Step("Click and hold at <element> and moves by a offset x=<x>, y=<y>")
     public void drugAndDropWithAction(String sourceElmJsonKey, int x, int y) {
         dragAndDropBy(sourceElmJsonKey, x, y);

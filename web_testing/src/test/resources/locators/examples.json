@@ -77,5 +77,13 @@
   "rowLocator": {
     "locatorType": "CSS_SELECTOR",
     "locatorValue": "td"
+  },
+  "table": {
+    "locatorType": "CSS_SELECTOR",
+    "locatorValue": "td"
+  },
+  "headers": {
+    "locatorType": "CSS_SELECTOR",
+    "locatorValue": "th"
   }
 }

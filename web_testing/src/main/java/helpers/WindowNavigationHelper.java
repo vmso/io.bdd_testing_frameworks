@@ -4,20 +4,15 @@ import driver.DriverManager;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class WindowNavigationHelper {
-
-    private RemoteWebDriver driver;
-    public WindowNavigationHelper(){
-        driver= DriverManager.getInstances().getDriver();
-    }
-    public void windowBack(){
-        driver.navigate().back();
+    public void windowBack() {
+        DriverManager.getInstances().getDriver().navigate().back();
     }
 
-    public void windowForward(){
-        driver.navigate().forward();
+    public void windowForward() {
+        DriverManager.getInstances().getDriver().navigate().forward();
     }
 
-    public void windowRefresh(){
-        driver.navigate().refresh();
+    public void windowRefresh() {
+        DriverManager.getInstances().getDriver().navigate().refresh();
     }
 }

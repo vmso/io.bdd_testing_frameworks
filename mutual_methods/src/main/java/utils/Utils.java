@@ -22,6 +22,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -108,6 +109,12 @@ public class Utils {
         var map = new HashMap<String, Object>();
         rows.forEach(row -> map.put(row.getCellValues().get(0), row.getCellValues().get(1)));
         return map;
+    }
+
+    public String[] gaugeDataTableToArray(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        return  rows.stream().map(e-> e.getCellValues().get(0))
+                .toArray(String[]::new);
     }
 
     public Object parsSameType(Object sourceObject, Object targetObject) {
