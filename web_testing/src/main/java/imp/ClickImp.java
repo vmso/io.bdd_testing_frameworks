@@ -48,7 +48,7 @@ public class ClickImp extends ClickHelper {
         ifExistsClickXIfNotClickY(xJsonKey, yJsonKey, timeout);
     }
 
-    @And("Click at {element} with javaScript")
+    @And("Click at {string} with javaScript")
     @Step("Click at <string> with javaScript")
     public void clickWithJavaScriptImp(String jsonKey) {
         clickWithJavaScript(jsonKey);

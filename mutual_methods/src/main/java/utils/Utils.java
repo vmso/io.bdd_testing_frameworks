@@ -117,6 +117,10 @@ public class Utils {
                 .toArray(String[]::new);
     }
 
+    public String[] convertMapToArray(Map<String,String> map) {
+        return map.values().toArray(new String[0]);
+    }
+
     public Object parsSameType(Object sourceObject, Object targetObject) {
         String className = sourceObject.getClass().getSimpleName();
         ParseHelper parseHelper = new ParseHelper();
