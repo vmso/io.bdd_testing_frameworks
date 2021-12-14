@@ -111,11 +111,18 @@ public class Utils {
         return map;
     }
 
-    public String[] gaugeDataTableToArray(Table table) {
+    public String[] gaugeDataTableToStringArray(Table table) {
         List<TableRow> rows = table.getTableRows();
         return  rows.stream().map(e-> e.getCellValues().get(0))
                 .toArray(String[]::new);
     }
+
+    public Integer[] gaugeDataTableToIntArray(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        return  rows.stream().map(e-> Integer.parseInt(e.getCellValues().get(0)))
+                .toArray(Integer[]::new);
+    }
+
 
     public String[] convertMapToArray(Map<String,String> map) {
         return map.values().toArray(new String[0]);

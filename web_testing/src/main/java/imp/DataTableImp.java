@@ -31,7 +31,7 @@ public class DataTableImp extends DataTableHelper {
     }
 
     private List<Map<String, String>> getDataTable(String jsonKey, Table table) {
-        var headers = new Utils().gaugeDataTableToArray(table);
+        var headers = new Utils().gaugeDataTableToStringArray(table);
         return getTableAsMapList(jsonKey, headers);
     }
 

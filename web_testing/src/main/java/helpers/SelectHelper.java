@@ -16,24 +16,6 @@ public class SelectHelper extends GetElementHelper {
         return new Select(selectElm);
     }
 
-    private Select getSelect(String jsonKey, long timeOut, long sleepInMillis) {
-        var by = getByValue(jsonKey);
-        return getSelect(by, timeOut, sleepInMillis);
-    }
-
-    private Select getSelect(String jsonKey, long timeOut) {
-        var by = getByValue(jsonKey);
-        return getSelect(by, timeOut, DEFAULT_SLEEP_IN_MILLIS);
-    }
-
-    protected Select getSelect(By by, long timeOut) {
-        return getSelect(by, timeOut, DEFAULT_SLEEP_IN_MILLIS);
-    }
-
-    protected Select getSelect(By by) {
-        return getSelect(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
-    }
-
     protected Select getSelect(String jsonKey) {
         var by = getByValue(jsonKey);
         return getSelect(by, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
@@ -43,13 +25,6 @@ public class SelectHelper extends GetElementHelper {
         getSelect(by, timeout, sleepInMillis).selectByIndex(index);
     }
 
-    public void selectByIndex(By by, int index) {
-        selectByIndex(by, index, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
-    }
-
-    public void selectByIndex(By by, int index, long timeout) {
-        selectByIndex(by, index, timeout, DEFAULT_SLEEP_IN_MILLIS);
-    }
 
     public void selectByIndex(String jsonKey, int index) {
         var by = getByValue(jsonKey);
@@ -142,6 +117,14 @@ public class SelectHelper extends GetElementHelper {
         if (getSelect(jsonKey).isMultiple()) {
             Arrays.stream(value)
                     .forEach(v -> selectByVisibleText(jsonKey, v));
+        } else {
+            log.warn("'{}' is not multiple select", jsonKey);
+        }
+    }
+    public void multipleSelectByIndexes(String jsonKey, Integer[] value) {
+        if (getSelect(jsonKey).isMultiple()) {
+            Arrays.stream(value)
+                    .forEach(v -> selectByIndex(jsonKey, v));
         } else {
             log.warn("'{}' is not multiple select", jsonKey);
         }
