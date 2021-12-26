@@ -7,6 +7,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utils.StoreApiInfo;
 
 public class BaseBrowser {
 
@@ -22,6 +23,7 @@ public class BaseBrowser {
     @After
     public void tearDown() {
         DriverManager.getInstances().quitDriver();
+        StoreApiInfo.remove();
     }
 
     @BeforeSpec
@@ -48,4 +50,5 @@ public class BaseBrowser {
         if (take_screens)
             Gauge.captureScreenshot();
     }
+
 }

@@ -8,7 +8,10 @@ import exceptions.FileNotFound;
 import exceptions.KeywordNotFound;
 
 import json.UIProjectJsonReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import utils.StoreApiInfo;
 
 import java.util.HashMap;
@@ -24,6 +27,7 @@ public class GetBy {
 
     protected long DEFAULT_WAIT = 15;
     protected long DEFAULT_SLEEP_IN_MILLIS = 500;
+    private static final Logger log = LogManager.getLogger(GetBy.class);
 
     public By getByValue(String jsonKey) throws FileNotFound {
         this.jsonKey = jsonKey;
@@ -36,6 +40,8 @@ public class GetBy {
             filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
             var jsonReader = new UIProjectJsonReader();
             var jsonMap = jsonReader.getJsonAsMapStringObject(filePath, jsonKey);
+            var by = getBy(jsonMap);
+            StoreApiInfo.put(jsonKey, by);
             return getBy(jsonMap);
         }
     }
@@ -71,24 +77,32 @@ public class GetBy {
         }
     }
 
-    private static By getRelativeByAccordingType(RelativeType relativeType, By firstBy, By secondBy, int... atMostDistanceInPixels) {
+    private By getRelativeByAccordingType(RelativeType relativeType, By firstBy, By secondBy, int... atMostDistanceInPixels) {
+        WebElement firstElement;
+        try {
+            firstElement = new GetElement().getElement(firstBy);
+        } catch (Exception e) {
+            log.fatal("{}'s first element couldn't find on the page, first element by value '{}'", jsonKey, firstBy);
+            throw e;
+        }
+
         switch (relativeType) {
             case ABOVE:
-                return with(firstBy).above(secondBy);
+                return with(secondBy).above(firstElement);
             case BELOW:
-                return with(firstBy).below(secondBy);
+                return with(secondBy).below(firstElement);
             case NEAR:
                 if (atMostDistanceInPixels.length > 0 && atMostDistanceInPixels[0] > 0) {
-                    return with(firstBy).near(secondBy, atMostDistanceInPixels[0]);
+                    return with(secondBy).near(firstElement, atMostDistanceInPixels[0]);
                 } else {
-                    return with(firstBy).near(secondBy);
+                    return with(secondBy).near(firstElement);
                 }
             case LEFT_OF:
-                return with(firstBy).toLeftOf(secondBy);
+                return with(secondBy).toLeftOf(firstElement);
             case RIGHT_OF:
-                return with(firstBy).toRightOf(secondBy);
+                return with(secondBy).toRightOf(firstElement);
             default:
-                throw new IllegalArgumentException(String.format("%s is undefinded relative type", relativeType));
+                throw new IllegalArgumentException(String.format("%s is undefined relative type", relativeType));
         }
     }
 

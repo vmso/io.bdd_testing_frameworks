@@ -85,5 +85,20 @@
   "headers": {
     "locatorType": "CSS_SELECTOR",
     "locatorValue": "th"
+  },
+  "multiple_select": {
+    "isRelative": true,
+    "relativeType": "BELOW",
+    "locators": {
+      "firstLocator": {
+        "locatorType": "XPATH",
+        "locatorValue": "//legend[text()='Multiple Select Example']"
+      },
+      "secondLocator": {
+        "locatorType": "XPATH",
+        "locatorValue": "//Select"
+      }
+    }
+
   }
 }

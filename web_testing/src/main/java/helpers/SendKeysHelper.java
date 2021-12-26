@@ -1,9 +1,6 @@
 package helpers;
 
 import org.openqa.selenium.By;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class SendKeysHelper extends GetElementHelper {
@@ -38,16 +35,17 @@ public class SendKeysHelper extends GetElementHelper {
     }
 
     public void sendKeysCharByChar(String jsonKey, String keys) {
-        var chars = keys.toCharArray();
-        Stream.of(chars).forEach(c -> sendKeys(jsonKey, String.valueOf(c)));
+        var by = getByValue(jsonKey);
+        sendKeysCharByChar(by, keys);
     }
 
     public void sendKeysWithKeyboard(String jsonKey, String keys) {
-        new ActionsHelper().sendKeys(jsonKey,keys);
+        var by = getByValue(jsonKey);
+        sendKeysWithKeyboard(by, keys);
     }
 
     public void sendKeysWithKeyboard(By by, String keys) {
-        new ActionsHelper().sendKeys(by,keys);
+        new ActionsHelper().sendKeys(by, keys);
     }
 
 }

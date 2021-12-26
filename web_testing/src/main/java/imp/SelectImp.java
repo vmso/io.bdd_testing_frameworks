@@ -3,6 +3,7 @@ package imp;
 import com.thoughtworks.gauge.Step;
 import com.thoughtworks.gauge.Table;
 import helpers.SelectHelper;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import utils.Utils;
 
@@ -74,6 +75,12 @@ public class SelectImp extends SelectHelper {
     public void multipleSelectByVisableTexesImp(String jsonKey, Table table) {
         var visibleTexes = new Utils().gaugeDataTableToStringArray(table);
         multipleSelectByVisibleText(jsonKey, visibleTexes);
+    }
+
+    @And("Multiple select below indexes of {string} option")
+    public void multipleSelectByIndexImp(String jsonKey, DataTable table) {
+        Integer[] indexes = table.asList().stream().map(Integer::parseInt).toArray(Integer[]::new);
+        multipleSelectByIndexes(jsonKey, indexes);
     }
 
 
