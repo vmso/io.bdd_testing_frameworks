@@ -82,14 +82,20 @@ public class SwipeHelper extends GetElementHelper {
     }
 
     private void swipe(Directions directions, String sourceElmKey, String targetElmKey, int tryCount) {
-        if (getElementsWithoutWait(targetElmKey).size() == 1) {
+        boolean isDisplayed;
+        try {
+            isDisplayed = getElementWithWait(targetElmKey).isDisplayed();
+        }catch (NoSuchElementException e){
+            isDisplayed=false;
+        }
+        if (isDisplayed) {
             swipeUntilBetweenTwoElements(sourceElmKey, targetElmKey);
         }
         MobileElement element = getElementWithWait(sourceElmKey);
         int width = element.getLocation().x;
         int height = element.getLocation().y;
         int i = 0;
-        boolean isDisplayed;
+
         do {
             swipeByPoint(directions, width, height);
             i++;
@@ -98,7 +104,7 @@ public class SwipeHelper extends GetElementHelper {
             }
             try {
                 isDisplayed = getElementWithoutWait(targetElmKey).isDisplayed();
-            } catch (Exception e) {
+            } catch (NoSuchElementException e) {
                 isDisplayed = false;
             }
         } while (!isDisplayed);
