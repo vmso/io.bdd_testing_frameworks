@@ -15,3 +15,9 @@ Feature:
       | Browsers |
       | Chrome   |
       | Firefox  |
+    
+    Scenario: default url
+      Given Open "chrome" and get base url
+
+  Scenario: default url and browser
+    Given Open browser and get base url
