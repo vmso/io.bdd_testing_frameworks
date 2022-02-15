@@ -6,13 +6,11 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import utils.StoreApiInfo;
 
-import java.util.HashMap;
-
 public class ServiceBase {
+    private static ServiceBase instance;
+    private final AppiumServiceBuilder builder;
     private String ip;
     private Integer port;
-    private AppiumServiceBuilder builder;
-    private static ServiceBase instance;
 
     private ServiceBase() {
         ip = Configuration.getInstance().getStringValueOfProp("driver_ip");
@@ -40,26 +38,16 @@ public class ServiceBase {
     }
 
     private void setService(String ip, Integer port) {
-        builder.withIPAddress(ip);
-        if (port != null)
+        if (ip != null) {
+            builder.withIPAddress(ip);
             builder.usingPort(port);
-        else
+        } else
             builder.usingAnyFreePort();
-        builder.withEnvironment(getEnvironment())
-                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                .withArgument(GeneralServerFlag.LOG_LEVEL, "error");
+        builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+                .withArgument(GeneralServerFlag.RELAXED_SECURITY);
         AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
         StoreApiInfo.put("service", service);
-    }
-
-
-    private HashMap<String, String> getEnvironment() {
-        var env = new HashMap<String, String>();
-        var androidHome = Configuration.getInstance().getStringValueOfProp("android_home");
-        var java_home = Configuration.getInstance().getStringValueOfProp("java_home");
-        env.put("ANDROID_HOME", androidHome);
-        env.put("JAVA_HOME", java_home);
-        return env;
     }
 
     public void stopTheServices() {
