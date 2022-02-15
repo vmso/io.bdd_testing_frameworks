@@ -12,8 +12,6 @@
     <artifactId>mobile_testing</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <appium.version>7.6.0</appium.version>
         <selenium.version>4.0.0</selenium.version>
     </properties>
@@ -25,24 +23,9 @@
             <version>0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>testing_frameworks</groupId>
-            <artifactId>api_testing</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>${appium.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-support</artifactId>
-            <version>3.141.59</version>
         </dependency>
     </dependencies>
 

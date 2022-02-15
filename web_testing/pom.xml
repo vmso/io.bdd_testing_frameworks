@@ -12,8 +12,6 @@
     <artifactId>web_testing</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <selenium.version>4.0.0</selenium.version>
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
     </properties>
@@ -22,11 +20,6 @@
         <dependency>
             <groupId>testing_frameworks</groupId>
             <artifactId>mutual_methods</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>testing_frameworks</groupId>
-            <artifactId>api_testing</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>

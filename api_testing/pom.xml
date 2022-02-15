@@ -12,8 +12,6 @@
     <artifactId>api_testing</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <jackson.version>2.11.1</jackson.version>
     </properties>
 

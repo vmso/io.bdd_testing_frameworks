@@ -12,8 +12,6 @@
     <artifactId>mutual_methods</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <jayway.version>2.5.0</jayway.version>
         <postgres.version>42.2.18</postgres.version>
     </properties>

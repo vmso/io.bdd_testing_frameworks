@@ -1,10 +1,8 @@
 package helper.methods;
 
 import enums.RequestInfo;
-import exceptions.RequestNotDefined;
 import helper.ApiHelper;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.StoreApiInfo;
