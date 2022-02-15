@@ -15,7 +15,7 @@ public class FilterHelper {
     protected void addCustomLogFilter(Integer... statusCode) {
         ApiHelper.getInstance().getRequestSpecification().filter(new RestAssuredFilter(statusCode));
         log.info("Status added to log filter {}", Arrays.stream(statusCode)
-                .map(s -> String.valueOf(s))
+                .map(String::valueOf)
                 .collect(Collectors.joining(", ")));
     }
 

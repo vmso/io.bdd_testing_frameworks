@@ -19,7 +19,7 @@ public class CompareImp  {
     private static final String EQUALS = "They are equals";
     private static final String CONTAINS = "%s isn't contains %s as String";
 
-    private Logger log = LogManager.getLogger(CompareImp.class);
+    private final Logger log = LogManager.getLogger(CompareImp.class);
 
     @Step({"Get <selector> from response and then compare with <value>, Are they not equals?",
             "Get value with <selector> from response and verify it isn't equal with <value>",

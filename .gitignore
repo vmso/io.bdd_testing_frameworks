@@ -31,3 +31,4 @@ io.bdd_testing_frameworks.iml
 */web_testing.iml
 *.iml
 *.*/config.properties
+.DS_Store.DS_Store

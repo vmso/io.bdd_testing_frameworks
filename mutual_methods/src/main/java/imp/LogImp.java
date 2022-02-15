@@ -28,8 +28,7 @@ public class LogImp extends FilterHelper {
         List<TableRow> rows = table.getTableRows();
         var statusCodes = rows
                 .stream()
-                .map(row -> parseHelper.parsStringToInt(row.getCellValues().get(0)))
-                .collect(Collectors.toList());
+                .map(row -> parseHelper.parsStringToInt(row.getCellValues().get(0))).toList();
         Integer[] status = new Integer[statusCodes.size()];
         statusCodes.toArray(status);
         addCustomLogFilter(status);
