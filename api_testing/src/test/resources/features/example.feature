@@ -14,7 +14,7 @@ Feature: test
     Then Get '200' and '201' from scenario store and then compare, Are they not equals ?
 
   Scenario Outline: Post  a pets and check with get
-    Given base url '<Pet Store Base Uel>'
+    Given base url '<Pet Store Base Url>'
     And endpoint '/v2/pet'
     And payload as file 'payloads/petPost.json' from resource
     And relaxedHTTPSValidation
@@ -33,7 +33,7 @@ Feature: test
     And Get 'id' from 'tags' json list which one equals 'name'='kuçukuçu', and store it during Scenario with 'tagId'
     And Get 'id' from response and store it with 'patId' during scenario
     Given Define new request
-    And base url '<Pet Store Base Uel>'
+    And base url '<Pet Store Base Url>'
     And endpoint '/v2/pet/{id}'
     And Path parameter 'id' = 'patId'.
     When Send get request
@@ -44,5 +44,5 @@ Feature: test
 
 
     Examples:
-      | Pet Store Base Uel          |
+      | Pet Store Base Url          |
       | https://petstore.swagger.io |

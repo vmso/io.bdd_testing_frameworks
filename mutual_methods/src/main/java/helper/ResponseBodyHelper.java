@@ -1,9 +1,7 @@
 package helper;
 
-import enums.RequestInfo;
 import exceptions.NullResponse;
 import exceptions.NullValue;
-import io.restassured.common.mapper.TypeRef;
 import io.restassured.path.json.JsonPath;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
@@ -11,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.StoreApiInfo;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import static enums.DocumentType.JSON;
