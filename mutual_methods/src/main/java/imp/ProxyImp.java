@@ -41,7 +41,7 @@ public class ProxyImp extends ProxyHelper {
             URI myURI = new URI(url);
             proxy(myURI);
         } catch (URISyntaxException e) {
-            log.warn("\"{}\" is not an url, it couldn't convert to URI object");
+            log.warn("\"{}\" is not an url, it couldn't convert to URI object",url);
             throw e;
         }
     }
