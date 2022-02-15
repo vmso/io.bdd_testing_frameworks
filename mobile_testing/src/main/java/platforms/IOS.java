@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class IOS implements MobileSystemSelectable {
     private DesiredCapabilities capabilities;
-    private AppiumDriverLocalService service;
+    private final AppiumDriverLocalService service;
 
     public IOS() {
         this.capabilities = new DesiredCapabilities();
@@ -32,10 +32,15 @@ public class IOS implements MobileSystemSelectable {
     }
 
     @Override
-    public AppiumDriver<MobileElement> getRemoteDriver() throws MalformedURLException {
+    public AppiumDriver<MobileElement> getRemoteDriver() {
         var ip = Configuration.getInstance().getStringValueOfProp("grid_ip");
         var gridPort = Configuration.getInstance().getStringValueOfProp("grid_port");
-        return new IOSDriver<>(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
+        try {
+            return new IOSDriver<>(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override

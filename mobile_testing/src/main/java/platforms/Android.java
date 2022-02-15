@@ -33,10 +33,15 @@ public class Android implements MobileSystemSelectable {
     }
 
     @Override
-    public AppiumDriver<MobileElement> getRemoteDriver() throws MalformedURLException {
+    public AppiumDriver<MobileElement> getRemoteDriver() {
         var ip = Configuration.getInstance().getStringValueOfProp("grid_ip");
         var gridPort = Configuration.getInstance().getStringValueOfProp("grid_port");
-        return new AndroidDriver<>(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
+        try {
+            return new AndroidDriver<>(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override

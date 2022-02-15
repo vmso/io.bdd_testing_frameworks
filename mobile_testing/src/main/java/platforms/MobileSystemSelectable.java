@@ -10,7 +10,7 @@ public interface MobileSystemSelectable {
 
     AppiumDriver<MobileElement> getLocalDriver();
 
-    AppiumDriver<MobileElement> getRemoteDriver() throws MalformedURLException;
+    AppiumDriver<MobileElement> getRemoteDriver();
 
     DesiredCapabilities getCapabilities();
 

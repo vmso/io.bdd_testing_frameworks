@@ -1,7 +1,11 @@
 package platform.manager;
 
 import com.jayway.jsonpath.PathNotFoundException;
+import configuration.Configuration;
+import enums.AppType;
 import exceptions.FileNotFound;
+import exceptions.UndefinedAppType;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
@@ -10,18 +14,15 @@ import org.openqa.selenium.NoSuchSessionException;
 import platforms.Android;
 import platforms.IOS;
 import platforms.MobileSystemSelectable;
-import exceptions.UndefinedAppType;
-import io.appium.java_client.AppiumDriver;
+import utils.StoreApiInfo;
 
 import java.util.Locale;
 import java.util.Objects;
 
-import enums.AppType;
-
 public class PlatformManager {
     private static PlatformManager instance;
     private AppiumDriver<MobileElement> driver;
-    private Logger log = LogManager.getLogger(PlatformManager.class);
+    private final Logger log = LogManager.getLogger(PlatformManager.class);
     private AppType platform;
     private MobileSystemSelectable mobileSystemSelectable;
 
@@ -40,10 +41,10 @@ public class PlatformManager {
         var capabilitiesJsonKey = String.format("%s.capabilities", capabilitiesName);
         var platformJsonKey = String.format("%s.platform", capabilitiesName);
         String platform;
-        AppType appType = null;
+        AppType platformType = null;
         try {
             platform = new JsonReader().getPlatform(capabilitiesFile, platformJsonKey);
-            appType = AppType.valueOf(platform.toUpperCase(Locale.ENGLISH));
+            platformType = AppType.valueOf(platform.toUpperCase(Locale.ENGLISH));
         } catch (PathNotFoundException e) {
             log.fatal("""
                     capabilities or platform couldn't find in "{}" device json
@@ -52,20 +53,20 @@ public class PlatformManager {
                     """, capabilitiesFile, capabilitiesJsonKey, platformJsonKey);
         }
 
-        setPlatform(appType);
-        switch (Objects.requireNonNull(appType)) {
-            case IOS -> {
-                mobileSystemSelectable = new IOS();
-                mobileSystemSelectable.setCapabilities(capabilitiesFile, capabilitiesJsonKey);
-                driver = mobileSystemSelectable.getLocalDriver();
-            }
-            case ANDROID -> {
-                mobileSystemSelectable = new Android();
-                mobileSystemSelectable.setCapabilities(capabilitiesFile, capabilitiesJsonKey);
-                driver = mobileSystemSelectable.getLocalDriver();
-            }
-            default -> throw new UndefinedAppType(appType);
+        setPlatform(platformType);
+        String env = Configuration.getInstance().getStringValueOfProp("env");
+        switch (Objects.requireNonNull(platformType)) {
+            case IOS -> mobileSystemSelectable = new IOS();
+            case ANDROID -> mobileSystemSelectable = new Android();
+            default -> throw new UndefinedAppType(platformType);
         }
+        mobileSystemSelectable.setCapabilities(capabilitiesFile, capabilitiesJsonKey);
+        driver = env == null ? mobileSystemSelectable.getLocalDriver() : mobileSystemSelectable.getRemoteDriver();
+        setDriver(driver);
+    }
+
+    public void setDriver(AppiumDriver<MobileElement> driver) {
+        StoreApiInfo.put("driver", driver);
     }
 
     public void quitDriver() {
