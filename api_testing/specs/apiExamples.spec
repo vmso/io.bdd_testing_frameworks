@@ -7,8 +7,8 @@ Every heading in this file denotes a scenario. Every bulleted point denotes a st
 
 pet post
 ----------------
-* Add payload as file from resource "payloads/petPost.json"
 * Add base url "https://petstore.swagger.io"
+* Add payload as file from resource "payloads/petPost.json"
 * Add relaxed HTTPS validation
 * Add endpoint "/v2/pet"
 * Add Headers
@@ -17,11 +17,6 @@ pet post
     |accept         |application/json   |
     |Content-Type   |application/json   |
     |Cache-Control  |max-age=0          |
-* Add log filter with errorStatus
-    |Status |
-    |500    |
-    |400    |
-    |405    |
 * Post request
 * Check if status code is "200"
 * Get "tags" from the body then convert it as list and store it with "tags_list" during the scenario

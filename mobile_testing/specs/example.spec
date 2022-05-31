@@ -6,18 +6,6 @@
 |iPhone_13_toInstall| iPhone_13_installed |
 |Pixel_2_toInstall  | Pixel_2_installed   |
 
-## Install Appx
-* Get <device_to_install> capabilities from resource with JSON "devices/device_capabilities" file and lunch app
-
-
-
-## Installed App
-* Get <installed_device> capabilities from resource with JSON "devices/device_capabilities" file and lunch app
-* Click the "allow" element if exists
-* Click the "close_login_button" element
-* Click the "sleep_better" element
-
-
 ## android api app
 * Get "Pixel_2_installed_ApiDemos" capabilities from resource with JSON "devices/device_capabilities" file and lunch app
 * Scroll to "Views" element

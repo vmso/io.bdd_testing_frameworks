@@ -7,6 +7,7 @@ Every heading in this file denotes a scenario. Every bulleted point denotes a st
    |browsers   |
    |-----------|
    |Chrome     |
+   |Firefox    |
 Scenario Heading
 ----------------
 * Open <browsers> and get "https://courses.letskodeit.com/practice"
