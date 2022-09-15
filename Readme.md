@@ -5,55 +5,23 @@ This framework is an open-source tool to combine API test-automation, UI test-au
 
 ###Api test example
 
-![](images/Screenshot 2022-05-30 at 13.25.42.png)
+![ss](images/Screenshot 2022-05-30 at 13.25.42.png)
 
 ###UI test example
 
-![](
+![ss](
 images/Screenshot 2022-05-30 at 13.29.33.png)
 
 ### Mobile test automation example
 
-![](images/Screenshot 2022-05-30 at 13.33.25.png)
+![ss](images/Screenshot 2022-05-30 at 13.33.25.png)
 
 ##### Table of Contents
 1- [Payloads](#payloads)
 
-2- [Emphasis](#emphasis)  
+2- [Emphasis](#emphasis)
 
 <a name='payloads'></a>
 ## Payloads
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<a name="headers"/>
-## Headers
+<a name='emphasis'></a>
+## Emphasis
