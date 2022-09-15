@@ -9,8 +9,7 @@ This framework is an open-source tool to combine API test-automation, UI test-au
 
 ## UI test example
 
-![ss](
-images/ss2.png)
+![ss](images/ss2.png)
 
 ##  Mobile test automation example
 
