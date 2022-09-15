@@ -16,6 +16,7 @@ public class TestBase {
     public TestBase(){
         AppType platformType = PlatformManager.getInstances().getPlatform();
     }
+
     public void lunchLocalDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
         capabilitiesFile = capabilitiesFile.endsWith(".json") ? capabilitiesFile : capabilitiesFile + ".json";
         PlatformManager.getInstances().createLocalMobileDriver(capabilitiesFile, capabilitiesName);

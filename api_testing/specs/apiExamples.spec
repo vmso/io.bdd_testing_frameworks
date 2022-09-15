@@ -7,6 +7,7 @@ Every heading in this file denotes a scenario. Every bulleted point denotes a st
 
 pet post
 ----------------
+* Define new request
 * Add base url "https://petstore.swagger.io"
 * Add payload as file from resource "payloads/petPost.json"
 * Add relaxed HTTPS validation

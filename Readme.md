@@ -2,25 +2,20 @@
 
 This framework is an open-source tool to combine API test-automation, UI test-automation, Mobile test-automation into a single, unified framework. It is base on the many steps (key-words). So you can create test cases with using this steps even you don't know codding.
 
-
-## Api test example
-
-![ss](images/ss1.png)
-
-## UI test example
-
-![ss](images/ss2.png)
-
-##  Mobile test automation example
-
-![ss](images/ss3.png)
-
 ### Table of Contents
-1- [Payloads](#payloads)
+1- [Api Test Framework](#api)
+- 1.1 [Steps](#apiSteps)    
+    - [Defining api request](#step1)
+    - [Add base url](#step2)
 
-2- [Emphasis](#emphasis)
+<a name='api'></a>
+### Api Test Framework
+<a name='apiSteps'></a>
+#### Steps
+<a name='step1'></a>
+##### 1- Defining api request
 
-<a name='payloads'></a>
-### Payloads
-<a name='emphasis'></a>
-### Emphasis
+```* Define new request```
+##### 1- Add base url
+
+```* Add base url <url>```
