@@ -12,14 +12,14 @@ import platforms.MobileSystemSelectable;
 
 
 public class TestBase {
-    private AppType platformType;
 
     public TestBase(){
-        platformType = PlatformManager.getInstances().getPlatform();
+        AppType platformType = PlatformManager.getInstances().getPlatform();
     }
     public void lunchLocalDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
         capabilitiesFile = capabilitiesFile.endsWith(".json") ? capabilitiesFile : capabilitiesFile + ".json";
         PlatformManager.getInstances().createLocalMobileDriver(capabilitiesFile, capabilitiesName);
+
     }
 
     @After

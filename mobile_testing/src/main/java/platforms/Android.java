@@ -6,19 +6,20 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.GeneralServerFlag;
+
 import json.JsonReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+
 import java.util.Map;
 
 public class Android implements MobileSystemSelectable {
     private DesiredCapabilities capabilities;
-
+    private final Logger log = LogManager.getLogger(Android.class);
     private static AppiumDriverLocalService service;
 
     public Android() {
@@ -39,7 +40,7 @@ public class Android implements MobileSystemSelectable {
         try {
             return new AndroidDriver<>(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            log.fatal(e.getMessage());
             throw new IllegalArgumentException();
         }
     }

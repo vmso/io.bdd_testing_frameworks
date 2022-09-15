@@ -60,6 +60,7 @@ public class CompareImp  {
     public void compareListCount(String storeKey, int count){
         var list = (List<?>) Utils.getFromStoreData(storeKey);
         assertEquals(count,list.size());
+        //th[contains("Who Initiated Transfer")]/following-sibling::td/li/span
     }
 
 }

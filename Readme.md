@@ -14,7 +14,7 @@ images/Screenshot 2022-05-30 at 13.29.33.png)
 
 ### Mobile test automation example
 
-![](/Users/admin/IdeaProjects/io.bdd_testing_frameworks/images/Screenshot 2022-05-30 at 13.33.25.png)
+![](images/Screenshot 2022-05-30 at 13.33.25.png)
 
 ##### Table of Contents
 1- [Payloads](#payloads)

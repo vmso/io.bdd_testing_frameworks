@@ -2,9 +2,10 @@ package enums;
 
 public enum AppType {
     ANDROID("Android"),
-    IOS("iOS");
+    IOS("iOS"),
+    MIC("mic");
 
-    private String value;
+    private final String value;
 
     AppType(String value) {
         this.value = value;
