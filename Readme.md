@@ -11,6 +11,7 @@ This framework is an open-source tool to combine API test-automation, UI test-au
     - [Adding path parameter](#step4)
     - [Adding Headers](#step5)
     - [Query Parameter](#step6)
+    - [Form Parameter](#step7)
 
 <a name='api'></a>
 ### Api Test Framework
@@ -54,7 +55,7 @@ To add headers to the request you can use following step.
     |Content-Type   |application/json   |
     |Cache-Control  |max-age=0          |
 ```
-to check more option to add path parameter please check [HeaderImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/HeaderImp.java#L1) class.
+to check more option to add query parameter please check [HeaderImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/HeaderImp.java#L1) class.
 <a name='step6'></a>
 ##### 6- Query Parameter
 To add the query parameters to the request you can use following step.
@@ -66,4 +67,24 @@ To add the query parameters to the request you can use following step.
   |patId          |1234               |
   |category       |dog                |
 ```
-to check more option to add path parameter please check [QueryParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/QueryParamImp.java#L1) class.
+to check more option to add query parameters please check [QueryParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/QueryParamImp.java#L1) class.
+
+<a name='step7'></a>
+##### 7- Form Parameter
+To add the form parameters to the request you can use following step.
+
+```
+* Add query parameter
+  |key            |value              |
+  |---------------|-------------------|
+  |patId          |1234               |
+  |category       |dog                |
+```
+to check more option to add form data parameter please check [FormParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/FormParamImp.java#L1) class.
+
+##### 8- Multi form parameter (endpoint)
+To add multi form parameter to the request you can use following step.
+
+```* Add to request "key"="value" as multi-part form data```
+
+to check more option to add multi form parameter please check [MultiPartFormDataImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/MultiPartFormDataImp.java#L1) class.

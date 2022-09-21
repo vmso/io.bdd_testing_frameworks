@@ -29,7 +29,7 @@ public class FormParamImp extends FormParamsHelper {
         addFormParams(key, value);
     }
 
-    @Step({"Form parameters <table>", "Form parametrelerini ekle <table>"})
+    @Step({"Add form parameters <table>", "Form parametrelerini ekle <table>"})
     public void addFormParamToReq(Table table) {
         Utils utils = new Utils();
         Map<String, Object> parameters = utils.gaugeDataTableToMap(table);
