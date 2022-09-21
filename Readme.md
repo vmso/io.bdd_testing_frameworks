@@ -42,7 +42,7 @@ To add the base url to the request you can use following step.
 ```* Add path parameter "patId" = "1234".```
 
 to check more option to add path parameter please check [PathParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/PathParamImp.java#L1) class.
-<a name='step4'></a>
+<a name='step5'></a>
 ##### 5- Adding Headers
 To add the base url to the request you can use following step.
 ```
