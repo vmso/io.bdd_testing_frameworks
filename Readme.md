@@ -12,6 +12,9 @@ This framework is an open-source tool to combine API test-automation, UI test-au
     - [Adding Headers](#step5)
     - [Query Parameter](#step6)
     - [Form Parameter](#step7)
+    - [Multi form parameter](#step8)
+    - [Adding file as multi-part param](#step9)
+
 
 <a name='api'></a>
 ### Api Test Framework
@@ -81,10 +84,17 @@ To add the form parameters to the request you can use following step.
   |category       |dog                |
 ```
 to check more option to add form data parameter please check [FormParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/FormParamImp.java#L1) class.
-
+name='step8'></a>
 ##### 8- Multi form parameter (endpoint)
 To add multi form parameter to the request you can use following step.
 
 ```* Add to request "key"="value" as multi-part form data```
 
 to check more option to add multi form parameter please check [MultiPartFormDataImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/MultiPartFormDataImp.java#L1) class.
+name='step9'></a>
+##### 9- Adding file as multi part form param
+
+To adding a file to request, first, you should add the file under the [file](https://github.com/vmso/io.bdd_testing_frameworks/tree/master/api_testing/src/test/resources/files) directory in test resource.
+Then you can pass the file name as parameter to add to request as multi form parameter with following step.
+
+```* Get "<fileName>" file and add to request as multi-part form data```
