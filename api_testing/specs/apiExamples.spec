@@ -12,6 +12,7 @@ pet post
 * Add payload as file from resource "payloads/petPost.json"
 * Add relaxed HTTPS validation
 * Add endpoint "/v2/pet"
+* Add path parameter "key" = "value".
 * Add Headers
     |key            |value              |
     |---------------|-------------------|

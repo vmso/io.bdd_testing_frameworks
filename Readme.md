@@ -7,6 +7,9 @@ This framework is an open-source tool to combine API test-automation, UI test-au
 - 1.1 [Steps](#apiSteps)    
     - [Defining api request](#step1)
     - [Add base url](#step2)
+    - [Adding base path](#step3)
+    - [Adding path parameter](#step4)
+    - [Adding Headers](#step5)
 
 <a name='api'></a>
 ### Api Test Framework
@@ -14,9 +17,42 @@ This framework is an open-source tool to combine API test-automation, UI test-au
 #### Steps
 <a name='step1'></a>
 ##### 1- Defining api request
+Defining a new api request you can use following step
 
 ```* Define new request```
 <a name='step2'></a>
-##### 1- Add base url
+##### 2- Add base url
+To add the base url to the request you can use following step.
+You should pass the base url as a parameter.
 
 ```* Add base url <url>```
+<a name='step3'></a>
+##### 3- Adding base path (endpoint)
+To add the base url to the request you can use following step.
+You should pass the base url as a parameter.
+
+```* Add base path <url>```
+
+<a name='step4'></a>
+##### 4- Adding path parameter
+To add the base url to the request you can use following step.
+
+```* Add base path "/v2/pet/{patId}"```
+
+```* Add path parameter "patId" = "1234".```
+
+to check more option to add path parameter please check [PathParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/PathParamImp.java#L1) class.
+<a name='step4'></a>
+##### 5- Adding Headers
+To add the base url to the request you can use following step.
+```
+* Add Headers
+    |key            |value              |
+    |---------------|-------------------|
+    |accept         |application/json   |
+    |Content-Type   |application/json   |
+    |Cache-Control  |max-age=0          |
+```
+to check more option to add path parameter please check [HeaderImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/HeaderImp.java#L1) class.
+
+    
