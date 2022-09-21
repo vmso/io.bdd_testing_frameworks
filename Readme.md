@@ -10,6 +10,7 @@ This framework is an open-source tool to combine API test-automation, UI test-au
     - [Adding base path](#step3)
     - [Adding path parameter](#step4)
     - [Adding Headers](#step5)
+    - [Query Parameter](#step6)
 
 <a name='api'></a>
 ### Api Test Framework
@@ -44,7 +45,7 @@ To add the base url to the request you can use following step.
 to check more option to add path parameter please check [PathParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/PathParamImp.java#L1) class.
 <a name='step5'></a>
 ##### 5- Adding Headers
-To add the base url to the request you can use following step.
+To add headers to the request you can use following step.
 ```
 * Add Headers
     |key            |value              |
@@ -54,5 +55,15 @@ To add the base url to the request you can use following step.
     |Cache-Control  |max-age=0          |
 ```
 to check more option to add path parameter please check [HeaderImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/HeaderImp.java#L1) class.
+<a name='step6'></a>
+##### 6- Query Parameter
+To add the query parameters to the request you can use following step.
 
-    
+```
+* Add query parameter
+  |key            |value              |
+  |---------------|-------------------|
+  |patId          |1234               |
+  |category       |dog                |
+```
+to check more option to add path parameter please check [QueryParamImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/QueryParamImp.java#L1) class.
