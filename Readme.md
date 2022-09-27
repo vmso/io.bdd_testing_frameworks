@@ -117,16 +117,6 @@ Then you can pass the file name as parameter to add to request as multi form par
 
 You can check more options to add file as multi-part form data and review how the steps are implemented by clicking here [MultiPartFormDataImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/MultiPartFormDataImp.java#L1) class.
 
-<a name='step9'></a>
-##### 9- Adding file as multi part form param
-
-To adding a file to request, first, you should add the file under the [file](https://github.com/vmso/io.bdd_testing_frameworks/tree/master/api_testing/src/test/resources/files) directory in test resource.
-Then you can pass the file name as parameter to add to request as multi form parameter with following step.
-
-```* Get "<fileName>" file and add to request as multi-part form data```
-
-You can check more options to add file as multi-part form data and review how the steps are implemented by clicking here [MultiPartFormDataImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/MultiPartFormDataImp.java#L1) class.
-
 <a name='step10'></a>
 ##### 10- Adding log filter with error status table
 
