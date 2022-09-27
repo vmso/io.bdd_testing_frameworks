@@ -31,6 +31,7 @@ In this framework, API test-automation, UI test-automation, and Mobile test-auto
 To define a new api request you can use following step
 
 ```* Define new request```
+
 For a check on the implementation of defining a new request step, please visit [RequestImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/RequestImp.java#L1) class.
 
 <a name='step2'></a>
@@ -39,6 +40,7 @@ The following step can be used to add the base url to the request.
 P.S You should pass the base url as a parameter.
 
 ```* Add base url <url>```
+
 For a check on the implementation of adding base url step, please visit [UrlImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/UrlImp.java#L1) class.
 
 
@@ -47,7 +49,8 @@ For a check on the implementation of adding base url step, please visit [UrlImp]
 The following step can be used to add the base path to the request.
 
 ```* Add base path <url>```
-to check implementation of adding base path(endpoint) step, please check [UrlImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/UrlImp.java#L1) class.
+
+To check implementation of adding base path(endpoint) step, please check [UrlImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/UrlImp.java#L1) class.
 
 
 <a name='step4'></a>
@@ -155,7 +158,7 @@ The following step can be used to add default https certification and relaxed ht
 
 ``` * Add relaxed HTTPS validation ```
 
-to check implementation of adding base url step, please visit [HttpsImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/HttpsImp.java#L1) class.
+To check implementation of adding base url step, please visit [HttpsImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/bf4efcca584de9cfeeea06e5cd22863bdc6b3afa/mutual_methods/src/main/java/imp/HttpsImp.java#L1) class.
 
 ##### 13- Adding payload/Body as String from file resource 
 
