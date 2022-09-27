@@ -17,7 +17,7 @@ In this framework, API test-automation, UI test-automation, and Mobile test-auto
     - [Adding proxy to the request ](#step11)
     - [Adding relaxed HTTPS validation](#step12)
     - [Adding the Payload/Body](#step13)
-    - [Uploading the Payload/Body](#step14)
+    - [Updating the Payload/Body](#step14)
     - [Adding Authentication method](#step15)
   
 <a name='api'></a>
