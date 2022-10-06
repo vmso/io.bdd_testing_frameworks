@@ -8,7 +8,6 @@ public class HttpsImp extends HttpsHelper {
 
     @Step({"Add relaxed HTTPS validation",
             "Varsayılan https sertifkası ekleyin"})
-    @And("relaxedHTTPSValidation")
     public void addRelaxedHTTPSValidationToRequest() {
         addRelaxedHTTPSValidation();
     }

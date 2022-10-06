@@ -23,7 +23,6 @@ public class JsonSchemaImp extends JsonSchemaHelper {
     @Step({"Validate response json with schema <Schema Name>",
             "Validate response json with schema <Schema Name> which is in from class path",
             "Responsu resource da tanımlanan şema <schema name> ile dorğulayın"})
-    @Then("Validate response json with schema {string}")
     public void validateJsonSchema(String schemaName) throws NullResponse {
         schemaName = String.valueOf(Utils.getFromStoreData(schemaName));
         try {

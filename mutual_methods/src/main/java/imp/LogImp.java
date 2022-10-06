@@ -23,7 +23,7 @@ public class LogImp extends FilterHelper {
     private final Logger log = LogManager.getLogger(LogImp.class);
 
     @Step({"Add log filter with errorStatus <table>", "Bu statü kodları için log filtresi ekle <table>"})
-    public void addFilter(Table table) throws RequestNotDefined {
+    public void addFilter(Table table) {
         ParseHelper parseHelper = new ParseHelper();
         List<TableRow> rows = table.getTableRows();
         var statusCodes = rows
@@ -34,7 +34,6 @@ public class LogImp extends FilterHelper {
         addCustomLogFilter(status);
     }
 
-    @Given("Log filter with errorStatus")
     public void addFilter(List<Integer> statusCodes) {
         ParseHelper parseHelper = new ParseHelper();
         Integer[] status = new Integer[statusCodes.size()];
@@ -43,13 +42,11 @@ public class LogImp extends FilterHelper {
     }
 
     @Step({"Log <log>", "Logla <log>"})
-    @And("Log {string}")
     public void startLog(String log) {
         this.log.info(log);
     }
 
     @Step({"Log this param <key>", "Kayıtlı parametreyi logla <key>"})
-    @And("Log this param {string}")
     public void logThisParam(String key) {
         this.log.info(ScenarioDataStore.get(key));
     }

@@ -9,13 +9,11 @@ public class DeleteRequestImp extends DeleteHelper {
 
 
     @Step({"Delete request", "Delete isteği gönder"})
-    @When("Delete request")
     public void deleteRequests() throws RequestNotDefined {
         deleteRequest();
     }
 
     @Step({"Delete request <url>", "Delete isteği gönder <url>"})
-    @When("Delete request {string}")
     public void deleteRequests(String url) throws RequestNotDefined {
         deleteRequest(url);
     }

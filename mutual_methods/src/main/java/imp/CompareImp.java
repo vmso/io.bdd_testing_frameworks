@@ -24,7 +24,6 @@ public class CompareImp  {
     @Step({"Get <selector> from response and then compare with <value>, Are they not equals?",
             "Get value with <selector> from response and verify it isn't equal with <value>",
             "Yanıttan <selector> ile değer alın ve <value> ile eşit olmadığını doğrulayın"})
-    @Then("Get {string} from response and then compare with {}, Are they not equals?")
     public void dataCompareNotEqualsFromResponse(String selector, Object value) throws NullResponse, NullValue {
         ResponseBodyHelper responseBodyHelper = new ResponseBodyHelper();
         Object value2 = responseBodyHelper.getResponseElement(selector);
@@ -38,7 +37,6 @@ public class CompareImp  {
     @Step({"Get <selector> from response and then compare with <value>, Are they equals?",
             "Get value with <selector> from response and verify it is equal with <value>",
             "Yanıttan <selector> ile değer alın ve <value> ile eşit olduğunu doğrulayın"})
-    @Then("Get {string} from response and then compare with {}, Are they equals?")
     public void dataCompareEqualsFromResponse(String selector, Object value) throws NullResponse, NullValue {
         ResponseBodyHelper responseBodyHelper = new ResponseBodyHelper();
         Object value2 = responseBodyHelper.getResponseElement(selector);
@@ -48,7 +46,6 @@ public class CompareImp  {
     }
 
     @Step("Get <selector> from response and then compare with <value>, is it contains the value?")
-    @Then("Get {string} from response and then compare with {string}, is it contains the value?")
     public void dataCompareContainsFromResponse(String selector, String value) throws NullResponse, NullValue {
         ResponseBodyHelper responseBodyHelper = new ResponseBodyHelper();
         String value2 = String.valueOf(responseBodyHelper.getResponseElement(selector));
@@ -56,7 +53,6 @@ public class CompareImp  {
     }
 
     @Step("Get <store key> list from response and then, compare list count with <count>, Are they equals?")
-    @Then("Get {string} list from response and then compare list count with {int}, are they equals?")
     public void compareListCount(String storeKey, int count){
         var list = (List<?>) Utils.getFromStoreData(storeKey);
         assertEquals(count,list.size());

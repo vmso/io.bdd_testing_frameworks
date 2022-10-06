@@ -15,7 +15,6 @@ public class ResponseTimeImp extends ResponseTimeHelper {
 
     @Step({"Get response time as milliseconds and compare it, is it less then <milliseconds>?",
             "Response zamanını getir ve karşılaştır, <milli saniye> milisaniyeden düşük mü?'"})
-    @Then("Get response time as milliseconds and compare it, is it less then {int} ?")
     public void checkResponseTimeAsMillis(Integer milliSeconds) throws NullResponse {
         Long responseTime = getRequestTimeInMillis();
 
@@ -28,9 +27,8 @@ public class ResponseTimeImp extends ResponseTimeHelper {
         }
     }
 
-    @Step({"Get response time as seconds and compare it, is it less then <milliseconds>?",
+    @Step({"Get response time as seconds and compare it, is it less then <seconds>?",
             "Response zamanını getir ve karşılaştır, <saniye> saniyeden düşük mü?'"})
-    @Then("Get response time as seconds and compare it, is it less then {int} ?")
     public void checkResponseTimeAsSeconds(Integer seconds) throws NullResponse {
         Long responseTime = getRequestTimeInSecond();
 

@@ -13,34 +13,30 @@ public class PathParamImp extends PathParameterHelper {
 
 
     @Step({"Add path parameter <key> = <value>.", "Path parametresi ekle <key> = <value>."})
-    @Given("Path parameter {string} = {string}.")
-    public void addPathParamsToReq(String key, String value) throws RequestNotDefined {
+    public void addPathParamsToReq(String key, String value)  {
         value = String.valueOf(Utils.getFromStoreData(value));
         addPathParam(key, value);
     }
 
     @Step({"Add path parameter <key> = <object value>", "Path parametresi ekle <key> = <object value>"})
-    @Given("Path parameter {string} = {}, value as object")
-    public void addPathParamsToReq(String key, Object value) throws RequestNotDefined {
+    public void addPathParamsToReq(String key, Object value)  {
         addPathParam(key, value);
     }
 
     @Step({"Add path parameters <table>", "Path parametresi ekle <table>"})
-    public void addPathParamsToReq(Table table) throws RequestNotDefined {
+    public void addPathParamsToReq(Table table)  {
         Utils utils = new Utils();
         Map<String, Object> params = utils.gaugeDataTableToMap(table);
         addPathParams(params);
     }
 
-    @Given("Path parameters")
-    public void addPathParamsToReq(Map<String, Object> pathParams) throws RequestNotDefined {
+    public void addPathParamsToReq(Map<String, Object> pathParams)  {
         addPathParams(pathParams);
     }
 
     @Step({"Add path parameter from store with <key>",
             "<key> anahtarı ile saklanan datalardan değeri al path parametresi olarak ekle."})
-    @Given("Path parameter from store with {string}")
-    public void addPathParaFromStore(String key) throws RequestNotDefined {
+    public void addPathParaFromStore(String key)  {
         Object params = Utils.getFromStoreData(key);
         addPathParams(key, params);
     }
