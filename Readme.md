@@ -1,6 +1,7 @@
 # Test Automation Framework
 
-In this framework, API test-automation, UI test-automation, and Mobile test-automation are combined into one, unified framework. It is based on many steps (key-words).Therefore, It is possible to create test cases using these steps even if you don't know how to code
+This framework is an open-source tool to combine API test-automation, UI test-automation, Mobile test-automation into a single, unified framework. It is base on the many steps (key-words). So you can create test cases with using this steps even you don't know codding.
+
 ### Table of Contents
 1- [Api Test Framework](#api)
 - 1.1 [Request Steps](#requestSteps)    
