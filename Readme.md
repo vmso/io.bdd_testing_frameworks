@@ -33,6 +33,8 @@ This framework is an open-source tool to combine API test-automation, UI test-au
 - 1.2 [Response Steps](#responseSteps)
     - [Checking Response Status Code](#responseStep1)
     - [Getting response time and comparing with provided value](#responseStep2)
+    - [Validating Response Json Schema](#responseStep3)
+    - [Adding customized log in response](#responseStep4)
 
 
 <a name='api'></a>
@@ -43,7 +45,6 @@ This framework is an open-source tool to combine API test-automation, UI test-au
 
 <a name='step1'></a>
 ##### 1- Defining api request
-
 To define a new api request you can use following step
 
 ```* Define new request```
@@ -348,6 +349,33 @@ You can review how the steps are implemented by clicking here [StatusCodeImp](ht
 
 The following step can be used to get the response time as seconds and compare if its less than the value
 
-``` * Get response time as seconds and compare it, is it less then "<seconds>"?" ```
+``` * Get response time as seconds and compare it, is it less then "<seconds>"? ```
 
 You can check more options to get the response time to compare with value and review how the steps are implemented by clicking here [ResponseTimeImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseTimeImp.java#L1) class.
+
+<a name='responseStep3'></a>
+##### 3- Validate the response json with provided String schema
+
+The following step can be used to validate the response json with provided String schema so that we can see if the service is responding with true json schema model.
+
+``` * Validate response json with schema "<Schema Name>" ```
+
+You can check more options to validate the response json with provided String schema and review how the steps are implemented by clicking here [JsonSchemaImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/JsonSchemaImp.java#L1) class.
+
+<a name='responseStep3'></a>
+##### 4- Validate the stored response json key with stored schema key from scenario data store
+
+The following step can be used to validate the stored response json key with stored schema key from scenario data store.Basically, wen are calling the stored response json and schema key from scenario data store which is prone to gauge framework.
+
+``` * Validate stored json "<json store key>" response with stored schema "<schema store key>" from scenario data store ```
+
+You can check more options to validate the stored response json with stored schema key from scenario/suit/spec store and review how the steps are implemented by clicking here [JsonSchemaImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/JsonSchemaImp.java#L1) class.
+
+<a name='responseStep3'></a>
+##### 4- Add customized log in the response
+
+The following step can be used to add customized log in the response.
+
+``` * Log "<log>" ```
+
+You can check more options to add customized log in the response and review how the steps are implemented by clicking here [LogImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/LogImp.java#L1) class.
