@@ -351,12 +351,3 @@ The following step can be used to get the response time as seconds and compare i
 ``` * Get response time as seconds and compare it, is it less then "<seconds>"?" ```
 
 You can check more options to get the response time to compare with value and review how the steps are implemented by clicking here [ResponseTimeImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseTimeImp.java#L1) class.
-
-<a name='responseStep2'></a>
-##### 3- Get the response time as seconds and compare with the provided value
-
-The following step can be used to get the response time as seconds and compare if its less than the value
-
-``` * Get response time as seconds and compare it, is it less then "<seconds>"?" ```
-
-You can check more options to get the response time to compare with value and review how the steps are implemented by clicking here [ResponseTimeImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseTimeImp.java#L1) class.
