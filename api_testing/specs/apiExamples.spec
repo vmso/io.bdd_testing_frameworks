@@ -21,7 +21,7 @@ pet post
     |Cache-Control  |max-age=0          |
 * Post request
 * Check if status code is "200"
-* Get "tags" from the body then convert it as list and store it with "tags_list" during the scenario
+//* Get "tags" from the body then convert it as list and store it with "tags_list" during the scenario
 * Get "tags_list" list from response and then, compare list count with "4", Are they equals?
 
 pet post 2

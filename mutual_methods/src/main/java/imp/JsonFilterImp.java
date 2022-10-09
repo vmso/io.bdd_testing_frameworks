@@ -3,6 +3,7 @@ package imp;
 import com.thoughtworks.gauge.Step;
 import com.thoughtworks.gauge.datastore.ScenarioDataStore;
 import com.thoughtworks.gauge.datastore.SpecDataStore;
+import com.thoughtworks.gauge.datastore.SuiteDataStore;
 import helper.JsonListFilterHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +24,13 @@ public class JsonFilterImp extends JsonListFilterHelper {
         Object jsonArray = Utils.getFromStoreData(json);
         var result = getJsonValueByFilter(jsonArray, filter, filterValue, requested);
         SpecDataStore.put(key, result);
-        log.info("{} stored in scenario store", result);
+        log.info("{} stored in Spec store", result);
+    }
+    @Step("Get <json select> from <json array> json list which one equals <filter>=<filterValue>, and store it during suit with <key>")
+    public void jsonArrayFilterSuit(String requested, String json, String filter, String filterValue, String key) {
+        Object jsonArray = Utils.getFromStoreData(json);
+        var result = getJsonValueByFilter(jsonArray, filter, filterValue, requested);
+        SuiteDataStore.put(key, result);
+        log.info("{} stored in suit store", result);
     }
 }

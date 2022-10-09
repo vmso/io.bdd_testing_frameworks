@@ -28,7 +28,30 @@ public class VariableImp {
         ScenarioDataStore.put(key, value);
         log.info(LOG_INFO, key, value);
     }
+    @Step({"Store variable <key> = <value> during suite", "Suit boyunca değişkeni sakla <key> = <value>"})
+    public void storeVariableDuringSuite(String key, String value) {
+        SuiteDataStore.put(key, value);
+        log.info(LOG_INFO, key, value);
+    }
+    @Step({"Store variable <key> = <value> during spec", "Spec boyunca değişkeni sakla <key> = <value>"})
+    public void storeVariableDuringSpec(String key, String value) {
+        SpecDataStore.put(key, value);
+        log.info(LOG_INFO, key, value);
+    }
 
+    @Step({"Store table as map during scenario with <key> <table>",
+            "Tabloyu map objesi olarak <key> anahtarı ile senaryo boyunca sakla <table>"})
+    public void storeTable(String key, Table table) {
+        Utils utils = new Utils();
+        Map<String, Object> storeData = utils.gaugeDataTableToMap(table);
+        ScenarioDataStore.put(key, storeData);
+        log.info("\"{}\" stored as table with key \"{}\"",storeData,key);
+    }
+
+    public void storeTable(String key, Map<String,Object> map) {
+        ScenarioDataStore.put(key, map);
+        log.info("\"{}\" stored as table with key \"{}\"",map,key);
+    }
     @Step({"Store <file name>'s value from classpath with <key> during scenario",
             "Senaryo boyunca <dosya adı> içeriğini <key> anahtarı ile sakla"})
     public void storeVariableDuringScenarioFromFile(String fileName, String key) {
@@ -74,11 +97,7 @@ public class VariableImp {
         log.info(LOG_INFO, key, fileName);
     }
 
-    @Step({"Store variable <key> = <value> during suite", "Suit boyunca değişkeni sakla <key> = <value>"})
-    public void storeVariableDuringSuite(String key, String value) {
-        SuiteDataStore.put(key, value);
-        log.info(LOG_INFO, key, value);
-    }
+
 
     @Step({"Store <file name>'s value from classpath with <key> during suite",
             "Suite boyunca <dosya adı> içeriğini <anahtarı ile sakla.>"})
@@ -90,11 +109,7 @@ public class VariableImp {
         log.info(LOG_INFO, key, fileName);
     }
 
-    @Step({"Store variable <key> = <value> during spec", "Spec boyunca değişkeni sakla <key> = <value>"})
-    public void storeVariableDuringSpec(String key, String value) {
-        SpecDataStore.put(key, value);
-        log.info(LOG_INFO, key, value);
-    }
+
 
     @Step({"Store <file name>'s value from classpath with <key> during spec",
             "Spec boyunca <dosya adı> içeriğini <anahtarı ile sakla.>"})
@@ -112,17 +127,5 @@ public class VariableImp {
         log.info("{} romeved from store", key);
     }
 
-    @Step({"Store table as map during scenario with <key> <table>",
-            "Tabloyu map objesi olarak <key> anahtarı ile senaryo boyunca sakla <table>"})
-    public void storeTable(String key, Table table) {
-        Utils utils = new Utils();
-        Map<String, Object> storeData = utils.gaugeDataTableToMap(table);
-        ScenarioDataStore.put(key, storeData);
-        log.info("\"{}\" stored as table with key \"{}\"",storeData,key);
-    }
 
-    public void storeTable(String key, Map<String,Object> map) {
-        ScenarioDataStore.put(key, map);
-        log.info("\"{}\" stored as table with key \"{}\"",map,key);
-    }
 }

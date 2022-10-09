@@ -34,7 +34,20 @@ This framework is an open-source tool to combine API test-automation, UI test-au
     - [Checking Response Status Code](#responseStep1)
     - [Getting response time and comparing with provided value](#responseStep2)
     - [Validating Response Json Schema](#responseStep3)
-    - [Adding customized log in response](#responseStep4)
+    - [Storing response body as String](#responseStep4)
+    - [Storing response body as json](#responseStep5)
+    - [Getting the specified selector from response and store it](#responseStep6)
+    - [Getting the specified selector from response and then check if is not null](#responseStep7)
+    - [Getting the specified selector from response and then convert it to list and store it](#responseStep8)
+    - [Getting the specified Json selector value from json response which have filter and filter value then store it](#responseStep9)
+    - [Storing key value from the json response as variable](#responseStep10)
+    - [Storing key value table from the json response as variable](#responseStep11)
+    - [Getting the specified selector value from response then compare it with provided value if they equals or not](#responseStep12)
+    - [Getting the specified selector value from response then in terms of containing compare it with the provided value ](#responseStep13)
+
+
+
+Get <selector> from response and then compare with <value>, is it contains the value?
 
 
 <a name='api'></a>
@@ -371,11 +384,98 @@ The following step can be used to validate the stored response json key with sto
 
 You can check more options to validate the stored response json with stored schema key from scenario/suit/spec store and review how the steps are implemented by clicking here [JsonSchemaImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/JsonSchemaImp.java#L1) class.
 
-<a name='responseStep3'></a>
-##### 4- Add customized log in the response
+<a name='responseStep4'></a>
+##### 5- Storing response body as string with key during scenario
 
-The following step can be used to add customized log in the response.
+The following step can be used to store response body as string with key during scenario
 
-``` * Log "<log>" ```
+``` * Store response as string with "<key>" during scenario ```
 
-You can check more options to add customized log in the response and review how the steps are implemented by clicking here [LogImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/LogImp.java#L1) class.
+You can check more options to store response body as string with key during scenario/suit/spec and review how the steps are implemented by clicking here [ResponseBodyImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseBodyImp.java#L1) class.
+
+<a name='responseStep5'></a>
+##### 6- Storing response body as Json with key during scenario
+
+The following step can be used to store response body as json with key during scenario
+
+``` * Store response as json with <key> during scenario ```
+
+You can check more options to store response body as json with key during scenario/suit/spec and review how the steps are implemented by clicking here [ResponseBodyImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseBodyImp.java#L1) class.
+
+<a name='responseStep6'></a>
+##### 7- Getting specified selector from response and store it with key during scenario
+
+The following step can be used to get the specified selector from response and store it with <key> during scenario
+
+``` * Get "<selector>" from response and store it with "<key>" during scenario ```
+
+You can check more options to get the specified selector from response and store it with <key> during scenario/suit/spec and review how the steps are implemented by clicking here [ResponseBodyImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseBodyImp.java#L1) class.
+
+<a name='responseStep7'></a>
+##### 8- Getting specified selector from response and then check if is not null?
+
+The following step can be used to get the specified selector from response and then check if is not null
+
+``` * Get "<selector>" from response and then check if is not null? ```
+
+You can check more options to get the specified selector from response and then check if its null or not null and review how the steps are implemented by clicking here [ResponseBodyImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseBodyImp.java#L1) class.
+
+<a name='responseStep8'></a>
+##### 9- Getting the specified selector from response and then convert it to list and store it?
+
+The following step can be used to get the specified selector from response and then convert it to list and store it
+
+``` * Get "<selector>" from the body then convert it to list and store it with "<key>" during the scenario ```
+
+You can check more options to get the specified selector from response and then convert it to list and store it during scenario/suit/spec and review how the steps are implemented by clicking here [ResponseBodyImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/ResponseBodyImp.java#L1) class.
+
+
+<a name='responseStep9'></a>
+##### 10- Getting the specified Json selector value from json response which have filter and filter value then store it
+
+The following step can be used to get the specified Json selector value from json response which have filter and filter value then store it during scenario
+
+``` * Get "<json select>" from "<json array>" json list which one equals "<filter>=<filterValue>", and store it during Scenario with "<key>"```
+
+You can check more options to get the specified Json selector value from json response which have filter and filter value then store it during scenario/suit/spec and review how the steps are implemented by clicking here [JsonFilterImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/JsonFilterImp.java#L1) class.
+
+<a name='responseStep10'></a>
+##### 11- Storing key value from the json response as variable
+
+The following step can be used to store key value from the json response as variable during scenario
+
+``` * Store variable <key> = <value> during scenario"```
+
+You can check more options to store key value from the json response as variable during scenario/suit/spec and review how the steps are implemented by clicking here [VariableImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/VariableImp.java#L1) class.
+
+<a name='responseStep11'></a>
+##### 11- Storing key value table from the json response as variable
+
+The following step can be used to store key value table from the json response as variable
+
+``` * Store table as map during scenario with "<key>" "<table>"```
+
+You can check more options to store key value table from the json response as variable during scenario/suit/spec and review how the steps are implemented by clicking here [VariableImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/VariableImp.java#L1) class.
+
+<a name='responseStep12'></a>
+##### 12- Getting the specified selector value from response then compare it with value if they are equals or not
+
+The following step can be used to get the specified <selector> value from response then compare it with <value> if they equals or not
+
+``` * Get "<selector>" from response and then compare with "<value>", Are they not equals?```
+
+You can check more options to get the specified selector value from response then compare it with value if they are equals or not and review how the steps are implemented by clicking here [CompareImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/CompareImp.java#L1) class.
+
+<a name='responseStep13`'></a>
+##### 13- Getting the specified selector value from response then in terms of containing compare it with the provided value 
+
+The following step can be used to get specified <selector> value from response then in terms of containing compare it with the provided <value>
+
+``` * Get "<selector>" from response and then compare with "<value>", is it contains the value?```
+
+You can check more options to get the specified selector value from response then in terms of containing compare it with the provided value and review how the steps are implemented by clicking here [CompareImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/CompareImp.java#L1) class.
+
+
+
+
+

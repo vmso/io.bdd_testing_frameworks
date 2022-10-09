@@ -34,6 +34,20 @@ public class ResponseBodyImp extends ResponseBodyHelper {
         ScenarioDataStore.put(key, jsonObject);
         log.info("response stored with key \"{}\" during scenario", key);
     }
+    @Step({"Store response as json with <key> during spec",
+            "Response'u json olarak <key> anahtarı ile spec boyunca sakla."})
+    public void storeResponseForSpecAsJson(String key) throws NullResponse {
+        JsonObject jsonObject = JsonParser.parseString(getResponseAsString()).getAsJsonObject();
+        SpecDataStore.put(key, jsonObject);
+        log.info("response stored with key \"{}\" during spec", key);
+    }
+    @Step({"Store response as json with <key> during suit",
+            "Response'u json olarak <key> anahtarı ile suit boyunca sakla."})
+    public void storeResponseForSuitAsJson(String key) throws NullResponse {
+        JsonObject jsonObject = JsonParser.parseString(getResponseAsString()).getAsJsonObject();
+        SuiteDataStore.put(key, jsonObject);
+        log.info("response stored with key \"{}\" during suit", key);
+    }
 
     @Step({"Store response as string with <key> during suite",
             "Response'u String olarak <key> anahtarı ile suite boyunca sakla."})
@@ -89,7 +103,7 @@ public class ResponseBodyImp extends ResponseBodyHelper {
         assertNull(value2, selector + " is not null");
     }
 
-    @Then("Get {string} from the body then convert it to list and store it with {string} during the scenario")
+    @Step("Get <selector> from the body then convert it to list and store it with <key> during the scenario")
     public void convertToString(String jsonKey, String key) {
         var list = getListFromResponse(jsonKey);
         ScenarioDataStore.put(key, list);
