@@ -41,7 +41,6 @@ public class ApiHelper {
 
     public void defineNewRequest() {
         init();
-        ReuseStoreData.remove("curl");
     }
 
 }

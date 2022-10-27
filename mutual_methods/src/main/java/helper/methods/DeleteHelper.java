@@ -1,12 +1,13 @@
 package helper.methods;
 
+import filter.RestAssuredFilter;
 import helper.ApiHelper;
+import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class DeleteHelper{
-
+public class DeleteHelper {
     private final Logger log = LogManager.getLogger(DeleteHelper.class);
 
     /**
@@ -15,7 +16,10 @@ public class DeleteHelper{
      * @param url url to which the request will be sent
      */
     protected void deleteRequest(String url) {
-        var response = ApiHelper.getInstance().getRequestSpecification().delete(url)
+        Response response = ApiHelper.getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
+                .delete(url)
                 .then()
                 .extract()
                 .response();
@@ -28,7 +32,10 @@ public class DeleteHelper{
      * Create a delete request and update ApiHelper class' response object.
      */
     protected void deleteRequest() {
-        var response = ApiHelper.getInstance().getRequestSpecification().delete()
+        Response response = ApiHelper.getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
+                .delete()
                 .then()
                 .extract()
                 .response();

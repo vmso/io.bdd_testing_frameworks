@@ -1,11 +1,12 @@
 package helper.methods;
 
+import filter.RestAssuredFilter;
 import helper.ApiHelper;
+import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class PutHelper {
-
     private final Logger log = LogManager.getLogger(PutHelper.class);
 
     /**
@@ -14,7 +15,10 @@ public class PutHelper {
      * @param url url to which the request will be sent
      */
     protected void putRequest(String url) {
-        var response = ApiHelper.getInstance().getRequestSpecification()
+        Response response = ApiHelper
+                .getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
                 .put(url)
                 .then()
                 .extract()
@@ -26,10 +30,12 @@ public class PutHelper {
 
     /**
      * Create a put request and update ApiHelper class' response object.
-     *
      */
     protected void putRequest() {
-        var response = ApiHelper.getInstance().getRequestSpecification()
+        Response response = ApiHelper
+                .getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
                 .put()
                 .then()
                 .extract()

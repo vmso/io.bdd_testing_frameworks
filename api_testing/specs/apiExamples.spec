@@ -13,7 +13,7 @@
     |Content-Type   |application/json   |
     |Cache-Control  |max-age=0          |
 * Post request
-* Check if status code is "200"
+* Check if status code is "201"
 * Validate response json with schema "petSchema.json"
 * Get "photoUrls[0]" from response and then compare with "https://www.karabas.com/karabas.jpg", Are they equals?
 * Get "tags[1].id" from response and then compare with "3", Are they equals?

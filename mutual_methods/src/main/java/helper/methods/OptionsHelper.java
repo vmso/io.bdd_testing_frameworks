@@ -1,11 +1,12 @@
 package helper.methods;
 
+import filter.RestAssuredFilter;
 import helper.ApiHelper;
+import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class OptionsHelper {
-
     private final Logger log = LogManager.getLogger(OptionsHelper.class);
 
     /**
@@ -14,7 +15,11 @@ public class OptionsHelper {
      * @param url url to which the request will be sent
      */
     protected void optionsRequest(String url) {
-        var response = ApiHelper.getInstance().getRequestSpecification().options(url)
+        Response response = ApiHelper
+                .getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
+                .options(url)
                 .then()
                 .extract()
                 .response();
@@ -27,7 +32,11 @@ public class OptionsHelper {
      * Create an options request and update ApiHelper class' response object.
      */
     protected void optionsRequest() {
-        var response = ApiHelper.getInstance().getRequestSpecification().options()
+        Response response = ApiHelper
+                .getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
+                .options()
                 .then()
                 .extract()
                 .response();

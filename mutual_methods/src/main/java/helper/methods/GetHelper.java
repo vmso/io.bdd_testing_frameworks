@@ -1,11 +1,12 @@
 package helper.methods;
 
+import filter.RestAssuredFilter;
 import helper.ApiHelper;
+import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GetHelper {
-
     private final Logger log = LogManager.getLogger(GetHelper.class);
 
     /**
@@ -13,15 +14,17 @@ public class GetHelper {
      *
      * @param url url to which the request will be sent
      */
-    protected void getRequest(String url){
-        var response = ApiHelper.getInstance().getRequestSpecification()
+    protected void getRequest(String url) {
+        Response response = ApiHelper.getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
                 .get(url)
                 .then()
                 .extract()
                 .response();
         ApiHelper.getInstance().setResponse(response);
         ApiHelper.getInstance().defineNewRequest();
-        log.info("Get request sent to {}", url);
+        log.info("Get request sent");
     }
 
     /**
@@ -29,7 +32,10 @@ public class GetHelper {
      *
      */
     protected void getRequest() {
-        var response = ApiHelper.getInstance().getRequestSpecification().get()
+        Response response = ApiHelper.getInstance()
+                .getRequestSpecification()
+                .filter(new RestAssuredFilter())
+                .get()
                 .then()
                 .extract()
                 .response();
