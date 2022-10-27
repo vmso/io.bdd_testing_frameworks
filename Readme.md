@@ -45,10 +45,13 @@ This framework is an open-source tool to combine API test-automation, UI test-au
     - [Getting the specified selector value from response then compare it with provided value if they equals or not](#responseStep12)
     - [Getting the specified selector value from response then in terms of containing compare it with the provided value ](#responseStep13)
 
+2- [Mobile Project](#api)
 
+... preparing
 
-Get <selector> from response and then compare with <value>, is it contains the value?
+3- [Web Project](#api)
 
+... preparing
 
 <a name='api'></a>
 ### Api Test Framework
@@ -201,8 +204,7 @@ to check implementation of adding base url step, please visit [HttpsImp](https:/
 <a name='step13'></a>
 ##### 13- Adding payload/Body as String from file resource 
 
-The following step can be used to add payload/Body as String from file resource
-
+The following step can be used to add the payload/Body as a String from the file under the payloads directory ın test the resource
 ``` * Add payload as String from resource "<file name>" ```
 
 You can check more options to add payload/Body as String from file resource and review how the steps are implemented by clicking here [RequestBodyImp](https://github.com/vmso/io.bdd_testing_frameworks/blob/fa184ebc892b8d1f45e2acef0ba2ef7d2db6c70f/mutual_methods/src/main/java/imp/RequestBodyImp.java#L1) class.
