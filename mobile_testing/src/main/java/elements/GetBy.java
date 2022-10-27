@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import platform.manager.PlatformManager;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -26,8 +26,8 @@ public abstract class GetBy {
         var locatorFolder = Configuration.getInstance().getStringValueOfProp("locator_folder");
         filePath = locatorFolder != null ? "locators/" + filePath + ".json" : filePath + ".json";
         @SuppressWarnings("unchecked")
-        var by = StoreApiInfo.get(jsonKey) == null
-                ? null : ((HashMap<AppType, By>) StoreApiInfo.get(jsonKey)).get(platformType);
+        var by = ReuseStoreData.get(jsonKey) == null
+                ? null : ((HashMap<AppType, By>) ReuseStoreData.get(jsonKey)).get(platformType);
         if (by != null) {
             return by;
         } else {
@@ -47,7 +47,7 @@ public abstract class GetBy {
             by = getByValue(type, locatorValue);
             var byMap = new HashMap<AppType, By>();
             byMap.put(platformType, by);
-            StoreApiInfo.put(jsonKey, byMap);
+            ReuseStoreData.put(jsonKey, byMap);
             return getByValue(type, locatorValue);
         }
     }

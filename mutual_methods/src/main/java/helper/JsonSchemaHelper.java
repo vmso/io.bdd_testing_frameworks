@@ -8,7 +8,7 @@ import exceptions.NullResponse;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 import static com.github.fge.jsonschema.SchemaVersion.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
@@ -26,7 +26,7 @@ public class JsonSchemaHelper extends ResponseBodyHelper {
      * @param json       response json
      * @param jsonSchema schema json
      */
-    protected void jsonSchemaValidatior(String json, String jsonSchema) {
+    protected void jsonSchemaValidator(String json, String jsonSchema) {
         assertThat(json, matchesJsonSchema(jsonSchema));
     }
 
@@ -45,7 +45,7 @@ public class JsonSchemaHelper extends ResponseBodyHelper {
     protected void jsonSchemaValidatiorWithSetting(String jsonSchema, SchemaVersion schemaVersion) throws NullResponse {
         checkIfResponseNull();
         try {
-            Response response = (Response) StoreApiInfo.get(RequestInfo.RESPONSE.info);
+            Response response = (Response) ReuseStoreData.get(RequestInfo.RESPONSE.info);
             JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder()
                     .setValidationConfiguration(ValidationConfiguration
                             .newBuilder()
@@ -71,10 +71,10 @@ public class JsonSchemaHelper extends ResponseBodyHelper {
         jsonSchemaValidatiorWithSetting(jsonSchemaName, DRAFTV4_HYPERSCHEMA);
     }
 
-    protected void jsonSchemaValidatior(String jsonSchemaName) throws NullResponse {
+    protected void jsonSchemaValidator(String jsonSchemaName) throws NullResponse {
         checkIfResponseNull();
         try {
-            Response response = (Response) StoreApiInfo.get(RequestInfo.RESPONSE.info);
+            Response response = (Response) ReuseStoreData.get(RequestInfo.RESPONSE.info);
             response.then().assertThat().body(matchesJsonSchemaInClasspath(jsonSchemaName));
         } catch (Exception e) {
             log.warn("An error occurred message:{}", e.getMessage());

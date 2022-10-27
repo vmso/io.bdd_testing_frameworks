@@ -7,7 +7,7 @@ import com.thoughtworks.gauge.datastore.SuiteDataStore;
 import helpers.DataTableHelper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 import utils.Utils;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class DataTableImp extends DataTableHelper {
 
     @Step("Get <elm> table list map according to below headers and store it in scenario data store with <key> key <table>")
     public void dataTable(String jsonKey, String key, Table table) {
-        StoreApiInfo.put(key, getDataTable(jsonKey, table));
+        ReuseStoreData.put(key, getDataTable(jsonKey, table));
     }
 
     @Step("Get <elm> table list map according to below headers and store it in spec data store with <key> key <table>")
@@ -48,7 +48,7 @@ public class DataTableImp extends DataTableHelper {
     @Step("Get <elm> table list map according to <headers> and store it in scenario data store with <key> key")
     @And("Get {string} table list map according to {string} and store it in scenario data store with {string} key")
     public void dataTable(String jsonKey, String jsonKeyOfHeader, String key) {
-        StoreApiInfo.put(key, getTableAsMapList(jsonKey, jsonKeyOfHeader));
+        ReuseStoreData.put(key, getTableAsMapList(jsonKey, jsonKeyOfHeader));
     }
 
     @Step("Get <elm> table list map according to <headers> and store it in spec data store with <key> key")

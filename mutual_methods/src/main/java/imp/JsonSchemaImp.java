@@ -6,7 +6,6 @@ import com.thoughtworks.gauge.datastore.SpecDataStore;
 import com.thoughtworks.gauge.datastore.SuiteDataStore;
 import exceptions.NullResponse;
 import helper.JsonSchemaHelper;
-import io.cucumber.java.en.Then;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.Utils;
@@ -26,7 +25,7 @@ public class JsonSchemaImp extends JsonSchemaHelper {
     public void validateJsonSchema(String schemaName) throws NullResponse {
         schemaName = String.valueOf(Utils.getFromStoreData(schemaName));
         try {
-            jsonSchemaValidatior(schemaName);
+            jsonSchemaValidator(String.format("schemas/%s",schemaName));
             log.info("response validate with {} json schema", schemaName);
         } catch (Exception e) {
             log.error(ERROR_OCCURRED, e.getMessage());
@@ -39,7 +38,7 @@ public class JsonSchemaImp extends JsonSchemaHelper {
         try {
             String responseJsonString = String.valueOf(ScenarioDataStore.get(jsonStoreKey));
             String jsonSchema = String.valueOf(ScenarioDataStore.get(schemaStoreKey));
-            jsonSchemaValidatior(responseJsonString, jsonSchema);
+            jsonSchemaValidator(responseJsonString, jsonSchema);
             log.info(VALIDATE, jsonStoreKey, schemaStoreKey);
         } catch (Exception e) {
             log.error(ERROR_OCCURRED, e.getMessage());

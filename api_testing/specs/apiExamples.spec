@@ -1,18 +1,11 @@
-Specification Heading
-=====================
-Created by testinium on 29.09.2021
+#Specification Heading
 
-This is an executable specification file which follows markdown syntax.
-Every heading in this file denotes a scenario. Every bulleted point denotes a step.
-
-pet post
-----------------
+##pet post
 * Define new request
 * Add base url "https://petstore.swagger.io"
 * Add payload as file from resource "payloads/petPost.json"
 * Add relaxed HTTPS validation
-* Add endpoint "/v2/pet"
-* Add path parameter "key" = "value".
+* Add endpoint "v2/pet"
 * Add Headers
     |key            |value              |
     |---------------|-------------------|
@@ -21,11 +14,13 @@ pet post
     |Cache-Control  |max-age=0          |
 * Post request
 * Check if status code is "200"
-//* Get "tags" from the body then convert it as list and store it with "tags_list" during the scenario
-* Get "tags_list" list from response and then, compare list count with "4", Are they equals?
+* Validate response json with schema "petSchema.json"
+* Get "photoUrls[0]" from response and then compare with "https://www.karabas.com/karabas.jpg", Are they equals?
+* Get "tags[1].id" from response and then compare with "3", Are they equals?
+* Print last response
 
-pet post 2
-----------------
+##pet post 2
+
 * Add payload as file from resource "payloads/petPost.json"
 * Add base url "https://petstore.swagger.io"
 * Add relaxed HTTPS validation

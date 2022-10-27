@@ -1,9 +1,8 @@
 package helpers;
 
 import driver.DriverManager;
-import io.cucumber.java.cs.Ale;
 import org.openqa.selenium.*;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 import static enums.SwitchEnums.*;
 import static org.openqa.selenium.WindowType.*;
@@ -27,13 +26,13 @@ public class SwitchHelper extends GetElementHelper {
     }
 
     public void switchToDefaultWindow() {
-        var defaultWindowHandle = String.valueOf(StoreApiInfo.get(DEFAULT_WINDOW.getValue()));
+        var defaultWindowHandle = String.valueOf(ReuseStoreData.get(DEFAULT_WINDOW.getValue()));
         DriverManager.getInstances().getDriver().switchTo().window(defaultWindowHandle);
     }
 
     private void storeCurrentWindowHandler() {
         var currentWindowHandler = DriverManager.getInstances().getDriver().getWindowHandle();
-        StoreApiInfo.put(DEFAULT_WINDOW.getValue(), currentWindowHandler);
+        ReuseStoreData.put(DEFAULT_WINDOW.getValue(), currentWindowHandler);
     }
 
     public void switchToIframe(int index) {
@@ -65,57 +64,57 @@ public class SwitchHelper extends GetElementHelper {
     private void switchToAlert() {
         AlertWaitHelper alertWaitHelper = new AlertWaitHelper();
         var alert = alertWaitHelper.waitForPresenceOfAlert(DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
-        StoreApiInfo.put(ALERT.getValue(), alert);
+        ReuseStoreData.put(ALERT.getValue(), alert);
     }
 
     public void switchToAlertAndDismiss() {
         switchToAlert();
-        ((Alert) StoreApiInfo.get(ALERT.getValue())).dismiss();
+        ((Alert) ReuseStoreData.get(ALERT.getValue())).dismiss();
     }
 
     public void switchToAlertAndAccept() {
         switchToAlert();
-        ((Alert) StoreApiInfo.get(ALERT.getValue())).accept();
+        ((Alert) ReuseStoreData.get(ALERT.getValue())).accept();
     }
 
     public String switchToAlertAndGetText() {
         switchToAlert();
-        return ((Alert) StoreApiInfo.get(ALERT.getValue())).getText();
+        return ((Alert) ReuseStoreData.get(ALERT.getValue())).getText();
     }
 
     public void switchToAlertAndSendKeys(String keys) {
         switchToAlert();
-        ((Alert) StoreApiInfo.get(ALERT.getValue())).sendKeys(keys);
+        ((Alert) ReuseStoreData.get(ALERT.getValue())).sendKeys(keys);
     }
 
     public void setActiveElement() {
         var activeElm = DriverManager.getInstances().getDriver().switchTo().activeElement();
-        StoreApiInfo.put(ACTIVE_ELEMENT.getValue(), activeElm);
+        ReuseStoreData.put(ACTIVE_ELEMENT.getValue(), activeElm);
     }
 
     public void sendTabKeyToActiveElement() {
         setActiveElement();
-        ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).sendKeys(Keys.TAB);
+        ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).sendKeys(Keys.TAB);
     }
 
     public void sendKeysToActiveElement(String keys) {
         setActiveElement();
-        ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).sendKeys(keys);
+        ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).sendKeys(keys);
     }
 
     public void clickOnActiveElement() {
         setActiveElement();
-        ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).click();
+        ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).click();
     }
 
     public void clearActiveElement() {
         setActiveElement();
-        ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).clear();
+        ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).clear();
     }
 
     public String getTextOfActiveElement() {
         setActiveElement();
-        return ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).getText();
+        return ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).getText();
     }
 
     public void switchToActiveElmAndSendEnterKey() {
@@ -125,12 +124,12 @@ public class SwitchHelper extends GetElementHelper {
 
     public String getAttributeOfActiveElement(String attribute) {
         setActiveElement();
-        return ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).getAttribute(attribute);
+        return ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).getAttribute(attribute);
     }
 
     public String getCssValueOfActiveElement(String cssValue) {
         setActiveElement();
-        return ((WebElement) StoreApiInfo.get(ACTIVE_ELEMENT.getValue())).getAttribute(cssValue);
+        return ((WebElement) ReuseStoreData.get(ACTIVE_ELEMENT.getValue())).getAttribute(cssValue);
     }
 
 }

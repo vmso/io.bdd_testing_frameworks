@@ -2,11 +2,11 @@ package utils;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class StoreApiInfo {
+public class ReuseStoreData {
 
     private static final ThreadLocal<ConcurrentHashMap<String, Object>> map = ThreadLocal.withInitial(ConcurrentHashMap::new);
 
-    private StoreApiInfo() {
+    private ReuseStoreData() {
         throw new IllegalStateException("Utility class");
     }
 

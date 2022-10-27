@@ -1,11 +1,8 @@
 package helper.methods;
 
-import enums.RequestInfo;
 import helper.ApiHelper;
-import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.StoreApiInfo;
 
 
 public class DeleteHelper{
@@ -18,11 +15,12 @@ public class DeleteHelper{
      * @param url url to which the request will be sent
      */
     protected void deleteRequest(String url) {
-        Response response = ApiHelper.getInstance().getRequestSpecification().delete(url)
+        var response = ApiHelper.getInstance().getRequestSpecification().delete(url)
                 .then()
                 .extract()
                 .response();
-        StoreApiInfo.put(RequestInfo.RESPONSE.info, response);
+        ApiHelper.getInstance().setResponse(response);
+        ApiHelper.getInstance().defineNewRequest();
         log.info("Delete request sent to {}", url);
     }
 
@@ -30,11 +28,12 @@ public class DeleteHelper{
      * Create a delete request and update ApiHelper class' response object.
      */
     protected void deleteRequest() {
-        Response response = ApiHelper.getInstance().getRequestSpecification().delete()
+        var response = ApiHelper.getInstance().getRequestSpecification().delete()
                 .then()
                 .extract()
                 .response();
-        StoreApiInfo.put(RequestInfo.RESPONSE.info, response);
+        ApiHelper.getInstance().setResponse(response);
+        ApiHelper.getInstance().defineNewRequest();
         log.info("Delete request sent");
     }
 }

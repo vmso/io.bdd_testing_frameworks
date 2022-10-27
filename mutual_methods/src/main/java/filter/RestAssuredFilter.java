@@ -2,6 +2,7 @@ package filter;
 
 import io.restassured.filter.Filter;
 import io.restassured.filter.FilterContext;
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
@@ -9,6 +10,7 @@ import io.restassured.specification.MultiPartSpecification;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utils.ReuseStoreData;
 import utils.Utils;
 
 import java.io.File;
@@ -24,10 +26,12 @@ public class RestAssuredFilter implements Filter {
     Integer[] failedStatusCode;
     private static final String LINE = "-------------------------------";
 
-
     public RestAssuredFilter(Integer... failedStatusCode) {
         this.failedStatusCode = failedStatusCode;
+        ReuseStoreData.remove("curl");
     }
+
+    //rest assured filter
 
     /**
      * Bu method da Rest-Assured filter method'unu override ediyoruz ve Rest-Assured
@@ -46,12 +50,14 @@ public class RestAssuredFilter implements Filter {
         Response response = filterContext.next(reqSpec, resSpec);
         int statusCode = response.statusCode();
 
-        if (Arrays.stream(failedStatusCode).anyMatch(i -> i == statusCode)) {
+        if (failedStatusCode.length == 0)
+            storeDataToLog(reqSpec);
+        else if (Arrays.stream(failedStatusCode).anyMatch(i -> i == statusCode))
             logErrorStatus(response, reqSpec);
-        } else if (Arrays.stream(failedStatusCode).anyMatch(i -> i != statusCode)
-                || failedStatusCode.length == 0) {
+        else if (Arrays.stream(failedStatusCode).anyMatch(i -> i != statusCode)
+                || failedStatusCode.length == 0)
             logInfoStatus(response, reqSpec);
-        }
+
         return response;
     }
 
@@ -113,6 +119,8 @@ public class RestAssuredFilter implements Filter {
             log.error(prettyJson);
         }
 
+        log.error("curl\n{}", createCurl(reqSpec.getMethod(), reqSpec.getURI(), reqSpec.getHeaders(), prettyJson));
+
 
         log.error(LINE);
         log.error("Response Status Code");
@@ -167,8 +175,6 @@ public class RestAssuredFilter implements Filter {
             log.info("Request Body");
             log.info(prettyJson);
         }
-
-
         log.info(LINE);
         log.info("Response Status Code");
         log.info(response.statusCode());
@@ -204,5 +210,23 @@ public class RestAssuredFilter implements Filter {
             else
                 log.error("{}:{}", key, value);
         });
+    }
+
+    private String createCurl(String method, String url, Headers headers, String body) {
+        StringBuilder curl = new StringBuilder(String.format("%ncurl --location --request %s %s \\\n", method, url));
+
+        if (headers.size() > 1) {
+            for (var header : headers) {
+                curl.append(String.format("--header '%s'\\\n", header.toString().replaceFirst("=", ":")));
+            }
+        }
+        if (body != null && !body.isEmpty() && !body.isBlank() && !body.equals("null")) {
+            curl.append(String.format("--data-raw '%s'", body));
+        }
+        return curl.toString();
+    }
+
+    private void storeDataToLog(FilterableRequestSpecification reqSpec) {
+        ReuseStoreData.put("curl", createCurl(reqSpec.getMethod(), reqSpec.getURI(), reqSpec.getHeaders(), getRequestBody(reqSpec)));
     }
 }

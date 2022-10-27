@@ -14,7 +14,7 @@ import org.openqa.selenium.NoSuchSessionException;
 import platforms.Android;
 import platforms.IOS;
 import platforms.MobileSystemSelectable;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -66,7 +66,7 @@ public class PlatformManager {
     }
 
     public void setDriver(AppiumDriver<MobileElement> driver) {
-        StoreApiInfo.put("driver", driver);
+        ReuseStoreData.put("driver", driver);
     }
 
     public void quitDriver() {

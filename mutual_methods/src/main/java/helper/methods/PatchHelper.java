@@ -1,11 +1,8 @@
 package helper.methods;
 
-import enums.RequestInfo;
 import helper.ApiHelper;
-import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.StoreApiInfo;
 
 public class PatchHelper {
 
@@ -15,30 +12,27 @@ public class PatchHelper {
      * Create a patch request and update ApiHelper class' response object.
      *
      * @param url url to which the request will be sent
-     * @return is request result as response
      */
-    protected Response patchRequest(String url) {
-        Response response = ApiHelper.getInstance().getRequestSpecification().patch(url)
+    protected void patchRequest(String url) {
+        var response = ApiHelper.getInstance().getRequestSpecification().patch(url)
                 .then()
                 .extract()
                 .response();
-        StoreApiInfo.put(RequestInfo.RESPONSE.info, response);
+        ApiHelper.getInstance().setResponse(response);
+        ApiHelper.getInstance().defineNewRequest();
         log.info("Patch request sent to {}", url);
-        return response;
     }
 
     /**
      * Create a patch request and update ApiHelper class' response object.
-     *
-     * @return is request result as response
      */
-    protected Response patchRequest() {
-        Response response = ApiHelper.getInstance().getRequestSpecification().patch()
+    protected void patchRequest() {
+        var response = ApiHelper.getInstance().getRequestSpecification().patch()
                 .then()
                 .extract()
                 .response();
-        StoreApiInfo.put(RequestInfo.RESPONSE.info, response);
+        ApiHelper.getInstance().setResponse(response);
+        ApiHelper.getInstance().defineNewRequest();
         log.info("Patch request sent");
-        return response;
     }
 }

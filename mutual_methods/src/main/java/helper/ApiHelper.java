@@ -2,10 +2,11 @@ package helper;
 
 import enums.RequestInfo;
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 public class ApiHelper {
 
@@ -15,7 +16,6 @@ public class ApiHelper {
     private ApiHelper() {
         init();
     }
-
     public static ApiHelper getInstance() {
         if (instance == null) {
             instance = new ApiHelper();
@@ -24,18 +24,24 @@ public class ApiHelper {
     }
 
     public RequestSpecification getRequestSpecification() {
-        return (RequestSpecification) StoreApiInfo.get(RequestInfo.REQUEST.info);
+        return (RequestSpecification) ReuseStoreData.get(RequestInfo.REQUEST.info);
     }
 
+    public Response getResponse() {
+        return (Response) ReuseStoreData.get(RequestInfo.RESPONSE.info);
+    }
+
+    public void setResponse(Response response) {
+        ReuseStoreData.put(RequestInfo.RESPONSE.info, response);
+    }
 
     public void init() {
-        StoreApiInfo.put(RequestInfo.REQUEST.info, RestAssured.given());
+        ReuseStoreData.put(RequestInfo.REQUEST.info, RestAssured.given().relaxedHTTPSValidation());
     }
 
     public void defineNewRequest() {
         init();
-        log.info("New requests defined");
+        ReuseStoreData.remove("curl");
     }
-
 
 }

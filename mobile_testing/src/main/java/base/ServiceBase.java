@@ -4,7 +4,7 @@ import configuration.Configuration;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 public class ServiceBase {
     private static ServiceBase instance;
@@ -26,7 +26,7 @@ public class ServiceBase {
 
     public AppiumDriverLocalService getService() {
 
-        return (AppiumDriverLocalService) StoreApiInfo.get("service");
+        return (AppiumDriverLocalService) ReuseStoreData.get("service");
     }
 
     public void startService() {
@@ -47,7 +47,7 @@ public class ServiceBase {
                 .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                 .withArgument(GeneralServerFlag.RELAXED_SECURITY);
         AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
-        StoreApiInfo.put("service", service);
+        ReuseStoreData.put("service", service);
     }
 
     public void stopTheServices() {

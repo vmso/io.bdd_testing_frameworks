@@ -1,143 +1,63 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "id": "https://petstore.swagger.io",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
   "type": "object",
-  "title": "The root schema",
-  "default": {},
   "required": [
     "id",
     "category",
     "name",
+    "photoUrls",
     "tags",
     "status"
   ],
   "properties": {
     "id": {
-      "id": "https://petstore.swagger.io#/properties/id",
-      "type": "number",
-      "title": "The id schema",
-      "default": 0
+      "type": "integer"
     },
     "category": {
-      "default": {},
-      "id": "https://petstore.swagger.io#/properties/category",
+      "type": "object",
       "required": [
         "id",
         "name"
       ],
-      "title": "The category schema",
-      "type": [
-        "object",
-        "null"
-      ],
       "properties": {
         "id": {
-          "default": 0,
-          "id": "https://petstore.swagger.io#/properties/category/properties/id",
-          "title": "The id schema",
-          "type": [
-            "number",
-            "null"
-          ]
+          "type": "integer"
         },
         "name": {
-          "default": "",
-          "id": "https://petstore.swagger.io#/properties/category/properties/name",
-          "title": "The name schema",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         }
       }
     },
     "name": {
-      "default": "",
-      "id": "https://petstore.swagger.io#/properties/name",
-      "title": "The name schema",
-      "type": [
-        "string",
-        "null"
-      ]
+      "type": "string"
     },
     "photoUrls": {
-      "default": [],
-      "id": "https://petstore.swagger.io#/properties/photoUrls",
-      "title": "The photoUrls schema",
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": "array",
       "items": {
-        "id": "https://petstore.swagger.io#/properties/photoUrls/items",
-        "anyOf": [
-          {
-            "default": "",
-            "id": "https://petstore.swagger.io#/properties/photoUrls/items/anyOf/0",
-            "title": "The first anyOf schema",
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        ]
+        "type": "string"
       }
     },
     "tags": {
-      "default": [],
-      "id": "https://petstore.swagger.io#/properties/tags",
-      "title": "The tags schema",
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": "array",
       "items": {
-        "id": "https://petstore.swagger.io#/properties/tags/items",
-        "anyOf": [
-          {
-            "default": {},
-            "id": "https://petstore.swagger.io#/properties/tags/items/anyOf/0",
-            "required": [
-              "id",
-              "name"
-            ],
-            "title": "The first anyOf schema",
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "id": {
-                "default": 0,
-                "id": "https://petstore.swagger.io#/properties/tags/items/anyOf/0/properties/id",
-                "title": "The id schema",
-                "type": [
-                  "number",
-                  "null"
-                ]
-              },
-              "name": {
-                "default": "",
-                "id": "https://petstore.swagger.io#/properties/tags/items/anyOf/0/properties/name",
-                "title": "The name schema",
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
-            }
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
           }
-        ]
+        }
       }
     },
     "status": {
-      "default": "",
-      "id": "https://petstore.swagger.io#/properties/status",
-      "title": "The status schema",
-      "type": [
-        "string",
-        "null"
-      ]
+      "type": "string"
     }
   }
 }

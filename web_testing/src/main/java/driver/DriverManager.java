@@ -6,18 +6,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import utils.StoreApiInfo;
+import utils.ReuseStoreData;
 
 import java.util.Locale;
 
 public class DriverManager {
 
     private static DriverManager instances = null;
-    private BrowserSelectable browserSelectable;
 
     private Browsers browsersType;
 
-    private Logger log = LogManager.getLogger(DriverManager.class);
+    private final Logger log = LogManager.getLogger(DriverManager.class);
 
     private DriverManager() {
 
@@ -35,6 +34,7 @@ public class DriverManager {
         String browserName = System.getProperty("browser");
         Browsers browserType = Browsers.valueOf(browserName.toUpperCase(Locale.ROOT));
         setBrowsersType(browserType);
+        BrowserSelectable browserSelectable;
         switch (browserType) {
             case OPERA -> {
                 browserSelectable = new Opera();
@@ -77,11 +77,11 @@ public class DriverManager {
     }
 
     public RemoteWebDriver getDriver() {
-        return ((RemoteWebDriver) StoreApiInfo.get("driver"));
+        return ((RemoteWebDriver) ReuseStoreData.get("driver"));
     }
 
     public void setDriver(RemoteWebDriver driver) {
-        StoreApiInfo.put("driver",driver);
+        ReuseStoreData.put("driver",driver);
     }
 
     public Browsers getBrowsersType() {
