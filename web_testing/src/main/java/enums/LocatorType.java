@@ -9,7 +9,8 @@ public enum LocatorType {
     CLASS_NAME,
     LINK_TEXT,
     PARTIAL_LINK_TEXT,
-    TAG_NAME
+    TAG_NAME,
+    TEXT
 
 }
 

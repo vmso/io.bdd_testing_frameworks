@@ -18,10 +18,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static elements.CustomBys.byText;
 import static enums.RelativeType.NEAR;
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public class GetBy {
+public abstract class GetBy {
 
     private String jsonKey;
 
@@ -72,6 +73,9 @@ public class GetBy {
             }
             case TAG_NAME -> {
                 return By.tagName(value);
+            }
+            case TEXT -> {
+                return byText(value);
             }
             default -> throw new IllegalArgumentException(String.format("%s is undefined parameter type", type));
         }

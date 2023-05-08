@@ -91,6 +91,7 @@ public abstract class GetBy {
             case CLASS_NAME -> {
                 return MobileBy.className(value);
             }
+
             default -> throw new IllegalStateException("Unexpected locator value: " + type);
         }
     }

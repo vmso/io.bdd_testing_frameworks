@@ -1,6 +1,7 @@
 package elements;
 
 import base.GetFileName;
+import driver.DriverManager;
 import json.UIProjectJsonReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static elements.CustomBys.byText;
 
 import java.util.HashMap;
 
@@ -52,6 +54,5 @@ class GetByTest {
 
         var added = getByMocked.getByValue("test_btn");
     }
-
 
 }

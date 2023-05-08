@@ -39,8 +39,8 @@
       "platformVersion": "11",
       "autoAcceptAlerts": "true",
       "rotatable": "true",
-      "appPackage": "app.meditasyon",
-      "appActivity": ".ui.splash.view.SplashActivity",
+      "appPackage": "es.payflow.app.staging",
+      "appActivity": "es.payflow.app.MainActivit",
       "disableAndroidWatchers": "true",
       "autoGrantPermissions": "true"
     }
