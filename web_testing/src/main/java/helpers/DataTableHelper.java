@@ -15,14 +15,14 @@ import java.util.stream.IntStream;
 public class DataTableHelper extends GetElementHelper {
     private final Logger log = LogManager.getLogger(DataTableHelper.class);
     public List<Map<String, String>> getTableAsMapList(String jsonKey, String... headers) {
-        By by = getByValue(jsonKey);
-        return getTableAsMapList(by, headers);
+            By by = getByValue(jsonKey);
+            return getTableAsMapList(by, headers);
     }
 
     public List<Map<String, String>> getTableAsMapList(By by, String... headers) {
         var cells = getElementsWithWait(by);
         int rowCount = (cells.size() / headers.length);
-        return getTableAsMapList(cells, rowCount, Arrays.asList(headers));
+            return getTableAsMapList(cells, rowCount, Arrays.asList(headers));
     }
 
     public List<Map<String, String>> getTableAsMapList(String jsonCellKey, String jsonHeaderKey) {
@@ -40,21 +40,21 @@ public class DataTableHelper extends GetElementHelper {
     }
 
     private List<Map<String, String>> getTableAsMapList(List<WebElement> cells, int rowCount, List<String> headers) {
-        AtomicInteger cellIndex = new AtomicInteger();
+            AtomicInteger cellIndex = new AtomicInteger();
         var table = new ArrayList<Map<String, String>>();
-        IntStream.range(0, rowCount)
-                .forEach(i -> {
+            IntStream.range(0, rowCount)
+                    .forEach(i -> {
                     var row = new HashMap<String, String>();
-                    headers.forEach(header -> {
+                        headers.forEach(header -> {
                         var headersText = Utils.strip(header);
                         var cellText = Utils.strip(cells.get(cellIndex.get()).getText());
                         row.putIfAbsent(headersText, cellText);
-                        cellIndex.getAndIncrement();
+                            cellIndex.getAndIncrement();
+                        });
+                        table.add(row);
                     });
-                    table.add(row);
-                });
         log.info("Web data table converted to map list: {}",table);
-        return table;
+            return table;
     }
 
 }

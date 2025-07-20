@@ -10,11 +10,11 @@ public class SendKeysHelper extends GetElementHelper {
     }
 
     public void sendKeys(String jsonKey, String keys, long timeout) {
-        sendKeys(jsonKey, keys, timeout, DEFAULT_SLEEP_IN_MILLIS);
+            sendKeys(jsonKey, keys, timeout, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public void sendKeys(String jsonKey, String keys) {
-        sendKeys(jsonKey, keys, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
+            sendKeys(jsonKey, keys, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public void sendKeys(By by, String keys, long timeout, long sleepInMillis) {
@@ -22,11 +22,11 @@ public class SendKeysHelper extends GetElementHelper {
     }
 
     public void sendKeys(By by, String keys, long timeout) {
-        sendKeys(by, keys, timeout, DEFAULT_SLEEP_IN_MILLIS);
+            sendKeys(by, keys, timeout, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public void sendKeys(By by, String keys) {
-        sendKeys(by, keys, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
+            sendKeys(by, keys, DEFAULT_WAIT, DEFAULT_SLEEP_IN_MILLIS);
     }
 
     public void sendKeysCharByChar(By by, String keys) {
@@ -36,16 +36,16 @@ public class SendKeysHelper extends GetElementHelper {
 
     public void sendKeysCharByChar(String jsonKey, String keys) {
         var by = getByValue(jsonKey);
-        sendKeysCharByChar(by, keys);
+            sendKeysCharByChar(by, keys);
     }
 
     public void sendKeysWithKeyboard(String jsonKey, String keys) {
         var by = getByValue(jsonKey);
-        sendKeysWithKeyboard(by, keys);
+            sendKeysWithKeyboard(by, keys);
     }
 
     public void sendKeysWithKeyboard(By by, String keys) {
-        new ActionsHelper().sendKeys(by, keys);
+            new ActionsHelper().sendKeys(by, keys);
     }
 
 }
