@@ -22,6 +22,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Install Gauge CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl gpg
+        curl -sL https://deb.gauge.org/stable | sudo -E bash -
+        sudo apt-get update
+        sudo apt-get install -y gauge
+        gauge -v
+
+    - name: Install Gauge Java plugin
+      run: |
+        gauge install java || gauge update -a || true
+
     - name: Set up JDK ${{ matrix.java-version }}
       uses: actions/setup-java@v4
       with:
