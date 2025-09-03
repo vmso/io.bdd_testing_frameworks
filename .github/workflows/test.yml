@@ -127,13 +127,14 @@ jobs:
       
     - name: Validate Docker Compose configuration
       run: |
-        docker-compose config
+        docker compose version
+        docker compose config
         echo "✅ Docker Compose configuration is valid"
         
     - name: Test Docker services startup
       run: |
-        docker-compose up -d
+        docker compose up -d
         sleep 10
-        docker-compose ps
-        docker-compose down
+        docker compose ps
+        docker compose down
         echo "✅ Docker services can start and stop successfully"
