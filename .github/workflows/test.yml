@@ -23,17 +23,18 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Install Gauge CLI
+      shell: bash
       run: |
-        sudo apt-get update
-        sudo apt-get install -y curl gpg
-        curl -sL https://deb.gauge.org/stable | sudo -E bash -
-        sudo apt-get update
-        sudo apt-get install -y gauge
+        sudo apt-get update && sudo apt-get install -y curl
+        curl -SsL https://downloads.gauge.org/stable | sh
+        echo "$HOME/.gauge" >> $GITHUB_PATH
         gauge -v
 
-    - name: Install Gauge Java plugin
+    - name: Install Gauge plugins
+      shell: bash
       run: |
-        gauge install java || gauge update -a || true
+        gauge install java || true
+        gauge install screenshot || true
 
     - name: Set up JDK ${{ matrix.java-version }}
       uses: actions/setup-java@v4
