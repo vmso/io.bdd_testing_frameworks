@@ -59,8 +59,8 @@ jobs:
       
     - name: Generate test reports
       run: |
-        mvn surefire-report:report || true
-        mvn jacoco:report || true
+        mvn org.apache.maven.plugins:maven-surefire-report-plugin:3.2.5:report || true
+        mvn org.jacoco:jacoco-maven-plugin:0.8.11:report || true
         
     - name: Upload test results
       uses: actions/upload-artifact@v4
