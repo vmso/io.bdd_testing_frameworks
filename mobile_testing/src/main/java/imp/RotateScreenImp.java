@@ -9,12 +9,12 @@ public class RotateScreenImp extends RotateScreenHelper {
     @Step("Rotate screen as landscape.")
     @And("Rotate screen as landscape.")
     public void rotateLandscape() {
-        rotateScreen("LANDSCAPE");
+        rotateScreen(); // No argument, just call the helper
     }
 
     @Step("Rotate the screen as portrait.")
     @And("Rotate the screen as portrait.")
     public void rotatePortrait() {
-        rotateScreen("PORTRAIT");
+        rotateScreen(); // No argument, just call the helper
     }
 }

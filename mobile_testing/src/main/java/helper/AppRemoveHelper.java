@@ -1,38 +1,21 @@
 package helper;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import elements.GetElement;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import platform.manager.PlatformManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class AppRemoveHelper {
+import java.lang.reflect.Method;
 
-    private final Logger log = LogManager.getLogger(AppRemoveHelper.class);
-    private AppiumDriver driver;
+public class AppRemoveHelper extends GetElement {
 
-    public AppRemoveHelper() {
-        driver = PlatformManager.getInstances().getDriver();
+    public void removeApp(String appPackage) {
+        var driver = PlatformManager.getInstances().getDriver();
+        try {
+            Method removeAppMethod = driver.getClass().getMethod("removeApp", String.class);
+            removeAppMethod.invoke(driver, appPackage);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to remove app: " + appPackage, e);
+        }
     }
-
-    protected boolean checkIsAppInstalled(String appName) {
-        return driver.isAppInstalled(appName);
-    }
-
-    protected void checkIsAppInstalledAndRemove(String appName) {
-        if (checkIsAppInstalled(appName))
-            driver.removeApp(appName);
-        log.info("App {} removed", appName);
-    }
-
-    protected void installApp(String appPath) {
-        driver.installApp(appPath);
-        log.info("App installed from {}", appPath);
-    }
-
-    protected void launchApp() {
-        driver.launchApp();
-    }
-
 }

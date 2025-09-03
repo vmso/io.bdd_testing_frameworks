@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info">
+<Configuration status="warn">
     <Properties>
         <Property name="basePath">logs</Property>
     </Properties>
 
     <Appenders>
-        <RollingFile name="fileLogger" fileName="${basePath}/gauge_api_testing.log"
+        <RollingFile name="fileLogger" fileName="${basePath}/api_testing_test.log"
                      filePattern="${basePath}/dailyLog-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n</pattern>
@@ -18,18 +18,32 @@
 
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
             <PatternLayout>
-                <pattern>%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n}{FATAL=red bold, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue}
-                </pattern>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n</pattern>
             </PatternLayout>
         </Console>
     </Appenders>
+    
     <Loggers>
-        <Logger name="io.bdd_testing_frameworks" level="debug" additivity="true">
+        <!-- Suppress error messages from helper classes during tests -->
+        <Logger name="helper" level="warn" additivity="false">
+            <appender-ref ref="ConsoleAppender"/>
+            <appender-ref ref="fileLogger"/>
+        </Logger>
+        
+        <!-- Suppress error messages from imp classes during tests -->
+        <Logger name="imp" level="warn" additivity="false">
+            <appender-ref ref="ConsoleAppender"/>
+            <appender-ref ref="fileLogger"/>
+        </Logger>
+        
+        <!-- General test logging -->
+        <Logger name="gauge_api_testing" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug"/>
         </Logger>
-        <Root level="info" additivity="true">
+        
+        <Root level="warn" additivity="true">
             <appender-ref ref="ConsoleAppender"/>
             <appender-ref ref="fileLogger"/>
         </Root>
     </Loggers>
-</Configuration>
+</Configuration> 

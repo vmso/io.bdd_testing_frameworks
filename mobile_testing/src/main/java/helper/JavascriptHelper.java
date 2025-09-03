@@ -1,20 +1,22 @@
 package helper;
 
-import io.appium.java_client.MobileDriver;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.JavascriptExecutor;
-import platform.manager.PlatformManager;
+import org.openqa.selenium.WebElement;
+import utils.ReuseStoreData;
 
 public class JavascriptHelper {
-    private MobileDriver driver;
+    private AppiumDriver driver;
 
-    protected JavascriptHelper() {
-        driver = PlatformManager.getInstances().getDriver();
+    public JavascriptHelper() {
+        this.driver = (AppiumDriver) ReuseStoreData.get("driver");
     }
 
-    public void executeJavascript(String script, Object... objects) {
-        if (objects.length > 0)
-            ((JavascriptExecutor) driver).executeScript(script, objects[0]);
-        else
-            ((JavascriptExecutor) driver).executeScript(script);
+    public Object executeScript(String script, Object... args) {
+        return ((JavascriptExecutor) driver).executeScript(script, args);
+    }
+
+    public void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }

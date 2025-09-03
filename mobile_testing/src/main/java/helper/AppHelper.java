@@ -1,41 +1,59 @@
 package helper;
 
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.appmanagement.BaseActivateApplicationOptions;
-import io.appium.java_client.appmanagement.BaseRemoveApplicationOptions;
-import platform.manager.PlatformManager;
+import org.openqa.selenium.WebDriver;
+import utils.ReuseStoreData;
 
-import javax.annotation.Nullable;
+import java.lang.reflect.Method;
 
-// todo bunun implerini ve loglarını yaz.
 public class AppHelper {
-    private MobileDriver driver;
+    private WebDriver driver;
 
-    protected AppHelper() {
-        this.driver = PlatformManager.getInstances().getDriver();
+    public AppHelper() {
+        this.driver = (WebDriver) ReuseStoreData.get("driver");
     }
 
-    protected void launchApp() {
-        driver.launchApp();
+    public void installApp(String appPath) {
+        try {
+            Method installAppMethod = driver.getClass().getMethod("installApp", String.class);
+            installAppMethod.invoke(driver, appPath);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to install app: " + appPath, e);
+        }
     }
 
-    protected void removeApp(String bundleId) {
-        driver.removeApp(bundleId);
+    public void uninstallApp(String appPackage) {
+        try {
+            Method removeAppMethod = driver.getClass().getMethod("removeApp", String.class);
+            removeAppMethod.invoke(driver, appPackage);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to uninstall app: " + appPackage, e);
+        }
     }
 
-    protected void removeApp(String bundleId, @Nullable BaseRemoveApplicationOptions option) {
-        driver.removeApp(bundleId, option);
+    public boolean isAppInstalled(String appPackage) {
+        try {
+            Method isAppInstalledMethod = driver.getClass().getMethod("isAppInstalled", String.class);
+            return (Boolean) isAppInstalledMethod.invoke(driver, appPackage);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to check if app is installed: " + appPackage, e);
+        }
     }
 
-    protected void closeApp() {
-        driver.closeApp();
+    public void activateApp(String appPackage) {
+        try {
+            Method activateAppMethod = driver.getClass().getMethod("activateApp", String.class);
+            activateAppMethod.invoke(driver, appPackage);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to activate app: " + appPackage, e);
+        }
     }
 
-    protected void activateApp(String bundleId) {
-        driver.activateApp(bundleId);
-    }
-
-    protected void activateApp(String bundleId, @Nullable BaseActivateApplicationOptions option) {
-        driver.activateApp(bundleId, option);
+    public void terminateApp(String appPackage) {
+        try {
+            Method terminateAppMethod = driver.getClass().getMethod("terminateApp", String.class);
+            terminateAppMethod.invoke(driver, appPackage);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to terminate app: " + appPackage, e);
+        }
     }
 }

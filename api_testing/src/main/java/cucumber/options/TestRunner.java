@@ -10,11 +10,18 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
         features = "classpath:features",
         snippets = SnippetType.CAMELCASE,
         stepNotifications = true,
-        glue={"imp"},
-        plugin = {"html:reports/cucumber_reports/cucumber-html-report.html", "json:reports/cucumber_reports/cucumber.json", "pretty"},
-        publish=true
+        glue = {"imp", "base", "mutual_methods.imp"},
+        plugin = {
+                "pretty",
+                "html:reports/cucumber-reports/cucumber-html-report.html",
+                "json:reports/cucumber-reports/cucumber.json",
+                "junit:reports/cucumber-reports/cucumber.xml",
+                "rerun:reports/cucumber-reports/rerun.txt"
+        },
+        monochrome = true,
+        dryRun = false,
+        publish = true
 )
-
 public class TestRunner {
-
+    // Modern Cucumber configuration with comprehensive reporting
 }

@@ -1,10 +1,11 @@
 package helper;
 
 import exceptions.FileNotFound;
-import io.appium.java_client.touch.offset.PointOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Actions;
+import platform.manager.PlatformManager;
 
 public class ClickHelper extends GetElementHelper {
 
@@ -28,25 +29,29 @@ public class ClickHelper extends GetElementHelper {
     public void clickIfExists(String jsonKey) {
         var presenceOfElm = new PresenceHelper();
         var by = getByValue(jsonKey);
-        if (presenceOfElm.isPresence(by)) {
+        try {
+            presenceOfElm.waitUntilPresence(by);
             clickElement(jsonKey);
+        } catch (Exception e) {
+            log.info("Element {} not present, not clicking", jsonKey);
         }
     }
 
     public void clickIfExists(String jsonKey, int timeout) {
         var presenceOfElm = new PresenceHelper();
         var by = getByValue(jsonKey);
-        if (presenceOfElm.isPresence(by, timeout)) {
+        try {
+            presenceOfElm.waitUntilPresence(by, timeout);
             clickElement(jsonKey, timeout);
+        } catch (Exception e) {
+            log.info("Element {} not present, not clicking", jsonKey);
         }
     }
 
     public void clickThePoint(int width, int height) {
-        var touchAction = new TouchHelper();
-        var point = new Point(width, height);
-        var pointOption = PointOption.point(point.x, point.y);
-        touchAction.getTouchAction().press(pointOption).release().perform();
+        var driver = PlatformManager.getInstances().getDriver();
+        Actions actions = new Actions(driver);
+        actions.moveByOffset(width, height).click().perform();
         log.info("{} width and {} point clicked", width, height);
     }
-
 }

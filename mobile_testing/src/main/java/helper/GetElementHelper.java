@@ -2,50 +2,51 @@ package helper;
 
 import elements.GetElement;
 import exceptions.FileNotFound;
-import io.appium.java_client.MobileElement;
+import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import platform.manager.PlatformManager;
 
+import java.time.Duration;
 import java.util.List;
 
 public class GetElementHelper extends GetElement {
 
-    private PresenceHelper presenceHelper;
-    private VisibleHelper visibleHelper;
-
-    public GetElementHelper() {
-        presenceHelper = new PresenceHelper();
-        visibleHelper = new VisibleHelper();
+    protected WebElement getElementWithWait(String jsonKey) throws FileNotFound {
+        By by = getByValue(jsonKey);
+        return getWebDriverWait().until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    protected MobileElement getElementWithWait(String jsonKey) throws FileNotFound {
-        var by = getByValue(jsonKey);
-        presenceHelper.waitUntilPresence(by);
-        return visibleHelper.waitUntilVisible(by);
+    protected WebElement getElementWithWait(String jsonKey, int timeOut) throws FileNotFound {
+        By by = getByValue(jsonKey);
+        return getWebDriverWait(timeOut).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    protected MobileElement getElementWithWait(String jsonKey, int timeOut) throws FileNotFound {
-        var by = getByValue(jsonKey);
-        presenceHelper.waitUntilPresence(by, timeOut);
-        return visibleHelper.waitUntilVisible(by, timeOut);
+    protected WebElement getElementWithoutWait(String jsonKey) throws FileNotFound {
+        return getWebElement(jsonKey);
     }
 
-    protected MobileElement getElementWithoutWait(String jsonKey) throws FileNotFound {
-        return getMobileElement(jsonKey);
+    protected List<WebElement> getElementsWithWait(String jsonKey) throws FileNotFound {
+        By by = getByValue(jsonKey);
+        return getWebDriverWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
-    protected List<MobileElement> getElementsWithWait(String jsonKey) throws FileNotFound {
-        var by = getByValue(jsonKey);
-        presenceHelper.waitUntilPresenceAll(by);
-        return visibleHelper.waitUntilVisibleAll(by);
+    protected List<WebElement> getElementsWithWait(String jsonKey, int timeOut) throws FileNotFound {
+        By by = getByValue(jsonKey);
+        return getWebDriverWait(timeOut).until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
-    protected List<MobileElement> getElementsWithWait(String jsonKey, int timeOut) throws FileNotFound {
-        var by = getByValue(jsonKey);
-        presenceHelper.waitUntilPresenceAll(by, timeOut);
-        new VisibleHelper().waitUntilVisibleAll(by, timeOut);
-        return visibleHelper.waitUntilVisibleAll(by, timeOut);
+    protected List<WebElement> getElementsWithoutWait(String jsonKey) throws FileNotFound {
+        return getWebElements(jsonKey);
     }
 
-    protected List<MobileElement> getElementsWithoutWait(String jsonKey) throws FileNotFound {
-        return getMobileElements(jsonKey);
+    private WebDriverWait getWebDriverWait() {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(10));
+    }
+
+    private WebDriverWait getWebDriverWait(int timeOut) {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(timeOut));
     }
 }

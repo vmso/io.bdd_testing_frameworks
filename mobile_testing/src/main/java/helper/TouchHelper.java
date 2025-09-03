@@ -1,19 +1,30 @@
 package helper;
 
-import io.appium.java_client.MultiTouchAction;
-import io.appium.java_client.TouchAction;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import platform.manager.PlatformManager;
 
 public class TouchHelper extends GetElementHelper {
 
-    protected TouchAction<?> getTouchAction() {
-        return new TouchAction<>(PlatformManager.getInstances().getDriver());
+    protected Actions getActions() {
+        return new Actions(PlatformManager.getInstances().getDriver());
     }
 
-    protected void performsMultiAction(TouchAction<?> action1, TouchAction<?> action2) {
-        new MultiTouchAction(PlatformManager.getInstances().getDriver())
-                .add(action1)
-                .add(action2)
-                .perform();
+    public void tap(WebElement element) {
+        getActions().moveToElement(element).click().perform();
     }
+
+    public void longPress(WebElement element) {
+        getActions().moveToElement(element).clickAndHold().pause(java.time.Duration.ofSeconds(2)).release().perform();
+    }
+
+    public void moveTo(WebElement element) {
+        getActions().moveToElement(element).perform();
+    }
+
+    public void dragAndDrop(WebElement source, WebElement target) {
+        getActions().clickAndHold(source).moveToElement(target).release().perform();
+    }
+
+    // Add more gesture utilities as needed
 }

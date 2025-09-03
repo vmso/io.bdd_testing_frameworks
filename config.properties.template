@@ -1,0 +1,180 @@
+# Modern BDD Testing Framework Configuration Template
+# Copy this file to config.properties and update values as needed
+# For production, use environment variables instead of hardcoded values
+
+# =============================================================================
+# SLACK INTEGRATION
+# =============================================================================
+# Slack token for notifications (use environment variable TEST_SLACK_TOKEN)
+slack_token=${TEST_SLACK_TOKEN}
+# Slack webhook URL (use environment variable TEST_WEBHOOK)
+webhook=${TEST_WEBHOOK}
+# Enable/disable Slack notifications
+slack_message=true
+
+# =============================================================================
+# DATABASE CONFIGURATION
+# =============================================================================
+# Database connection string (use environment variable TEST_CONNECTION_STRING)
+connectionString=${TEST_CONNECTION_STRING}
+# Database driver class
+dbClass=org.postgresql.Driver
+# Database user (use environment variable TEST_DB_USER)
+dbUser=${TEST_DB_USER:-testuser}
+# Database password (use environment variable TEST_DB_PASSWORD)
+dbPassword=${TEST_DB_PASSWORD}
+
+# =============================================================================
+# TEST EXECUTION CONFIGURATION
+# =============================================================================
+# Test environment (development, staging, production)
+environment=${TEST_ENVIRONMENT:-development}
+# Number of parallel threads for test execution
+parallel.threads=${TEST_PARALLEL_THREADS:-4}
+# Test timeout in seconds
+test.timeout=${TEST_TIMEOUT:-30}
+# Enable/disable parallel execution
+parallel.enabled=true
+# Test retry count for failed tests
+test.retry.count=2
+
+# =============================================================================
+# BROWSER CONFIGURATION
+# =============================================================================
+# Default browser for web testing
+default.browser=${TEST_DEFAULT_BROWSER:-chrome}
+# Base URL for web testing
+base.url=${TEST_BASE_URL:-https://example.com}
+# Browser window size
+browser.width=1920
+browser.height=1080
+# Headless mode
+browser.headless=${TEST_HEADLESS:-false}
+# Browser timeout in seconds
+browser.timeout=30
+
+# =============================================================================
+# MOBILE CONFIGURATION
+# =============================================================================
+# Appium server URL
+appium.server.url=${TEST_APPIUM_URL:-http://localhost:4723}
+# Default mobile platform
+mobile.platform=${TEST_MOBILE_PLATFORM:-android}
+# Device capabilities file
+mobile.capabilities.file=device_capabilities.json
+
+# =============================================================================
+# API TESTING CONFIGURATION
+# =============================================================================
+# Default API base URL
+api.base.url=${TEST_API_BASE_URL:-https://api.example.com}
+# API timeout in seconds
+api.timeout=30
+# Enable/disable SSL verification
+api.ssl.verify=${TEST_SSL_VERIFY:-true}
+# API authentication type (basic, bearer, oauth)
+api.auth.type=${TEST_API_AUTH_TYPE:-none}
+
+# =============================================================================
+# REPORTING CONFIGURATION
+# =============================================================================
+# Enable/disable screenshots on failure
+screenshot_on_failure=true
+# Report directory
+reports.dir=reports
+# Allure results directory
+allure.results.dir=target/allure-results
+# Cucumber reports directory
+cucumber.reports.dir=reports/cucumber-reports
+# JaCoCo reports directory
+jacoco.reports.dir=target/site/jacoco
+
+# =============================================================================
+# LOGGING CONFIGURATION
+# =============================================================================
+# Log level (DEBUG, INFO, WARN, ERROR)
+log.level=${TEST_LOG_LEVEL:-INFO}
+# Log file path
+log.file=logs/test-execution.log
+# Enable/disable console logging
+log.console=true
+# Enable/disable file logging
+log.file.enabled=true
+
+# =============================================================================
+# MONITORING CONFIGURATION
+# =============================================================================
+# Enable/disable monitoring
+monitoring.enabled=${TEST_MONITORING:-false}
+# Prometheus metrics endpoint
+metrics.endpoint=${TEST_METRICS_ENDPOINT:-http://localhost:9090}
+# Grafana dashboard URL
+grafana.url=${TEST_GRAFANA_URL:-http://localhost:3000}
+
+# =============================================================================
+# PERFORMANCE TESTING
+# =============================================================================
+# Enable/disable performance testing
+performance.enabled=${TEST_PERFORMANCE:-false}
+# Performance test timeout in seconds
+performance.timeout=300
+# Concurrent users for load testing
+performance.users=10
+# Test duration in seconds
+performance.duration=60
+
+# =============================================================================
+# SECURITY CONFIGURATION
+# =============================================================================
+# Enable/disable security scanning
+security.scan.enabled=${TEST_SECURITY_SCAN:-false}
+# OWASP dependency check
+security.owasp.enabled=true
+# Security scan timeout in seconds
+security.scan.timeout=600
+
+# =============================================================================
+# CLOUD TESTING CONFIGURATION
+# =============================================================================
+# Cloud provider (browserstack, saucelabs, aws)
+cloud.provider=${TEST_CLOUD_PROVIDER:-none}
+# Cloud username (use environment variable)
+cloud.username=${TEST_CLOUD_USERNAME}
+# Cloud access key (use environment variable)
+cloud.access.key=${TEST_CLOUD_ACCESS_KEY}
+# Cloud build name
+cloud.build.name=${TEST_BUILD_NAME:-BDD-Test-Build}
+
+# =============================================================================
+# WIREMOCK CONFIGURATION
+# =============================================================================
+# WireMock server URL
+wiremock.url=${TEST_WIREMOCK_URL:-http://localhost:8080}
+# WireMock mappings directory
+wiremock.mappings.dir=wiremock/mappings
+# Enable/disable WireMock
+wiremock.enabled=${TEST_WIREMOCK_ENABLED:-false}
+
+# =============================================================================
+# TEST DATA CONFIGURATION
+# =============================================================================
+# Test data directory
+test.data.dir=test-data
+# Enable/disable test data generation
+test.data.generation=${TEST_DATA_GENERATION:-true}
+# Test data locale
+test.data.locale=${TEST_DATA_LOCALE:-en_US}
+
+# =============================================================================
+# ADVANCED CONFIGURATION
+# =============================================================================
+# Enable/disable video recording
+video.recording=${TEST_VIDEO_RECORDING:-false}
+# Enable/disable network throttling
+network.throttling=${TEST_NETWORK_THROTTLING:-false}
+# Network speed (slow, fast, 3g, 4g)
+network.speed=${TEST_NETWORK_SPEED:-fast}
+# Enable/disable geolocation testing
+geolocation.enabled=${TEST_GEOLOCATION:-false}
+# Default geolocation (latitude,longitude)
+geolocation.coordinates=${TEST_GEOLOCATION_COORDS:-40.7128,-74.0060} 
