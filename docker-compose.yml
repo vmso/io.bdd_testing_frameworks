@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Selenium Grid Hub
   selenium-hub:
@@ -63,7 +61,7 @@ services:
 
   # Appium Server
   appium:
-    image: appium/appium:2.2.3
+    image: appium/appium:latest
     container_name: appium-server
     ports:
       - "4723:4723"
