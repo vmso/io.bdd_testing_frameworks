@@ -10,7 +10,7 @@ public class ActionsHelper extends GetElementHelper {
     private final Logger log = LogManager.getLogger(ActionsHelper.class);
 
     private Actions getActions() {
-        return new Actions(DriverManager.getInstances().getDriver());
+            return new Actions(DriverManager.getInstance().getDriver());
     }
 
     protected void sendKeys(String jsonKey, CharSequence value) {
@@ -58,7 +58,7 @@ public class ActionsHelper extends GetElementHelper {
      * Clicks (without releasing) at the current mouse location.
      */
     protected void clickAndHold() {
-        getActions().clickAndHold().build().perform();
+            getActions().clickAndHold().build().perform();
         log.info("Clicks (without releasing) at the current mouse location.");
     }
 
@@ -77,7 +77,7 @@ public class ActionsHelper extends GetElementHelper {
      * Releases the depressed left mouse button at the current mouse location.
      */
     protected void releaseMouse() {
-        getActions().release().build().perform();
+            getActions().release().build().perform();
         log.info("Releases the depressed left mouse button");
     }
 
@@ -97,7 +97,7 @@ public class ActionsHelper extends GetElementHelper {
      * Performs a double click at the current mouse location.
      */
     protected void doubleClick() {
-        getActions().doubleClick().build().perform();
+            getActions().doubleClick().build().perform();
         log.info("Performed a double-click at the current mouse location");
     }
 
@@ -109,7 +109,7 @@ public class ActionsHelper extends GetElementHelper {
      */
     protected void moveToElement(String jsonKey) {
         var webElement = getClickableElement(jsonKey);
-        getActions().moveToElement(webElement).build().perform();
+            getActions().moveToElement(webElement).build().perform();
         log.info("Moved the mouse to the middle of the '{}' element", jsonKey);
     }
 
@@ -122,7 +122,7 @@ public class ActionsHelper extends GetElementHelper {
      * @param y offset y
      */
     protected void moveByOffset(int x, int y) {
-        getActions().moveByOffset(x, y).build().perform();
+            getActions().moveByOffset(x, y).build().perform();
         log.info("Moved the mouse to {},{} offset.", x, y);
     }
 
@@ -135,7 +135,7 @@ public class ActionsHelper extends GetElementHelper {
      */
     protected void moveToElement(String jsonKey, int x, int y) {
         var webElement = getClickableElement(jsonKey);
-        getActions().moveToElement(webElement, x, y).build().perform();
+            getActions().moveToElement(webElement, x, y).build().perform();
         log.info("Moves the mouse to an offset (x={}.,y={}.) from the '{}' element's in-view center point."
                 , x, y, jsonKey);
     }
@@ -148,7 +148,7 @@ public class ActionsHelper extends GetElementHelper {
      */
     protected void rightClick(String jsonKey) {
         var webElement = getClickableElement(jsonKey);
-        getActions().moveToElement(webElement).contextClick().build().perform();
+            getActions().moveToElement(webElement).contextClick().build().perform();
         log.info("Performed a context-click at middle of the '{}' element", jsonKey);
     }
 
@@ -157,7 +157,7 @@ public class ActionsHelper extends GetElementHelper {
      * Performs a context-click at the current mouse location.
      */
     protected void rightClick() {
-        getActions().contextClick().build().perform();
+            getActions().contextClick().build().perform();
         log.info("Performs a context-click at the current mouse location.");
     }
 
@@ -172,7 +172,7 @@ public class ActionsHelper extends GetElementHelper {
         var sourceElement = getClickableElement(sourceElementKey);
         getActions().moveToElement(sourceElement).build().perform();
         var targetElement = getClickableElement(targetElementKey);
-        getActions().dragAndDrop(sourceElement, targetElement).build().perform();
+            getActions().dragAndDrop(sourceElement, targetElement).build().perform();
         log.info("A convenience method that performed click-and-hold at the location of the '{}' element " +
                         "moves to the location of the target '{}' element",
                 sourceElement, targetElement);
@@ -188,7 +188,7 @@ public class ActionsHelper extends GetElementHelper {
      */
     protected void dragAndDropBy(String sourceElementKey, int x, int y) {
         var sourceElement = getClickableElement(sourceElementKey);
-        getActions().dragAndDropBy(sourceElement, x, y).build().perform();
+            getActions().dragAndDropBy(sourceElement, x, y).build().perform();
         log.info("Performed click-and-hold at '{}' element to (x={}, y={}) offset, then releases the mouse.",
                 sourceElement, x, y);
     }

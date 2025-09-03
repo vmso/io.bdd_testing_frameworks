@@ -1,36 +1,57 @@
 package helper;
 
-import io.appium.java_client.MobileElement;
+import elements.GetElement;
+import exceptions.FileNotFound;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import platform.manager.PlatformManager;
 
-import java.util.HashMap;
+public class ScrollHelper extends GetElement {
 
-public class ScrollHelper extends TouchHelper {
-
-    /**
-     * @param jsonKey if driver is an Android driver, jsonKey is text of the element
-     *                if driver is an iOS driver, jsonKey is locator key of element
-     */
-    protected void scrollToElement(String jsonKey) {
-        var platform = PlatformManager.getInstances().getPlatform();
-        switch (platform) {
-            case ANDROID -> androidScroll(jsonKey);
-            case IOS -> iosScroll(jsonKey);
-        }
+    public void scrollToElement(String jsonKey) throws FileNotFound {
+        WebElement element = getWebElement(jsonKey);
+        var driver = PlatformManager.getInstances().getDriver();
+        
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
     }
 
-    private void androidScroll(String text) {
-        var driver = (AndroidDriver<MobileElement>) PlatformManager.getInstances().getDriver();
-        driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"" + text + "\").instance(0))");
+    public void scrollToElement(String jsonKey, int timeOut) throws FileNotFound {
+        WebElement element = getWebElement(jsonKey);
+        var driver = PlatformManager.getInstances().getDriver();
+        
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
     }
 
-    private void iosScroll(String jsonKey) {
-        var scrollObject = new HashMap<>();
-        var elm = getElementWithWait(jsonKey);
-        var js = new JavascriptExecutorHelper().getJsExecutor();
-        scrollObject.put("direction", "down");
-        scrollObject.put("element", elm.getId());
-        js.executeScript("mobile: swipe", scrollObject);
+    public void scrollUp() {
+        var driver = PlatformManager.getInstances().getDriver();
+        var size = driver.manage().window().getSize();
+        var startX = size.getWidth() / 2;
+        var startY = (int) (size.getHeight() * 0.8);
+        var endY = (int) (size.getHeight() * 0.2);
+
+        Actions actions = new Actions(driver);
+        actions.moveByOffset(startX, startY)
+                .clickAndHold()
+                .moveByOffset(0, endY - startY)
+                .release()
+                .perform();
+    }
+
+    public void scrollDown() {
+        var driver = PlatformManager.getInstances().getDriver();
+        var size = driver.manage().window().getSize();
+        var startX = size.getWidth() / 2;
+        var startY = (int) (size.getHeight() * 0.2);
+        var endY = (int) (size.getHeight() * 0.8);
+
+        Actions actions = new Actions(driver);
+        actions.moveByOffset(startX, startY)
+                .clickAndHold()
+                .moveByOffset(0, endY - startY)
+                .release()
+                .perform();
     }
 }

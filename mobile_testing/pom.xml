@@ -5,27 +5,42 @@
     <parent>
         <artifactId>io.bdd_testing_frameworks</artifactId>
         <groupId>testing_frameworks</groupId>
-        <version>0.0.1</version>
+        <version>2.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mobile_testing</artifactId>
 
     <properties>
-        <appium.version>7.6.0</appium.version>
-        <selenium.version>4.0.0</selenium.version>
+        <appium.version>9.3.0</appium.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>testing_frameworks</groupId>
             <artifactId>mutual_methods</artifactId>
-            <version>0.0.1</version>
+            <version>2.0.0</version>
         </dependency>
+        
+        <!-- Appium Java Client -->
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>${appium.version}</version>
+        </dependency>
+        
+        <!-- Mobile Testing Utilities -->
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>mitmproxy-java</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        
+        <!-- Device Farm Integration -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-devicefarm</artifactId>
+            <version>1.12.261</version>
         </dependency>
     </dependencies>
 

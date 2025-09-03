@@ -3,13 +3,13 @@ package platforms;
 import base.ServiceBase;
 import configuration.Configuration;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import json.JsonReader;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.WebElement;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,17 +26,16 @@ public class IOS implements MobileSystemSelectable {
     }
 
     @Override
-    public AppiumDriver<MobileElement> getLocalDriver() {
-        return new IOSDriver<>(service.getUrl(), capabilities);
-
+    public AppiumDriver getLocalDriver() {
+        return new IOSDriver(service.getUrl(), capabilities);
     }
 
     @Override
-    public AppiumDriver<MobileElement> getRemoteDriver() {
+    public AppiumDriver getRemoteDriver() {
         var ip = Configuration.getInstance().getStringValueOfProp("grid_ip");
         var gridPort = Configuration.getInstance().getStringValueOfProp("grid_port");
         try {
-            return new IOSDriver<>(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
+            return new IOSDriver(new URL(String.format("http://%s:%s/wd/hub", ip, gridPort)), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException();

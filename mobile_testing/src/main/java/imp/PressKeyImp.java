@@ -10,13 +10,12 @@ public class PressKeyImp extends PressKeysHelper {
     @Step("Press <key>")
     @An("Press {string}")
     public void pressKeyImp(String key) {
-        presKeys(key);
+        pressKey(key); // Use the new pressKey method
     }
 
     @Step("Press back button")
     @And("Press back button")
     public void pressBackButton() {
-        pressBack();
+        pressKey("BACK"); // Use the new pressKey method for back button
     }
-
 }

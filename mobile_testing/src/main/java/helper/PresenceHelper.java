@@ -1,50 +1,42 @@
 package helper;
 
-import io.appium.java_client.MobileElement;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import platform.manager.PlatformManager;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PresenceHelper extends WaitHelper {
-    private final Logger log = LogManager.getLogger(PresenceHelper.class);
-
-    public MobileElement waitUntilPresence(By by, int timeout) {
-        return (MobileElement) getWebDriverWait(timeout)
+public class PresenceHelper {
+    public WebElement waitUntilPresence(By by, int timeout) {
+        return getWebDriverWait(timeout)
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public MobileElement waitUntilPresence(By by) {
-        return waitUntilPresence(by, DEFAULT_TIME_OUT);
+    public WebElement waitUntilPresence(By by) {
+        return getWebDriverWait().until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public List<MobileElement> waitUntilPresenceAll(By by, int timeout) {
-        var webElements = getWebDriverWait(timeout)
+    public List<WebElement> waitUntilPresenceAll(By by, int timeout) {
+        List<WebElement> webElements = getWebDriverWait(timeout)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
-        var mobileElement = new ArrayList<MobileElement>();
-        webElements.stream().map(e -> (MobileElement) e).forEach(mobileElement::add);
-        return mobileElement;
+        var webElementList = new ArrayList<WebElement>();
+        webElements.stream().forEach(webElementList::add);
+        return webElementList;
     }
 
-    public List<MobileElement> waitUntilPresenceAll(By by) {
-        return waitUntilPresenceAll(by, DEFAULT_TIME_OUT);
+    public List<WebElement> waitUntilPresenceAll(By by) {
+        return waitUntilPresenceAll(by, 10);
     }
 
-
-    public boolean isPresence(By by) {
-        return isPresence(by, DEFAULT_TIME_OUT);
+    private WebDriverWait getWebDriverWait() {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(10));
     }
 
-    public boolean isPresence(By by, int second) {
-        try {
-            log.info(" Wait presence of {} element for {} seconds", by, second);
-            return waitUntilPresence(by, second) != null;
-        } catch (Exception ex) {
-            return false;
-        }
+    private WebDriverWait getWebDriverWait(int timeOut) {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(timeOut));
     }
 }

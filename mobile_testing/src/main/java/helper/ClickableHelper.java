@@ -1,24 +1,40 @@
 package helper;
 
+import elements.GetElement;
 import exceptions.FileNotFound;
-import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import platform.manager.PlatformManager;
 
-public class ClickableHelper extends WaitHelper {
+import java.time.Duration;
 
-    public MobileElement waitForClickable(String jsonKey, int timeOut) throws FileNotFound {
+public class ClickableHelper extends GetElement {
+    public WebElement waitForClickable(String jsonKey, int timeOut) throws FileNotFound {
         By by = getByValue(jsonKey);
-        return (MobileElement) getWebDriverWait(timeOut).until(ExpectedConditions.elementToBeClickable(by));
+        return getWebDriverWait(timeOut).until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    public MobileElement waitForClickable(String jsonKey) throws FileNotFound {
+    public WebElement waitForClickable(String jsonKey) throws FileNotFound {
         By by = getByValue(jsonKey);
-        return (MobileElement) getWebDriverWait().until(ExpectedConditions.elementToBeClickable(by));
+        return getWebDriverWait().until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    public MobileElement waitForClickable(String jsonKey, int timeOut, int sleepInt) throws FileNotFound {
+    public WebElement waitForClickable(String jsonKey, int timeOut, int sleepInt) throws FileNotFound {
         By by = getByValue(jsonKey);
-        return (MobileElement) getWebDriverWait(timeOut,sleepInt).until(ExpectedConditions.elementToBeClickable(by));
+        return getWebDriverWait(timeOut,sleepInt).until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    private WebDriverWait getWebDriverWait() {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(10));
+    }
+
+    private WebDriverWait getWebDriverWait(int timeOut) {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(timeOut));
+    }
+
+    private WebDriverWait getWebDriverWait(int timeOut, int sleepInt) {
+        return new WebDriverWait(PlatformManager.getInstances().getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(sleepInt));
     }
 }

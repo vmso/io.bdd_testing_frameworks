@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import platform.manager.PlatformManager;
 
+import java.time.Duration;
+
 public class WaitHelper extends GetBy {
 
     public static final int DEFAULT_SLEEP_IN_MILLIS = 30;
@@ -20,6 +22,6 @@ public class WaitHelper extends GetBy {
 
     public WebDriverWait getWebDriverWait(int timeout, int sleepInMillis) {
         WebDriver driver = PlatformManager.getInstances().getDriver();
-        return new WebDriverWait(driver, timeout, sleepInMillis);
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout), Duration.ofMillis(sleepInMillis));
     }
 }

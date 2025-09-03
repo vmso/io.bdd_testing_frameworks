@@ -1,88 +1,92 @@
 package platform.manager;
 
-import com.jayway.jsonpath.PathNotFoundException;
 import configuration.Configuration;
 import enums.AppType;
 import exceptions.FileNotFound;
 import exceptions.UndefinedAppType;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.NoSuchSessionException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import platforms.Android;
 import platforms.IOS;
 import platforms.MobileSystemSelectable;
 import utils.ReuseStoreData;
 
-import java.util.Locale;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.Properties;
 
 public class PlatformManager {
-    private static PlatformManager instance;
-    private AppiumDriver<MobileElement> driver;
-    private final Logger log = LogManager.getLogger(PlatformManager.class);
+    private static volatile PlatformManager instance;
     private AppType platform;
-    private MobileSystemSelectable mobileSystemSelectable;
+    private AppiumDriver driver;
+    private final Logger log = LogManager.getLogger(PlatformManager.class);
 
     private PlatformManager() {
-
     }
 
     public static PlatformManager getInstances() {
         if (instance == null) {
-            instance = new PlatformManager();
+            synchronized (PlatformManager.class) {
+                if (instance == null) {
+                    instance = new PlatformManager();
+                }
+            }
         }
         return instance;
     }
 
     public void createLocalMobileDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
-        var capabilitiesJsonKey = String.format("%s.capabilities", capabilitiesName);
-        var platformJsonKey = String.format("%s.platform", capabilitiesName);
-        String platform;
-        AppType platformType = null;
-        try {
-            platform = new JsonReader().getPlatform(capabilitiesFile, platformJsonKey);
-            platformType = AppType.valueOf(platform.toUpperCase(Locale.ENGLISH));
-        } catch (PathNotFoundException e) {
-            log.fatal("""
-                    capabilities or platform couldn't find in "{}" device json
-                    json key of the capabilities is {}
-                    json key of the platform is {}
-                    """, capabilitiesFile, capabilitiesJsonKey, platformJsonKey);
-        }
-
-        setPlatform(platformType);
-        String env = Configuration.getInstance().getStringValueOfProp("env");
-        switch (Objects.requireNonNull(platformType)) {
-            case IOS -> mobileSystemSelectable = new IOS();
-            case ANDROID -> mobileSystemSelectable = new Android();
-            default -> throw new UndefinedAppType(platformType);
-        }
-        mobileSystemSelectable.setCapabilities(capabilitiesFile, capabilitiesJsonKey);
-        driver = env == null ? mobileSystemSelectable.getLocalDriver() : mobileSystemSelectable.getRemoteDriver();
+        var capabilities = getCapabilities(capabilitiesFile, capabilitiesName);
+        var appType = capabilities.getProperty("platformName");
+        platform = AppType.valueOf(appType.toUpperCase());
+        MobileSystemSelectable mobileSystemSelectable = getMobileSystemSelectable();
+        driver = mobileSystemSelectable.getLocalDriver();
         setDriver(driver);
+        log.info("Local mobile driver created for platform: {}", platform);
     }
 
-    public void setDriver(AppiumDriver<MobileElement> driver) {
+    public void createRemoteMobileDriver(String capabilitiesFile, String capabilitiesName) throws UndefinedAppType, FileNotFound {
+        var capabilities = getCapabilities(capabilitiesFile, capabilitiesName);
+        var appType = capabilities.getProperty("platformName");
+        platform = AppType.valueOf(appType.toUpperCase());
+        MobileSystemSelectable mobileSystemSelectable = getMobileSystemSelectable();
+        driver = mobileSystemSelectable.getRemoteDriver();
+        setDriver(driver);
+        log.info("Remote mobile driver created for platform: {}", platform);
+    }
+
+    private MobileSystemSelectable getMobileSystemSelectable() throws UndefinedAppType {
+        return switch (platform) {
+            case ANDROID -> new Android();
+            case IOS -> new IOS();
+            default -> throw new UndefinedAppType(platform);
+        };
+    }
+
+    private Properties getCapabilities(String capabilitiesFile, String capabilitiesName) throws FileNotFound {
+        try {
+            var properties = new Properties();
+            properties.load(getClass().getClassLoader().getResourceAsStream(capabilitiesFile));
+            var capabilities = new Properties();
+            properties.forEach((key, value) -> {
+                if (key.toString().startsWith(capabilitiesName + ".")) {
+                    var newKey = key.toString().substring(capabilitiesName.length() + 1);
+                    capabilities.setProperty(newKey, value.toString());
+                }
+            });
+            return capabilities;
+        } catch (IOException e) {
+            throw new FileNotFound("Capabilities file not found: " + capabilitiesFile);
+        }
+    }
+
+    public void setDriver(AppiumDriver driver) {
         ReuseStoreData.put("driver", driver);
     }
 
-    public void quitDriver() {
-        try {
-            if (PlatformManager.getInstances().getDriver() != null
-                    && PlatformManager.getInstances().getDriver().getSessionId() != null) {
-                driver.closeApp();
-                driver.quit();
-                mobileSystemSelectable.stopTheServices();
-            }
-        } catch (NoSuchSessionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public AppiumDriver<MobileElement> getDriver() {
+    public AppiumDriver getDriver() {
         return driver;
     }
 
@@ -90,7 +94,11 @@ public class PlatformManager {
         return platform;
     }
 
-    private void setPlatform(AppType platform) {
-        this.platform = platform;
+    public void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            log.info("Mobile driver quit");
+        }
     }
 }
+

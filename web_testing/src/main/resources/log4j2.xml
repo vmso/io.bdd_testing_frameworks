@@ -18,9 +18,7 @@
 
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
             <PatternLayout>
-                <pattern>%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n}{FATAL=bg_red, ERROR=red
-                    bold, WARN=yellow, INFO=bright green, DEBUG=blue}
-                </pattern>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}:%L - %msg%n</pattern>
             </PatternLayout>
         </Console>
     </Appenders>

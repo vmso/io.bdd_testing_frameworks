@@ -48,11 +48,11 @@ public class SlackHelper {
     }
 
     public void sendSlackMessage() {
-        String webHook = Configuration.getInstance().webhook();
+        String webHook = Configuration.getInstance().getWebhook();
         String slackToken = Configuration.getInstance().getSlackToken();
         String channelId = String.valueOf(SpecDataStore.get("channelId"));
         if (slackMessage && !webHook.isBlank())
-            sendSlackMessageWithWebHook(Configuration.getInstance().webhook());
+            sendSlackMessageWithWebHook(Configuration.getInstance().getWebhook());
         else if (slackMessage && channelId != null && !channelId.equals("") && !channelId.equals("null"))
             sendSlackMessageWithToken(slackToken, channelId);
         else if (slackMessage) {
@@ -70,7 +70,7 @@ public class SlackHelper {
             Response response = RestAssured
                     .given()
                     .header("Content-type", "application/json")
-                    .baseUri(Configuration.getInstance().webhook())
+                    .baseUri(Configuration.getInstance().getWebhook())
                     .body(new String(String.valueOf(body).getBytes(StandardCharsets.UTF_8)))
                     .post();
             if (response.statusCode() != 200) {

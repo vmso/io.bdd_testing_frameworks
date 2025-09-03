@@ -1,20 +1,12 @@
 package exceptions;
 
-public class WrongFormatException extends Exception {
-    final String message;
-
+/**
+ * Thrown when two objects being compared are not of the same type.
+ */
+public class WrongFormatException extends RuntimeException {
     public WrongFormatException(Object firstElmType, Object secondElmType) {
-        String firstType = firstElmType.getClass().getSimpleName();
-        String secondType = secondElmType.getClass().getSimpleName();
-        this.message = "The objects which is trying to compare arent same type" +
-                "" + firstElmType + "'s type ise " + firstType + " " +
-                "" + secondElmType + "'s type ise " + secondType + " " +
-                " They cant be compare";
+        super("The objects being compared are not the same type: " +
+                firstElmType + " is of type " + firstElmType.getClass().getSimpleName() + ", " +
+                secondElmType + " is of type " + secondElmType.getClass().getSimpleName() + ". They cannot be compared.");
     }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
 }

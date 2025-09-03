@@ -5,13 +5,13 @@ import configuration.Configuration;
 import enums.AppType;
 import enums.LocatorTypes;
 import exceptions.FileNotFound;
-import io.appium.java_client.MobileBy;
 import json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import platform.manager.PlatformManager;
 import utils.ReuseStoreData;
+import io.appium.java_client.AppiumBy;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -65,31 +65,31 @@ public abstract class GetBy {
 
         switch (type) {
             case ID -> {
-                return MobileBy.id(value);
+                return By.id(value);
             }
             case ACCESSIBILITY_ID -> {
-                return MobileBy.AccessibilityId(value);
+                return AppiumBy.accessibilityId(value);
             }
             case XPATH -> {
-                return MobileBy.xpath(value);
+                return By.xpath(value);
             }
             case NAME -> {
-                return MobileBy.name(value);
+                return By.name(value);
             }
             case ANDROID_UI_AUTOMATOR -> {
-                return MobileBy.AndroidUIAutomator(value);
+                return AppiumBy.androidUIAutomator(value);
             }
             case CLASS_CHAIN_IOS -> {
-                return MobileBy.iOSClassChain(value);
+                return AppiumBy.iOSClassChain(value);
             }
             case LINK_TEXT -> {
-                return MobileBy.linkText(value);
+                return By.linkText(value);
             }
             case PREDICATE_STRING -> {
-                return MobileBy.iOSNsPredicateString(value);
+                return AppiumBy.iOSNsPredicateString(value);
             }
             case CLASS_NAME -> {
-                return MobileBy.className(value);
+                return By.className(value);
             }
 
             default -> throw new IllegalStateException("Unexpected locator value: " + type);

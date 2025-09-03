@@ -21,7 +21,7 @@ public class LaunchBrowser {
         System.setProperty("browser", browser);
         var base = new BaseBrowser();
         base.setUp();
-        DriverManager.getInstances().getDriver().get(url);
+        DriverManager.getInstance().getDriver().get(url);
         log.info("{} browser launched and {} is opened", browser, url);
     }
 
@@ -32,7 +32,7 @@ public class LaunchBrowser {
         var base = new BaseBrowser();
         var baseUrl = Configuration.getInstance().getStringValueOfProp("base.url");
         base.setUp();
-        DriverManager.getInstances().getDriver().get(baseUrl);
+        DriverManager.getInstance().getDriver().get(baseUrl);
         log.info("{} browser launched and {} is opened", browser, baseUrl);
     }
 
@@ -44,7 +44,7 @@ public class LaunchBrowser {
         var base = new BaseBrowser();
         var baseUrl = Configuration.getInstance().getStringValueOfProp("base.url");
         base.setUp();
-        DriverManager.getInstances().getDriver().get(baseUrl);
+        DriverManager.getInstance().getDriver().get(baseUrl);
         log.info("{} browser launched and {} is opened", defaultBrowser, baseUrl);
     }
 }
