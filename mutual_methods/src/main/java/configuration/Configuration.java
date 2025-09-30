@@ -174,6 +174,15 @@ public class Configuration {
         return "test".equalsIgnoreCase(getStringValueOfProp("environment"));
     }
 
+    // Self-heal convenience getters with defaults
+    public boolean isSelfHealEnabled() {
+        return Boolean.parseBoolean(getStringValueOfProp("selfheal.enabled", "true"));
+    }
+
+    public boolean isSelfHealShadowMode() {
+        return Boolean.parseBoolean(getStringValueOfProp("selfheal.shadow_mode", "true"));
+    }
+
     // Method to get all properties (for debugging, excluding sensitive data)
     public Properties getNonSensitiveProperties() {
         Properties safeProps = new Properties();

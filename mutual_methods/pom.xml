@@ -20,6 +20,12 @@
     </properties>
     
     <dependencies>
+        <!-- Selenium for self-healing engine (screenshot, JS, WebDriver types) -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
         <!-- JSON Processing -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
