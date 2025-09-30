@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>testing_frameworks</groupId>
-    <artifactId>web_testing_simple</artifactId>
+    <artifactId>web_testing</artifactId>
     <version>2.0.0</version>
     <packaging>jar</packaging>
 
