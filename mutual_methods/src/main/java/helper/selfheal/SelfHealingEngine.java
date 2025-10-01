@@ -1,6 +1,9 @@
 package helper.selfheal;
 
+import com.openai.models.ChatModel;
 import configuration.Configuration;
+import helper.selfheal.ai.AiLocatorClient;
+import helper.selfheal.ai.AiLocatorSuggester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -11,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -35,9 +39,12 @@ public class SelfHealingEngine {
     public HealingResult onFailure(WebDriver driver, By original, String action, String stepText) {
         boolean enabled = Boolean.parseBoolean(Configuration.getInstance().getStringValueOfProp("selfheal.enabled"));
         boolean shadowMode = Boolean.parseBoolean(Configuration.getInstance().getStringValueOfProp("selfheal.shadow_mode"));
+        boolean aiEnabled = Boolean.parseBoolean(Configuration.getInstance().getStringValueOfProp("selfheal.ai.enabled"));
+
         if (!enabled) {
             return new HealingResult(Optional.empty(), List.of("self-heal disabled"));
         }
+
 
         List<String> trace = new ArrayList<>();
         String ts = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS").format(LocalDateTime.now());
@@ -46,16 +53,7 @@ public class SelfHealingEngine {
             Files.createDirectories(outDir);
         } catch (IOException ignored) {}
 
-        captureScreenshot(driver, outDir, trace);
-        String dom = captureDomSnapshot(driver, trace);
-        writeText(outDir.resolve("dom.txt"), dom);
-
-        List<By> candidates = generateHeuristicCandidates(original, stepText, trace);
-        if (OcrAndVisualHelper.isEnabled()) {
-            trace.add("OCR enabled (stub) - visual alignment would run here");
-        }
-
-        // Fast path: reuse previously saved winner for this page+locator if available
+        // --- Fast path reuse ---
         try {
             String url = driver.getCurrentUrl();
             var fast = ModelStore.getWinner(url, original);
@@ -73,23 +71,58 @@ public class SelfHealingEngine {
             trace.add("fast-path error: " + e.getMessage());
         }
 
-        Optional<By> winner = Optional.empty();
-        for (By by : candidates) {
+        // --- capture evidence ---
+        captureScreenshot(driver, outDir, trace);
+        String dom = captureDomSnapshot(driver, trace);
+        writeText(outDir.resolve("dom.txt"), dom);
+
+        Set<By> candidateSet = new LinkedHashSet<>();
+
+        // --- AI candidates ---
+        if (aiEnabled) {
             try {
-                driver.findElement(by);
-                winner = Optional.of(by);
-                trace.add("candidate found: " + by);
-                // Persist winner for future fast-path
-                try {
-                    ModelStore.saveWinner(driver.getCurrentUrl(), original, by);
-                } catch (Exception ignored) {}
-                break;
-            } catch (org.openqa.selenium.NoSuchElementException ignore) {
-                trace.add("candidate not found: " + by);
+                String domSnippet = dom.length() > 20_000 ? dom.substring(0, 20_000) : dom;
+                AiLocatorClient aiClient = new AiLocatorClient(ChatModel.GPT_4_1);
+                aiClient.suggest(original.toString(), stepText, domSnippet, driver.getCurrentUrl())
+                        .ifPresent(aiRes -> {
+                            var aiCands = AiLocatorSuggester.toByCandidates(aiRes, original.toString());
+                            trace.add("AI candidates: " + aiCands);
+                            candidateSet.addAll(aiCands);   // ✅ add to set
+                        });
+            } catch (Exception e) {
+                trace.add("AI suggest error: " + e.getMessage());
             }
         }
 
-        // log decision
+        // --- Heuristic candidates ---
+        List<By> candidates = new ArrayList<>(candidateSet);
+
+        if (OcrAndVisualHelper.isEnabled()) {
+            trace.add("OCR enabled (stub) - visual alignment would run here");
+        }
+
+        // --- Try all candidates ---
+        Optional<By> winner = Optional.empty();
+        for (By by : candidates) {
+            var currentImplicitWait = driver.manage().timeouts().getImplicitWaitTimeout();
+            try {
+                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10));
+                driver.findElement(by);
+                winner = Optional.of(by);
+                trace.add("candidate found: " + by);
+                // Persist winner
+                try {
+                    ModelStore.saveWinner(driver.getCurrentUrl(), original, by);
+                } catch (Exception ignored) {}
+                driver.manage().timeouts().implicitlyWait(currentImplicitWait);
+                break;
+            } catch (org.openqa.selenium.NoSuchElementException ignore) {
+                trace.add("candidate not found: " + by);
+                driver.manage().timeouts().implicitlyWait(currentImplicitWait);
+            }
+        }
+
+        // --- log decision ---
         writeText(outDir.resolve("decision.log"), String.join(System.lineSeparator(), trace));
 
         if (winner.isPresent()) {
@@ -101,8 +134,10 @@ public class SelfHealingEngine {
                 return new HealingResult(winner, trace);
             }
         }
+
         return new HealingResult(Optional.empty(), trace);
     }
+
 
     private void captureScreenshot(WebDriver driver, Path outDir, List<String> trace) {
         try {

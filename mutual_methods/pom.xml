@@ -32,7 +32,12 @@
             <artifactId>json-path</artifactId>
             <version>${jayway.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.openai</groupId>
+            <artifactId>openai-java</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
         <!-- Database -->
         <dependency>
             <groupId>org.postgresql</groupId>

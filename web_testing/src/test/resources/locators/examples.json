@@ -92,7 +92,7 @@
     "locators": {
       "firstLocator": {
         "locatorType": "XPATH",
-        "locatorValue": "//legend[text()='Multiple Select Example']"
+        "locatorValue": "//legend[text()='Multiple Select Examplee']"
       },
       "secondLocator": {
         "locatorType": "XPATH",

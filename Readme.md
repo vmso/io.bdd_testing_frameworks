@@ -5,61 +5,138 @@ A comprehensive, modern test automation framework that combines API, Web, and Mo
 ## 🚀 Features
 
 ### Core Capabilities
-- **Multi-Platform Testing**: API, Web, and Mobile testing in one framework
-- **BDD Support**: Cucumber and Gauge integration for business-readable tests
-- **Parallel Execution**: Configurable parallel test execution for faster feedback
-- **Modern Dependencies**: Latest versions of Selenium, Rest Assured, Appium, and more
-- **Cloud Integration**: Ready for BrowserStack, AWS Device Farm, and other cloud platforms
-- **Docker Support**: Complete containerized testing environment
-- **CI/CD Ready**: GitHub Actions and Jenkins pipeline with comprehensive reporting
+
+* **Multi-Platform Testing**: API, Web, and Mobile testing in one framework
+* **BDD Support**: Cucumber and Gauge integration for business-readable tests
+* **Parallel Execution**: Configurable parallel test execution for faster feedback
+* **Modern Dependencies**: Latest versions of Selenium, Rest Assured, Appium, and more
+* **Cloud Integration**: Ready for BrowserStack, AWS Device Farm, and other cloud platforms
+* **Docker Support**: Complete containerized testing environment
+* **CI/CD Ready**: GitHub Actions and Jenkins pipeline with comprehensive reporting
 
 ### Modern Technologies
-- **Java 17**: Latest LTS version with modern language features
-- **Selenium 4.18.1**: Latest WebDriver with improved performance
-- **Rest Assured 5.4.0**: Modern API testing with enhanced capabilities
-- **Appium 9.2.2**: Latest mobile testing framework
-- **Cucumber 7.15.0**: Latest BDD framework with improved features
-- **JUnit 5.10.2**: Modern testing framework with parallel execution
-- **Maven 3.9.9**: Latest build tool with improved dependency management
+
+* **Java 17**: Latest LTS version with modern language features
+* **Selenium 4.18.1**: Latest WebDriver with improved performance
+* **Rest Assured 5.4.0**: Modern API testing with enhanced capabilities
+* **Appium 9.2.2**: Latest mobile testing framework
+* **Cucumber 7.15.0**: Latest BDD framework with improved features
+* **JUnit 5.10.2**: Modern testing framework with parallel execution
+* **Maven 3.9.9**: Latest build tool with improved dependency management
 
 ### Advanced Features
-- **Test Data Management**: Faker library for realistic test data generation
-- **Security**: Encrypted configuration management with environment variable support
-- **Monitoring**: Prometheus and Grafana integration for test metrics
-- **Reporting**: Multiple reporting options (Allure, Cucumber, JaCoCo)
-- **Mocking**: WireMock integration for API mocking
-- **Database Testing**: PostgreSQL support with TestContainers
-- **Performance Testing**: Built-in performance testing capabilities
+
+* **Test Data Management**: Faker library for realistic test data generation
+* **Security**: Encrypted configuration management with environment variable support
+* **Monitoring**: Prometheus and Grafana integration for test metrics
+* **Reporting**: Multiple reporting options (Allure, Cucumber, JaCoCo)
+* **Mocking**: WireMock integration for API mocking
+* **Database Testing**: PostgreSQL support with TestContainers
+* **Performance Testing**: Built-in performance testing capabilities
+* **🆕 Self-Healing Locators**: Automatic recovery from broken locators (AI optional)
+
+---
+
+## 🔮 Self‑Healing Locators (NEW in v2.0.0)
+
+The framework now includes **self-healing for broken locators**, reducing flaky test failures when the UI changes.
+
+### How It Works
+
+1. On `NoSuchElementException`, the **SelfHealingEngine** is triggered.
+2. The engine captures a **screenshot** and a **compact DOM snapshot**.
+3. It generates replacement locators via:
+
+    * **Heuristic rules** (text matches, `data-testid`, `aria-label`, `title`, `name`, etc.)
+    * **AI suggestions** (OpenAI models, optional)
+    * **Fast‑path reuse** of previously healed locators cached in `ModelStore`.
+4. The best candidate is tried and (optionally) persisted for future fast reuse.
+
+Artifacts are written under:
+
+```
+reports/self-heal/<timestamp>/
+├─ page.png       # screenshot
+├─ dom.txt        # DOM outerHTML snapshot
+└─ decision.log   # ordered trace of the healing decision
+```
+
+### Configuration
+
+Add these properties (in `config.properties`) and/or environment variables:
+
+```properties
+# Self-healing master switch
+selfheal.enabled=true
+
+# If true, only logs suggested fixes without applying them
+selfheal.shadow_mode=false
+
+# Enable AI-based candidate generation (optional)
+selfheal.ai.enabled=true
+```
+
+```bash
+# Required only if AI is enabled
+export OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxx
+```
+
+> If `OPENAI_API_KEY` is **missing**, AI is automatically **disabled** and the engine falls back to heuristics.
+
+### Usage
+
+No code changes required for test steps. The framework’s element finder automatically delegates to the self-healing engine when a locator fails:
+
+```java
+WebElement el = elementFinder.findElement(By.id("possibly_brittle_id"));
+// If brittle, engine tries AI/heuristics/fast-path and proceeds with a recovered By
+```
+
+### Design Notes
+
+* **Fast‑path reuse**: when a healed locator is persisted for a page + original locator, it is tried first on the next failure.
+* **Shadow mode**: set `selfheal.shadow_mode=true` to observe and log self‑healing without actually switching locators.
+* **Deduping**: candidates are de‑duplicated (insertion‑ordered) so AI suggestions are evaluated before heuristics.
+
+---
 
 ## ✅ Test Status
 
 ### Current Test Results
-- **API Testing**: ✅ All tests passing (3 Gauge scenarios)
-- **Mobile Testing**: ✅ Build successful, ready for testing
-- **Web Testing**: ✅ Core functionality working, unit tests removed due to Java compatibility
-- **Shared Utilities**: ✅ All modules building successfully
+
+* **API Testing**: ✅ All tests passing (3 Gauge scenarios)
+* **Mobile Testing**: ✅ Build successful, ready for testing
+* **Web Testing**: ✅ Core functionality working, unit tests removed due to Java compatibility
+* **Shared Utilities**: ✅ All modules building successfully
 
 ### Test Coverage
-- **Functional Tests**: API, Web, and Mobile scenarios working
-- **Integration Tests**: Docker services and infrastructure tested
-- **Build Tests**: All modules compile and build successfully
+
+* **Functional Tests**: API, Web, and Mobile scenarios working
+* **Integration Tests**: Docker services and infrastructure tested
+* **Build Tests**: All modules compile and build successfully
+
+---
 
 ## 📋 Prerequisites
 
-- **Java 17** or higher
-- **Maven 3.9.9** or higher
-- **Docker** and **Docker Compose**
-- **Git**
+* **Java 17** or higher
+* **Maven 3.9.9** or higher
+* **Docker** and **Docker Compose**
+* **Git**
+
+---
 
 ## 🛠️ Quick Start
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/your-org/io.bdd_testing_frameworks.git
 cd io.bdd_testing_frameworks
 ```
 
 ### 2. Setup Environment
+
 ```bash
 # Copy environment configuration
 cp config.properties.template config.properties
@@ -71,6 +148,7 @@ export TEST_WEBHOOK=your_webhook_url
 ```
 
 ### 3. Start Testing Infrastructure
+
 ```bash
 # Start all services (Selenium Grid, Appium, Database, etc.)
 docker-compose up -d
@@ -80,6 +158,7 @@ docker-compose ps
 ```
 
 ### 4. Run Tests
+
 ```bash
 # Run all tests
 mvn clean test
@@ -98,70 +177,75 @@ mvn test -Dcucumber.filter.tags="@web"
 mvn test -Dcucumber.filter.tags="@mobile"
 ```
 
+---
+
 ## 🏗️ Project Structure
 
 ```
 io.bdd_testing_frameworks/
-├── api_testing/                 # API testing module
+├── api_testing/
 │   ├── src/
 │   │   ├── main/java/
-│   │   │   ├── base/           # Base classes
-│   │   │   ├── cucumber/       # Cucumber configuration
-│   │   │   └── imp/           # Step implementations
+│   │   │   ├── base/
+│   │   │   ├── cucumber/
+│   │   │   └── imp/
 │   │   └── test/
 │   │       ├── resources/
-│   │       │   ├── features/   # Cucumber feature files
-│   │       │   ├── payloads/   # API request payloads
-│   │       │   └── schemas/    # JSON schemas
+│   │       │   ├── features/
+│   │       │   ├── payloads/
+│   │       │   └── schemas/
 │   │       └── java/
 │   └── pom.xml
-├── web_testing/                 # Web testing module
+├── web_testing/
 │   ├── src/
 │   │   ├── main/java/
-│   │   │   ├── base/           # Browser setup
-│   │   │   ├── browsers/       # Browser implementations
-│   │   │   ├── driver/         # WebDriver management
-│   │   │   ├── elements/       # Element locators
-│   │   │   ├── helpers/        # Helper methods
-│   │   │   └── imp/           # Step implementations
+│   │   │   ├── base/
+│   │   │   ├── browsers/
+│   │   │   ├── driver/
+│   │   │   ├── elements/
+│   │   │   ├── helpers/
+│   │   │   └── imp/
 │   │   └── test/
 │   │       ├── resources/
-│   │       │   ├── features/   # Cucumber feature files
-│   │       │   └── locators/   # Element locators
+│   │       │   ├── features/
+│   │       │   └── locators/
 │   │       └── java/
 │   └── pom.xml
-├── mobile_testing/              # Mobile testing module
+├── mobile_testing/
 │   ├── src/
 │   │   ├── main/java/
-│   │   │   ├── base/           # Mobile setup
-│   │   │   ├── platform/       # Platform management
-│   │   │   ├── platforms/      # Platform implementations
-│   │   │   ├── helper/         # Helper methods
-│   │   │   └── imp/           # Step implementations
+│   │   │   ├── base/
+│   │   │   ├── platform/
+│   │   │   ├── platforms/
+│   │   │   ├── helper/
+│   │   │   └── imp/
 │   │   └── test/
 │   │       ├── resources/
-│   │       │   ├── features/   # Cucumber feature files
-│   │       │   ├── devices/    # Device capabilities
-│   │       │   └── locators/   # Element locators
+│   │       │   ├── features/
+│   │       │   ├── devices/
+│   │       │   └── locators/
 │   │       └── java/
 │   └── pom.xml
-├── mutual_methods/              # Shared utilities
+├── mutual_methods/
 │   ├── src/main/java/
-│   │   ├── base/               # Base classes
-│   │   ├── configuration/      # Configuration management
-│   │   ├── helper/             # Helper utilities
-│   │   ├── imp/               # Shared implementations
-│   │   └── utils/             # Utility classes
+│   │   ├── base/
+│   │   ├── configuration/
+│   │   ├── helper/
+│   │   ├── imp/
+│   │   └── utils/
 │   └── pom.xml
-├── docker-compose.yml          # Docker services configuration
-├── Jenkinsfile                 # CI/CD pipeline
-├── pom.xml                     # Parent POM
-└── README.md                   # This file
+├── docker-compose.yml
+├── Jenkinsfile
+├── pom.xml
+└── README.md
 ```
+
+---
 
 ## 🧪 Writing Tests
 
 ### API Testing Example
+
 ```gherkin
 Feature: Pet Store API
 
@@ -179,6 +263,7 @@ Feature: Pet Store API
 ```
 
 ### Web Testing Example
+
 ```gherkin
 Feature: Web Application Testing
 
@@ -192,6 +277,7 @@ Feature: Web Application Testing
 ```
 
 ### Mobile Testing Example
+
 ```gherkin
 Feature: Mobile App Testing
 
@@ -203,10 +289,11 @@ Feature: Mobile App Testing
     Then Verify that 'home_screen' element is visible
 ```
 
+---
+
 ## 🔧 Configuration
 
 ### Environment Variables
-The framework supports environment variables for secure configuration:
 
 ```bash
 # Slack Integration
@@ -221,10 +308,12 @@ export TEST_CONNECTION_STRING=jdbc:postgresql://localhost:5432/testdb
 export TEST_ENVIRONMENT=development
 export TEST_PARALLEL_THREADS=4
 export TEST_TIMEOUT=30
+
+# Optional: AI for Self‑Healing
+export OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxx
 ```
 
-### Properties File
-Create `config.properties` in the test resources:
+### Properties File (`config.properties`)
 
 ```properties
 # Slack Configuration
@@ -245,190 +334,134 @@ test.timeout=${TEST_TIMEOUT}
 # Browser Configuration
 default.browser=chrome
 base.url=https://example.com
+
+# Self-Healing
+selfheal.enabled=true
+selfheal.shadow_mode=false
+selfheal.ai.enabled=false
 ```
+
+---
 
 ## 🚀 CI/CD Integration
 
 ### GitHub Actions
-The framework includes a comprehensive GitHub Actions workflow that runs on:
-- **Push to main branch**: Full test suite execution
-- **Pull Requests**: Test validation before merge
 
-**Workflow Features:**
-- **Unit Tests & API Tests**: Runs all unit tests and Gauge API scenarios
-- **Build & Package Artifacts**: Creates deployable JAR files
-- **Docker & Infrastructure Validation**: Tests Docker configuration and services
+* **Push to main**: full test suite
+* **Pull Requests**: validation before merge
 
-**Key Improvements:**
-- ✅ **Fixed dependency resolution**: Installs local modules before testing
-- ✅ **Descriptive job names**: Clear, meaningful job identifiers
-- ✅ **Comprehensive testing**: Unit tests, API tests, and infrastructure validation
-- ✅ **Artifact management**: Test reports and build artifacts uploaded
-- ✅ **Docker validation**: Ensures containerized environment works correctly
+**Workflow Highlights**
+
+* Unit + API tests
+* Build & package artifacts
+* Docker & infra validation
+* Allure/Cucumber reports
 
 ### Jenkins Pipeline
-The framework also includes a comprehensive Jenkins pipeline:
 
 ```groovy
-// Run the pipeline
 pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.9.9'
-        jdk 'Java 17'
-    }
-    // ... see Jenkinsfile for complete configuration
+  agent any
+  tools { maven 'Maven 3.9.9'; jdk 'Java 17' }
+  // ... see Jenkinsfile for complete configuration
 }
 ```
 
+---
+
 ## 📊 Reporting
 
-### Available Reports
-- **Allure Reports**: Rich HTML reports with screenshots and logs
-- **Cucumber Reports**: BDD-specific reporting
-- **JaCoCo Coverage**: Code coverage reports
-- **Test Summary**: Custom test execution summary
+* **Allure Reports** (HTML, screenshots, logs)
+* **Cucumber Reports** (BDD-specific)
+* **JaCoCo Coverage**
+* **Custom summaries**
 
-### Accessing Reports
 ```bash
-# Generate Allure report
 mvn allure:report
-
-# Open Allure report
 mvn allure:serve
-
-# Generate JaCoCo report
 mvn jacoco:report
 ```
 
+---
+
 ## 🔒 Security Features
 
-### Configuration Security
-- Environment variable support for sensitive data
-- Encrypted configuration management
-- Secure credential handling
-- Masked logging for sensitive information
+* Env vars for sensitive data
+* Encrypted config management
+* Masked logging
+* No hardcoded credentials
 
-### Best Practices
-- No hardcoded credentials in source code
-- Secure token management
-- Environment-specific configurations
-- Audit logging for security events
+---
 
 ## 🐳 Docker Support
 
-### Services Available
-- **Selenium Grid**: Multi-browser testing
-- **Appium Server**: Mobile testing
-- **PostgreSQL**: Database testing
-- **Redis**: Caching and session management
-- **WireMock**: API mocking
-- **Grafana**: Monitoring and metrics
-- **Prometheus**: Metrics collection
+* Selenium Grid, Appium Server
+* PostgreSQL, Redis
+* WireMock, Prometheus, Grafana
 
-### Running with Docker
 ```bash
-# Start all services
 docker-compose up -d
-
-# Start specific services
 docker-compose up -d selenium-hub chrome firefox
-
-# View logs
 docker-compose logs -f
-
-# Stop services
 docker-compose down
 ```
 
+---
+
 ## 📈 Performance Testing
 
-### Built-in Performance Features
-- Parallel test execution
-- Configurable thread pools
-- Performance monitoring
-- Resource usage tracking
-- Scalability testing
-
-### Performance Configuration
 ```properties
-# Performance settings
 parallel.threads=4
 test.timeout=30
 performance.mode=true
 monitoring.enabled=true
 ```
 
+---
+
 ## 🤝 Contributing
 
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
+1. Fork → Branch → Commit → Test → PR
+2. Keep tests > 80% coverage
+3. Follow Java + BDD style guides
 
-### Code Standards
-- Follow Java coding conventions
-- Use meaningful variable and method names
-- Add comprehensive comments
-- Maintain test coverage above 80%
-- Follow BDD best practices
+---
 
 ## 📝 Changelog
 
 ### v2.0.0 (Current)
-- **Major**: Updated to Java 17
-- **Major**: Updated all dependencies to latest versions
-- **New**: Added Docker Compose support
-- **New**: Added modern Jenkins pipeline
-- **New**: Added TestDataHelper with Faker
-- **New**: Added security improvements
-- **New**: Added parallel execution support
-- **New**: Added comprehensive reporting
-- **New**: Added monitoring and metrics
-- **Improvement**: Enhanced configuration management
-- **Improvement**: Better error handling
-- **Improvement**: Modernized architecture
+
+* **Major**: Java 17, dependency upgrades
+* **New**: Docker Compose
+* **New**: Jenkins pipeline
+* **New**: Faker-based TestDataHelper
+* **New**: Security improvements
+* **New**: Parallel execution
+* **New**: Comprehensive reporting
+* **New**: Monitoring and metrics
+* **New**: **Self‑Healing Locators** (AI + heuristics)
+* **Improvement**: Config management & error handling
+* **Improvement**: Modernized architecture
 
 ### v1.0.0 (Previous)
-- Initial release with basic BDD framework
-- Support for API, Web, and Mobile testing
-- Cucumber and Gauge integration
-- Basic reporting capabilities
+
+* Initial BDD framework (API/Web/Mobile)
+* Cucumber & Gauge integration
+* Basic reporting
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT — see [LICENSE](LICENSE)
 
 ## 🆘 Support
 
-### Getting Help
-- **Documentation**: Check this README and inline code comments
-- **Issues**: Report bugs and feature requests via GitHub Issues
-- **Discussions**: Use GitHub Discussions for questions and ideas
-- **Wiki**: Check the project wiki for additional documentation
-
-### Common Issues
-1. **Java Version**: Ensure you're using Java 17 or higher
-2. **Docker**: Make sure Docker and Docker Compose are installed
-3. **Dependencies**: Run `mvn clean install` to resolve dependency issues
-4. **Configuration**: Check environment variables and properties files
-
-## 🙏 Acknowledgments
-
-- **Selenium Team**: For the excellent WebDriver framework
-- **Rest Assured Team**: For the powerful API testing library
-- **Appium Team**: For the comprehensive mobile testing solution
-- **Cucumber Team**: For the BDD framework
-- **Open Source Community**: For all the amazing tools and libraries
+* Docs: README + inline code
+* Issues: GitHub Issues
+* Discussions: GitHub Discussions
+* Wiki: Project wiki
 
 ---
 
 **Happy Testing! 🧪✨**
-
-
-
-
-

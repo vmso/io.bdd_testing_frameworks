@@ -24,8 +24,9 @@ public class WebDriverElementFinder implements ElementFinder {
             var result = engine.onFailure(driver, by, "findElement", by.toString());
             if (result.winner.isPresent()) {
                 return driver.findElement(result.winner.get());
+            } else {
+                throw e;
             }
-            throw e;
         }
     }
     
