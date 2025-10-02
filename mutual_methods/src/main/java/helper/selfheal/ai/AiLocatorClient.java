@@ -6,6 +6,7 @@ import com.openai.models.ChatModel;
 import com.openai.models.chat.completions.StructuredChatCompletion;
 import com.openai.models.chat.completions.StructuredChatCompletionCreateParams;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,37 +50,73 @@ public class AiLocatorClient {
     /**
      * Ask the model for corrected texts and best-guess locators.
      */
-    public Optional<AiLocatorResult> suggest(String originalLocator, String stepText, String domSnippet, String url) {
+    public Optional<AiLocatorResult> suggest(
+            String originalLocator,
+            String stepText,
+            String domSnippet,
+            String url,
+            File screenshotBase64
+    ) {
         if (!enabled) {
             // skip AI entirely if no API key
             return emptyResult();
         }
 
         var sys = """
-        You are a locator-fixing assistant for Selenium/Appium tests.
-        Given: (1) a failing locator, (2) optional human step text, (3) a DOM snippet.
-        Tasks:
-        - Detect likely typos in the target text and propose corrected variants (keep punctuation/case realistic).
-        - Output robust XPaths and optional CSS selectors that would match the corrected text, preferring text-safe forms:
-            //tag[normalize-space(.)="..."]   and   //*[normalize-space(.)="..."]
-          Use contains(...) only as a fallback.
-        - Keep suggestions short, valid, and de-duplicated.
-        - Do NOT include any explanation in fields; only the values themselves.
+        You are a locator-fixing assistant for Selenium/Appium automated tests.
+        
+        Inputs you will receive:
+        1. The original failing locator (may be incomplete, truncated, or slightly wrong).
+        2. Optional human-readable step text describing the element.
+        3. A DOM snippet (may be partial or truncated).
+        4. (Optional) A screenshot of the page for additional context.
+        
+        Your tasks:
+        - Analyze the failing locator and compare it against all available DOM attributes (id, name, class, text, aria-*, data-*).
+        - If the locator is incomplete (e.g., "hide" instead of "hide-textbox"), detect likely matches by:
+          • Expanding substrings  
+          • Checking case-insensitive and trimmed matches  
+          • Matching step text to nearby labels or innerText  
+          • Considering common attribute variations (id, name, class, text, aria-label, title, etc.)
+        - Propose corrected locators across **all supported strategies**, not just the original type. Supported strategies:
+          • ID → By.id(value)  
+          • NAME → By.name(value)  
+          • CLASS_NAME → By.className(value)  
+          • CSS_SELECTOR → By.cssSelector(value)  
+          • XPATH → By.xpath(value)  
+          • LINK_TEXT → By.linkText(value)  
+          • PARTIAL_LINK_TEXT → By.partialLinkText(value)  
+          • TAG_NAME → By.tagName(value)  
+          • TEXT → By.text(value)  (custom framework extension)
+        
+        Output requirements:
+        - Return a list of corrected texts (if any typos/variants were found).
+        - Return a list of candidate locators (XPath, CSS, ID, etc.), deduplicated and minimal.
+        - Use robust, text-safe XPath patterns when necessary:
+            //tag[normalize-space(.)="..."]
+            //*[normalize-space(.)="..."]
+          Only use contains(...) as a fallback.
+        - Prefer simple strategies (id, name, text) over complex XPath if available.
+        - Do NOT include any explanation or reasoning in the fields — only the raw values.
         """;
 
         var user = String.format("""
+        Page context:
         URL: %s
         Original locator: %s
-        Step text (may be noisy): %s
-
-        DOM snippet (may be truncated):
+        Step text: %s
+        
+        DOM snippet (truncated if large):
         %s
+        
+        Screenshot: (optional, base64 or reference) %s
         """,
-                Objects.toString(url, ""),
-                Objects.toString(originalLocator, ""),
-                Objects.toString(stepText, ""),
-                Objects.toString(domSnippet, "")
-        );
+                        Objects.toString(url, ""),
+                        Objects.toString(originalLocator, ""),
+                        Objects.toString(stepText, ""),
+                        Objects.toString(domSnippet, ""),
+                        screenshotBase64
+                );
 
         StructuredChatCompletionCreateParams<AiLocatorResult> params =
                 StructuredChatCompletionCreateParams.<AiLocatorResult>builder()

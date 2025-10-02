@@ -11,6 +11,8 @@ Feature:
     And Multiple select below indexes of "multiple_select" option
       | 0       |
       | 1       |
+    And Get "style" attribute of "show_hide" and store it in scenario store with "hide_example_style" and default wait
+    And Click on "hide_button"
     Examples:
       | Browsers |
       | Chrome   |
@@ -19,5 +21,5 @@ Feature:
     Scenario: default url
       Given Open "chrome" and get base url
 
-  Scenario: default url and browser
-    Given Open browser and get base url
+    Scenario: default url and browser
+      Given Open browser and get base url

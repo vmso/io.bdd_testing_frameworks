@@ -3,6 +3,7 @@ package elements;
 import driver.DriverManager;
 import helper.selfheal.SelfHealingEngine;
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -18,7 +19,7 @@ public class WebDriverElementFinder implements ElementFinder {
     public WebElement findElement(By by) {
         try {
             return DriverManager.getInstance().getDriver().findElement(by);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | InvalidSelectorException e) {
             var driver = DriverManager.getInstance().getDriver();
             SelfHealingEngine engine = new SelfHealingEngine();
             var result = engine.onFailure(driver, by, "findElement", by.toString());

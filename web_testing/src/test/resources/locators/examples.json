@@ -92,13 +92,20 @@
     "locators": {
       "firstLocator": {
         "locatorType": "XPATH",
-        "locatorValue": "//legend[text()='Multiple Select Examplee']"
+        "locatorValue": "//legend[text()='Multiple Select Example']"
       },
       "secondLocator": {
         "locatorType": "XPATH",
         "locatorValue": "//Select"
       }
     }
-
+  },
+  "hide_button": {
+    "locatorType": "id",
+    "locatorValue": "hide-textbox"
+  },
+  "show_hide": {
+    "locatorType": "name",
+    "locatorValue": "show"
   }
 }

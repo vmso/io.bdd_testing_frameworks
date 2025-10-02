@@ -7,6 +7,7 @@ import exceptions.KeywordNotFoundException;
 import org.openqa.selenium.By;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -100,7 +101,7 @@ public class LocatorFactory {
     }
     
     private static LocatorType getLocatorType(Map<String, String> locator, String jsonKey) {
-        var locatorType = locator.get("locatorType");
+        var locatorType = locator.get("locatorType").toUpperCase(Locale.ENGLISH);
         if (locatorType != null) {
             return LocatorType.valueOf(locatorType);
         } else {
