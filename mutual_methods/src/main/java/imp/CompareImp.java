@@ -56,7 +56,12 @@ public class CompareImp  {
     public void compareListCount(String storeKey, int count){
         var list = (List<?>) Utils.getFromStoreData(storeKey);
         assertEquals(count,list.size());
-        //th[contains("Who Initiated Transfer")]/following-sibling::td/li/span
+    }
+
+    @Step("Get <store key> from scenario store and then, compare with <count>, Are they equals?")
+    public void compareString(String storeKey, int count){
+        var list = (List<?>) Utils.getFromStoreData(storeKey);
+        assertEquals(count,list.size());
     }
 
 }

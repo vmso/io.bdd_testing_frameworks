@@ -1,5 +1,7 @@
 package helper.selfheal;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.openai.models.ChatModel;
 import configuration.Configuration;
 import helper.selfheal.ai.AiLocatorClient;
@@ -7,6 +9,7 @@ import helper.selfheal.ai.AiLocatorSuggester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.io.FileHandler;
 
 import java.io.File;
@@ -20,8 +23,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * Minimal self-healing MVP: on first locator failure, capture screenshot and a compact DOM snapshot,
- * generate a few heuristic candidates and optionally act in shadow-mode (observe only).
+ * Minimal self-healing MVP: on locator failure, capture screenshot & DOM snapshot,
+ * generate candidates (AI + heuristics), and try to recover.
  */
 public class SelfHealingEngine {
 
@@ -45,85 +48,35 @@ public class SelfHealingEngine {
             return new HealingResult(Optional.empty(), List.of("self-heal disabled"));
         }
 
-
         List<String> trace = new ArrayList<>();
-        String ts = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS").format(LocalDateTime.now());
-        Path outDir = Path.of("reports", "self-heal", ts);
-        try {
-            Files.createDirectories(outDir);
-        } catch (IOException ignored) {}
+        Path outDir = prepareOutDir(trace);
 
         // --- Fast path reuse ---
-        try {
-            String url = driver.getCurrentUrl();
-            var fast = ModelStore.getWinner(url, original);
-            if (fast.isPresent()) {
-                try {
-                    driver.findElement(fast.get());
-                    trace.add("fast-path winner reused: " + fast.get());
-                    if (shadowMode) return new HealingResult(Optional.empty(), trace);
-                    return new HealingResult(fast, trace);
-                } catch (org.openqa.selenium.NoSuchElementException ignore) {
-                    trace.add("fast-path winner stale; falling back");
-                }
-            }
-        } catch (Exception e) {
-            trace.add("fast-path error: " + e.getMessage());
+        Optional<By> fastPath = tryReuseWinner(driver, original, shadowMode, trace);
+        if (fastPath.isPresent()) {
+            return new HealingResult(fastPath, trace);
         }
 
         // --- capture evidence ---
-        captureScreenshot(driver, outDir, trace);
+        File screenshotBase64 = null;
+        try {
+            if (driver instanceof TakesScreenshot ts) {
+                screenshotBase64 = ts.getScreenshotAs(OutputType.FILE);
+            }
+        } catch (Exception e) {
+            trace.add("screenshot capture failed: " + e.getMessage());
+        }
         String dom = captureDomSnapshot(driver, trace);
         writeText(outDir.resolve("dom.txt"), dom);
 
-        Set<By> candidateSet = new LinkedHashSet<>();
-
-        // --- AI candidates ---
-        if (aiEnabled) {
-            try {
-                String domSnippet = dom.length() > 20_000 ? dom.substring(0, 20_000) : dom;
-                AiLocatorClient aiClient = new AiLocatorClient(ChatModel.GPT_4_1);
-                aiClient.suggest(original.toString(), stepText, domSnippet, driver.getCurrentUrl())
-                        .ifPresent(aiRes -> {
-                            var aiCands = AiLocatorSuggester.toByCandidates(aiRes, original.toString());
-                            trace.add("AI candidates: " + aiCands);
-                            candidateSet.addAll(aiCands);   // ✅ add to set
-                        });
-            } catch (Exception e) {
-                trace.add("AI suggest error: " + e.getMessage());
-            }
-        }
-
-        // --- Heuristic candidates ---
-        List<By> candidates = new ArrayList<>(candidateSet);
-
-        if (OcrAndVisualHelper.isEnabled()) {
-            trace.add("OCR enabled (stub) - visual alignment would run here");
-        }
+        // --- Generate candidates (AI + heuristics) ---
+        List<By> candidates = generateCandidates(original, stepText, dom, aiEnabled, driver, trace, screenshotBase64);
 
         // --- Try all candidates ---
-        Optional<By> winner = Optional.empty();
-        for (By by : candidates) {
-            var currentImplicitWait = driver.manage().timeouts().getImplicitWaitTimeout();
-            try {
-                driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10));
-                driver.findElement(by);
-                winner = Optional.of(by);
-                trace.add("candidate found: " + by);
-                // Persist winner
-                try {
-                    ModelStore.saveWinner(driver.getCurrentUrl(), original, by);
-                } catch (Exception ignored) {}
-                driver.manage().timeouts().implicitlyWait(currentImplicitWait);
-                break;
-            } catch (org.openqa.selenium.NoSuchElementException ignore) {
-                trace.add("candidate not found: " + by);
-                driver.manage().timeouts().implicitlyWait(currentImplicitWait);
-            }
-        }
+        Optional<By> winner = tryCandidates(driver, original, candidates, trace);
 
         // --- log decision ---
-        writeText(outDir.resolve("decision.log"), String.join(System.lineSeparator(), trace));
+        logHealingResult(outDir, original, winner, candidates, trace);
 
         if (winner.isPresent()) {
             if (shadowMode) {
@@ -134,25 +87,125 @@ public class SelfHealingEngine {
                 return new HealingResult(winner, trace);
             }
         }
-
         return new HealingResult(Optional.empty(), trace);
     }
 
+    // ----------------- Candidate generation -----------------
 
-    private void captureScreenshot(WebDriver driver, Path outDir, List<String> trace) {
+    private List<By> generateCandidates(
+            By original,
+            String stepText,
+            String dom,
+            boolean aiEnabled,
+            WebDriver driver,
+            List<String> trace,
+            File screenshotBase64
+    ) {
+        Set<By> candidateSet = new LinkedHashSet<>();
+
+        // AI candidates
+        if (aiEnabled) {
+            try {
+                String domSnippet = dom.length() > 20_000 ? dom.substring(0, 20_000) : dom;
+                AiLocatorClient aiClient = new AiLocatorClient(ChatModel.GPT_4_1);
+                aiClient.suggest(original.toString(), stepText, domSnippet, driver.getCurrentUrl(), screenshotBase64)
+                        .ifPresent(aiRes -> {
+                            var aiCands = AiLocatorSuggester.toByCandidates(aiRes, original.toString());
+                            trace.add("AI candidates: " + aiCands);
+                            candidateSet.addAll(aiCands);
+                        });
+            } catch (Exception e) {
+                trace.add("AI suggest error: " + e.getMessage());
+            }
+        } else {
+            trace.add("AI not enabled — using heuristic candidates only");
+        }
+
+        // Heuristic candidates
+        candidateSet.addAll(generateHeuristicCandidates(original, stepText, trace));
+
+        return new ArrayList<>(candidateSet);
+    }
+
+    private List<By> generateHeuristicCandidates(By original, String stepText, List<String> trace) {
+        List<By> list = new ArrayList<>();
+        trace.add("heuristic: from original=" + original);
+
+        if (stepText != null && !stepText.isBlank()) {
+            String txt = stepText.trim();
+            list.add(By.xpath("//*[normalize-space(.)='" + escapeXPath(txt) + "']"));
+            list.add(By.xpath("//*[contains(normalize-space(.), '" + escapeXPath(txt) + "')]"));
+
+            String[] attrs = {"data-testid", "data-qa", "aria-label", "title", "name"};
+            for (String a : attrs) {
+                list.add(By.cssSelector("*[" + a + "~='" + cssEscape(stepText) + "']"));
+                list.add(By.cssSelector("*[" + a + "*='" + cssEscape(stepText) + "']"));
+            }
+        }
+
+        list.add(original); // always last fallback
+        return new ArrayList<>(new LinkedHashSet<>(list));
+    }
+
+    // ----------------- Candidate validation -----------------
+
+    private Optional<By> tryCandidates(WebDriver driver, By original, List<By> candidates, List<String> trace) {
+        Duration originalWait = driver.manage().timeouts().getImplicitWaitTimeout();
+
         try {
-            if (driver instanceof TakesScreenshot ts) {
-                File src = ts.getScreenshotAs(OutputType.FILE);
-                File dest = outDir.resolve("page.png").toFile();
-                FileHandler.createDir(dest.getParentFile());
-                FileHandler.copy(src, dest);
-                trace.add("screenshot saved: " + dest.getAbsolutePath());
-            } else {
-                trace.add("driver not screenshot-capable");
+            for (By by : candidates) {
+                try {
+                    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10));
+                    driver.findElement(by);
+                    trace.add("candidate found: " + by);
+                    try {
+                        ModelStore.saveWinner(driver.getCurrentUrl(), original, by);
+                    } catch (Exception ignored) {}
+                    return Optional.of(by);
+                } catch (NoSuchElementException ignore) {
+                    trace.add("candidate not found: " + by);
+                }
+            }
+        } finally {
+            driver.manage().timeouts().implicitlyWait(originalWait);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<By> tryReuseWinner(WebDriver driver, By original, boolean shadowMode, List<String> trace) {
+        Duration originalWait = driver.manage().timeouts().getImplicitWaitTimeout();
+
+        try {
+            String url = driver.getCurrentUrl();
+            var fast = ModelStore.getWinner(url, original);
+            if (fast.isPresent()) {
+                try {
+                    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10));
+                    driver.findElement(fast.get());
+                    trace.add("fast-path winner reused: " + fast.get());
+                    if (shadowMode) return Optional.empty();
+                    return fast;
+                } catch (NoSuchElementException ignore) {
+                    trace.add("fast-path winner stale; falling back");
+                }
             }
         } catch (Exception e) {
-            trace.add("screenshot error: " + e.getMessage());
+            trace.add("fast-path error: " + e.getMessage());
+        } finally {
+            driver.manage().timeouts().implicitlyWait(originalWait);
         }
+        return Optional.empty();
+    }
+
+    // ----------------- Evidence helpers -----------------
+
+    private Path prepareOutDir(List<String> trace) {
+        String ts = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS").format(LocalDateTime.now());
+        Path outDir = Path.of("reports", "self-heal", ts);
+        try {
+            Files.createDirectories(outDir);
+        } catch (IOException ignored) {}
+        return outDir;
     }
 
     private String captureDomSnapshot(WebDriver driver, List<String> trace) {
@@ -168,39 +221,14 @@ public class SelfHealingEngine {
         return "";
     }
 
-    private List<By> generateHeuristicCandidates(By original, String stepText, List<String> trace) {
-        List<By> list = new ArrayList<>();
-        trace.add("original: " + original);
-        // Keep original as last retry
-        // Simple text-based contains if stepText exists
-        if (stepText != null && !stepText.isBlank()) {
-            String txt = stepText.trim();
-            list.add(By.xpath("//*[normalize-space(.)='" + escapeXPath(txt) + "']"));
-            list.add(By.xpath("//*[contains(normalize-space(.), '" + escapeXPath(txt) + "')]"));
-        }
-        // Common data-* and aria attributes
-        String[] attrs = {"data-testid", "data-qa", "aria-label", "title", "name"};
-        for (String a : attrs) {
-            list.add(By.cssSelector("*[" + a + "~='" + cssEscape(stepText) + "']"));
-            list.add(By.cssSelector("*[" + a + "*='" + cssEscape(stepText) + "']"));
-        }
-        // Fallback: original at the end
-        list.add(original);
-        // De-duplicate
-        LinkedHashSet<By> set = new LinkedHashSet<>(list);
-        List<By> deduped = new ArrayList<>(set);
-        if (OcrAndVisualHelper.isEnabled() && stepText != null && !stepText.isBlank()) {
-            deduped.sort((a, b) -> Double.compare(score(b, stepText), score(a, stepText)));
-        }
-        return deduped;
-    }
-
     private void writeText(Path path, String content) {
         try {
             Files.createDirectories(path.getParent());
             Files.writeString(path, content == null ? "" : content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException ignored) {}
     }
+
+    // ----------------- Utility -----------------
 
     private String escapeXPath(String s) {
         return s.replace("'", "\"\"");
@@ -211,15 +239,26 @@ public class SelfHealingEngine {
         return s.replace("'", "\\'").replace("\"", "\\\"");
     }
 
-    private double score(By by, String stepText) {
-        double base = 0.0;
-        String s = by.toString().toLowerCase(Locale.ROOT);
-        if (s.contains("contains(normalize-space") || s.contains("normalize-space(.)='")) {
-            base += 0.1;
+    private void logHealingResult(Path outDir, By original, Optional<By> winner,
+                                  List<By> candidates, List<String> trace) {
+        try {
+            // 1. Human-readable decision log
+            writeText(outDir.resolve("decision.log"), String.join(System.lineSeparator(), trace));
+
+            // 2. Structured JSON log
+            Map<String, Object> data = new LinkedHashMap<>();
+            data.put("originalLocator", original.toString());
+            data.put("winner", winner.map(Object::toString).orElse("none"));
+            data.put("candidates", candidates.stream().map(Object::toString).toList());
+            data.put("trace", trace);
+            data.put("timestamp", LocalDateTime.now().toString());
+            ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+            String json = mapper.writeValueAsString(data);
+
+            TelemetryLogger.writeJson(outDir,"healing.json", json);
+
+        } catch (Exception e) {
+            log.warn("Failed to log healing result", e);
         }
-        base += OcrAndVisualHelper.visualBoost(stepText);
-        return base;
     }
 }
-
-

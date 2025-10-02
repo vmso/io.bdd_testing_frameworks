@@ -43,7 +43,7 @@ public class GetAttributeImp extends GetAttributeHelper {
         ScenarioDataStore.put(key, getAttributeWithoutWait(jsonKey, attribute));
     }
 
-    @Step({"Get size of <element> and store it scenario store with <key>", "sadsada"})
+    @Step({"Get size of <element> and store it scenario store with <key>"})
     @And("Get size of {string} and store it scenario store with {string}")
     public void getSizeOfElement(String jsonKey, String key) {
         ScenarioDataStore.put(key, getElementSize(jsonKey));
