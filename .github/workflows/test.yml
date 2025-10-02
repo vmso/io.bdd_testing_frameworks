@@ -1,10 +1,8 @@
 name: BDD Testing Framework CI/CD
 
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ master ]
 
 env:
   MAVEN_OPTS: "-Xmx1024m"
